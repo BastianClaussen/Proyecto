@@ -1,0 +1,151 @@
+
+/*Minimo de 200px o más*/
+@media (min-width: 200px) {  
+    .carousel-caption{
+        text-align: left;
+        width: 40%;
+        position: absolute;
+        bottom: 40%;
+        left: 5%;
+        z-index: 20;
+        color: black;
+      }
+      
+
+      .boton-link{
+        position: absolute;
+        bottom: 20%;
+        left: 5%;
+        border: 1px black solid;
+        
+      }
+      .boton-link a{
+        color: black;
+        text-decoration: none;
+      }
+      .boton-link:hover, .boton-link:hover a{
+        background-color: black;
+        color: white;
+      }
+      .carousel-control-prev, .carousel-control-next {
+        height: 12px;
+        top: 50%;
+        color: b;
+    }
+      
+}
+ 
+/*Minimo de 768px o más*/
+@media (min-width: 768px) {  
+    .carousel-caption{
+        text-align: left;
+        width: 40%;
+        position: absolute;
+        bottom: 40%;
+        left: 5%;
+        z-index: 20;
+        color: black;
+      }
+
+      .bannnomb{
+        font-size: 45px;
+    }
+    
+}
+
+ 
+/*Minimo de 1200px o más*/
+@media (min-width: 1200px) {  
+    .container { max-width: 1500px; }
+    .carousel-caption {
+        text-align: left;
+        width: 40%;
+        position: absolute;
+        bottom: 45%;
+        left: 3%;
+        color: black;
+        text-shadow: 0 1px 2px rgba(0,0,0,.6);
+      }
+      .bannnomb{
+          font-size: 80px;
+      }
+      .boton-link{
+        position: absolute;
+        width: 10%;
+        bottom: 20%;
+        left: 3%;
+        border: 1px black solid;
+        
+      }
+
+      .boton-link:hover, .boton-link:hover a{
+        background-color: black;
+        color: white;
+      }
+      
+    .carousel-control-prev, .carousel-control-next {
+        height: 12px;
+        top: 50%;
+        color: b;
+    }
+}
+
+    
+
+body{
+    background-image: url(img/WhatsApp\ Image\ 2021-04-07\ at\ 13.33.40.jpeg);
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+
+#logo{
+    width: 100px;
+    height: 50px;
+    background-image: url(img/logo23.png);
+}
+#logo:hover{
+    background-image: url(img/logo.png);
+}
+.borde{
+    border:  #0275d8 solid 2px;
+}
+.bglink:hover{
+    background-color: black;
+    color:white;
+}
+.navbar .navbar-collapse {
+    text-align: center;
+}
+
+.tarjeta{
+    background-color: white;
+    border: 1px solid white;
+}
+.tarjeta:hover{ 
+    border: #0275d8 solid 1px;
+    background-color: #0275d8;
+    color:white; 
+}
+.cat{
+    color: #6c757d;
+}
+.tarjeta:hover h6{ 
+    color:white; 
+}
+
+.imagen{
+    background-color: #eceef0;
+}
+.carousel-indicators li {
+    background-color: #999 ;
+    background-color: rgba(70,70,70,.25) ;
+  }
+  
+  .carousel-indicators .active {
+    background-color: #444;
+  }
+  .carousel-item{
+    transition: -webkit-transform .5s linear;
+
+} 
+
