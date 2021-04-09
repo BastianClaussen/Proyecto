@@ -93,21 +93,24 @@
     
 
 body{
-    background-image: url(img/WhatsApp\ Image\ 2021-04-07\ at\ 13.33.40.jpeg);
-    background-repeat: no-repeat;
-    background-size: 100%;
+    background-image: url(img/Hexagon1.jpg);
+    
 }
 
 #logo{
     width: 100px;
-    height: 50px;
-    background-image: url(img/logo23.png);
+    height: 55px;
+    background: no-repeat;
+    background-image: url(img/logox.png);
 }
+
 #logo:hover{
-    background-image: url(img/logo.png);
+
+    background-image: url(img/logox2.png);
+    background-color: black;
 }
-.borde{
-    border:  #0275d8 solid 2px;
+.bglink{
+  color: black;
 }
 .bglink:hover{
     background-color: black;
@@ -122,8 +125,8 @@ body{
     border: 1px solid white;
 }
 .tarjeta:hover{ 
-    border: #0275d8 solid 1px;
-    background-color: #0275d8;
+    border: 2px solid rgb(172, 172, 172);
+    background-color: rgb(172, 172, 172);
     color:white; 
 }
 .cat{
