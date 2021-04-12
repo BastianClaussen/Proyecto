@@ -1,0 +1,47 @@
+
+@media (min-width: 1200px) {  
+    .container { max-width: 1500px; 
+    }
+}
+@media (max-width: 991px) {  
+    .espacio{
+        margin-top: 10%;
+    }
+}
+body {
+    background-image: url(img/Hexagon1.jpg);
+}
+
+#logo{
+    width: 100px;
+    height: 55px;
+    background: no-repeat;
+    background-image: url(img/logox.png);
+}
+#logo:hover{
+
+    background-image: url(img/logox2.png);
+    background-color: black;
+}
+.bglink{
+    color: black;
+  }
+  .bglink:hover{
+      background-color: black;
+      color:white;
+  }
+  .navbar .navbar-collapse {
+      text-align: center;
+  }
+.fondo{
+    
+        background-color: rgb(255, 255, 255);
+        border: 5px solid;
+        border-color: rgb(172, 172, 172);
+}
+.arrow-next{
+    color: black;
+    background-color: white;
+    border-radius: 20px;
+  }
+  
