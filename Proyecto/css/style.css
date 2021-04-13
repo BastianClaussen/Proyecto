@@ -110,7 +110,7 @@ body{
 
 #logo:hover{
 
-    background-image: url(img/logox2.png);
+    background-image: url(../img/logo/logox2.png);
     background-color: black;
 }
 .bglink{
