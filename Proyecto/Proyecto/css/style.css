@@ -1,0 +1,168 @@
+
+
+@media (max-width : 767px) {  
+    .carousel-caption{
+        text-align: left;
+        width: 40%;
+        position: absolute;
+        bottom: 35%;
+        left: 5%;
+        color: black;
+      }
+      .bannnomb{
+        font-size: 20px;
+      }
+      
+      .boton-link{
+        position: absolute;
+        bottom: 20%;
+        left: 5%;
+        border: 1px black solid;
+
+      }
+      .btn{
+        font-size: 10px;
+      }
+
+      .boton-link:hover, .boton-link:hover a{
+        background-color: black;
+        color: white;
+      }
+
+      .form-control
+      {
+        width: 75%;
+        display: inline-block;
+
+      }
+      
+}
+ 
+/*Minimo de 768px o más*/
+@media (min-width: 768px) and (max-width: 1200px)  {  
+    .carousel-caption{
+        text-align: left;
+        width: 40%;
+        position: absolute;
+        bottom: 40%;
+        left: 5%;
+        color: black;
+      }
+
+      .bannnomb{
+        font-size: 45px;
+      }
+      .boton-link{
+        position: absolute;
+        bottom: 20%;
+        left: 5%;
+        border: 1px black solid;
+
+      }
+      
+      .boton-link:hover, .boton-link:hover a{
+        background-color: black;
+        color: white;
+      }
+      
+      .form-control
+      {
+        width: 75%;
+        display: inline-block;
+        text-align: center;
+      }
+    
+}
+
+ 
+/*Minimo de 1200px o más*/
+@media (min-width: 1200px) {  
+    .container { max-width: 1500px; }
+    .carousel-caption {
+        text-align: left;
+        width: 40%;
+        position: absolute;
+        bottom: 45%;
+        left: 3%;
+        color: black;
+        text-shadow: 0 1px 2px rgba(0,0,0,.6);
+      }
+      .bannnomb{
+          font-size: 80px;
+      }
+      .boton-link{
+        position: absolute;
+        width: 10%;
+        bottom: 20%;
+        left: 3%;
+        border: 1px black solid;
+      }
+      .boton-link:hover, .boton-link:hover a{
+        background-color: black;
+        color: white;
+      }
+
+
+}
+
+    
+
+body{
+    background-image: url(../img/Hexagon1.jpg);
+    margin-top: 5%;
+}
+
+#logo{
+    width: 100px;
+    height: 55px;
+    background: no-repeat;
+    background-image: url(../img/logo/logox.png);
+}
+
+#logo:hover{
+
+    background-image: url(../img/logo/logox2.png);
+    background-color: black;
+}
+.bglink{
+  color: black;
+}
+.bglink:hover{
+    background-color: black;
+    color:white;
+}
+.navbar .navbar-collapse {
+    text-align: center;
+}
+
+.tarjeta{
+    background-color: white;
+    border: 1px solid white;
+}
+.tarjeta:hover{ 
+    border: 2px solid rgb(172, 172, 172);
+    background-color: rgb(172, 172, 172);
+    color:white; 
+}
+.cat{
+    color: #6c757d;
+}
+.tarjeta:hover h6{ 
+    color:white; 
+}
+
+.imagen{
+    background-color: rgb(243, 243, 243);
+}
+.carousel-indicators li {
+    background-color: #999 ;
+    background-color: rgba(70,70,70,.25) ;
+  }
+  
+  .carousel-indicators .active {
+    background-color: #444;
+  }
+  .carousel-item{
+    transition: -webkit-transform .5s linear;
+
+} 
