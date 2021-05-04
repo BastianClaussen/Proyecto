@@ -63,10 +63,46 @@
 </nav>
 <div class="container bg-light">
     <div class="row justify-content-center">
-        <div class="col-12 col-md-12 col-lg-5 mt-5">
+      <div class="col-12 col-md-6 col-lg-5 mt-5" >
+        <H1 class="text-center">¡Inicia Sesión!</H1>
+        <h6 class="text-center">Y asegurate de tener tu información siempre contigo</h6>
+        <div class="text-center">
+          <button type="button" class="btn btn-outline-dark mt-5" id="btn-mostrar-login" onclick="mostrar();">Sign in</button>
+        </div>
+        <div id="contenido-login">
+        <form action="" class="mt-5 " id="contenido-login">
+
+              <div class="form-group row">
+                <label for="example-email-input" class="col-2 col-form-label">Email</label>
+                <div class="col-10">
+                  <input class="form-control" type="email" placeholder="Mail"  id="example-email-input">
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="example-password-input" class="col-2 col-form-label">Password</label>
+                <div class="col-10 ">
+                  <input class="form-control" type="password" placeholder="Contraseña" id="example-password-input">
+                </div>
+              </div>
+
+        </form>
+        <div class="text-center">
+            <button type="button" class="btn btn-outline-dark "  id="mostrar-login" >Sign in</button>
+        </div>
+        </div>
+
+          <br>
+          <br>
+    </div>
+        <div class="col-12 col-md-6 col-lg-5 mt-5">
             <H1 class="text-center">¡Se parte de Wild Fang!</H1>
             <h6 class="text-center">Realiza compras de manera segura y rapida ingresando con tu cuenta</h6>
-            <form action="" class="mt-5">
+            <div class="text-center">
+              <button type="button" class="btn btn-outline-dark mt-5" id="btn-mostrar-registro">Sign in</button>
+            </div>
+            <div id="contenido-registro">
+            <form action="" class="mt-5"id="unhide">
                   <div class="form-group row">
                     <label for="example-text-input" class="col-2 col-form-label">Rut</label>
                     <div class="col-10">
@@ -111,11 +147,50 @@
 
             </form>
             <div class="text-center">
-                <button type="submit" class="btn btn-outline-dark ">Sign in</button>
+                <button type="submit"  class="btn btn-outline-dark " >Sign in</button>
+            </div>
             </div>
               <br>
               <br>
         </div>
+        
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        OLVIDASTE TU CONTRASEÑA
+      </div>
     </div>
 </div>
+
+<script type="text/javascript">
+  $("#contenido-login").hide();
+  $("#contenido-registro").hide();
+
+  $("#btn-mostrar-login").click(function() { /// Al hacer click formulario inicio
+    $("#contenido-login").toggle();
+
+    if ($( "#contenido-login" ).is( ":visible" )) {
+      $("#btn-mostrar-login").hide();
+      $("#contenido-registro").hide();
+      $("#btn-mostrar-registro").show();
+    }
+
+});
+
+$("#btn-mostrar-registro").click(function() { /// Al hacer click formulario registro
+    $("#contenido-registro").toggle();
+    
+    if ($( "#contenido-registro" ).is( ":visible" )) {
+      $("#btn-mostrar-registro").hide();
+      $("#contenido-login").hide();
+      $("#btn-mostrar-login").show();
+    }
+
+});
+
+
+
+</script>
+
 </body>
+</html>
