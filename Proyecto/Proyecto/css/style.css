@@ -166,3 +166,7 @@ body{
     transition: -webkit-transform .5s linear;
 
 } 
+
+.espaciado_superior{
+  margin-top: 4%;
+}
