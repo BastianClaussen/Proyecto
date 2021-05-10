@@ -35,6 +35,10 @@
         display: inline-block;
 
       }
+      #map{
+        height: 300px;
+        width: 100%;
+      }
       
 }
  
@@ -71,6 +75,10 @@
         display: inline-block;
         text-align: center;
       }
+      #map{
+        height: 350px;
+        width: 100%;
+      }
     
 }
 
@@ -102,7 +110,10 @@
         color: white;
       }
 
-
+      #map{
+        height: 500px;
+        width: 100%;
+      }
 }
 
     
