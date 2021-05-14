@@ -8,11 +8,11 @@
     <link rel="stylesheet" type="text/css" href="../css/style2.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> 
-    <script src="https://smtpjs.com/v3/smtp.js "></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <script src="../js/mapa.js"></script>
+    
     <script type="text/javascript">
    
         $(document).ready(function(){
@@ -43,7 +43,7 @@
     </script>
     <title>Contáctanos</title>
 </head>
-<body>
+<body >
 
     <nav class="navbar navbar-expand-md navbar-primary bg-light fixed-top">
 
@@ -127,11 +127,12 @@
 
     <div class="col-12 col-md-6 col-lg-6 mt-5">
         
-        <form action="https://formspree.io/f/xjvjyvye" method="POST" name="contacto" id="contacto">
+        <form action="https://formspree.io/f/xjvjyvye" method="POST" name="contacto" id="contacto" onload="document.querySelector('#rut').focus()" >
         <div class="row">
             <div class="form-group col-md-6">
                 <label for="rut" style="display: block;">Rut</label>
-                <input type="text" class="form-control" name="rut" id="rut" required placeholder="123456789" maxlength=9>
+                <input type="text" class="form-control" value="__.___.___-_" autocomplete="off" name="rut" id="rut" required placeholder="123456789" maxlength=9>
+                <script src="../js/formMask_V2.js"></script>
             </div>
             
             <div class=" form-group col-md-6">
