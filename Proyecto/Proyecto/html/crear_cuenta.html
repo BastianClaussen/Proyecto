@@ -109,11 +109,12 @@
               <button type="button" class="btn btn-outline-dark mt-5" id="btn-mostrar-registro">Registrarse</button>
             </div>
             <div id="contenido-registro">
-            <form action="" class="mt-5"id="unhide">
+            <form action="" class="mt-5"id="unhide" onload="document.querySelector('#rut').focus()">
                   <div class="form-group row">
                     <label for="example-text-input" class="col-2 col-form-label">Rut</label>
                     <div class="col-10">
-                      <input class="form-control" type="text"  placeholder="Rut" id="example-text-input">
+                      <input type="text" class="form-control"autocomplete="off" name="rut" id="rut" required maxlength=9>
+                      <script src="../js/formMask_V2.js"></script>
                     </div>
                   </div>
 
@@ -132,7 +133,7 @@
                   </div>
 
                   <div class="form-group row">
-                    <label for="example-date-input" class="col-2 col-form-label">Date</label>
+                    <label for="example-date-input" class="col-2 col-form-label">Fecha de nacimiento</label>
                     <div class="col-10 ">
                       <input class="form-control" type="date"  placeholder="" id="example-date-input">
                     </div>
