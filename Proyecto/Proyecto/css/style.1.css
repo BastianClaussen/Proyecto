@@ -46,3 +46,11 @@ body {
     border-radius: 20px;
   }
   
+.anim{
+    color: black;
+}
+.anim:hover{
+    color: white;
+    background-color: black;
+    border-radius: 5px;
+}
