@@ -1,5 +1,5 @@
 const input = document.querySelector("#rut")
-const mask = "__.___.___-_"
+const mask = "  .   .   - "
 const char = "_"
 const specialChars = [".", "-"]
 
