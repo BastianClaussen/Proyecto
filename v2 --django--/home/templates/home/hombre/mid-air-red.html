@@ -104,10 +104,12 @@
 </div>
 
 <div class="col-12 col-sm-12 col-md-12 col-lg-3 ">
-    <div class="text-center pb-5 fondo espacio"><h1 class=" ">Zapatillas Jordan air mid </h1>
+    <div class="text-center pb-5 fondo espacio"><h1 class=" ">Zapatillas {%for x in midAir%}{{x.modelo}}{% endfor %}</h1>
+        
         <br>
-        <h5 class="text-left ml-3">Genero: Unisex </h5>
-        <h5 class="text-left ml-3">Precio: $85.900 </h5>
+        <h5 class="text-left ml-3">Marca: {% for x in midAir %}{{ x.marca.nombreMarca}}{% endfor %}</h5>
+        <h5 class="text-left ml-3">Genero: {% for x in midAir %}{{ x.genero.nombre}}{% endfor %} </h5>
+        <h5 class="text-left ml-3">Precio: {%for x in midAir%}${{x.precio}}{% endfor %} </h5>
         <br><br>
         <div class="btn-group" role="group">
             <button type="button" class="btn btn-outline-dark">39</button>
@@ -130,11 +132,11 @@
             <div class="fondo">
                 <div class="m-3">
                 <h3>Descripción</h3>
-                <p >El calzado Air Jordan 1 Mid está inspirado en el primer AJ1, que ofrece a los retro fans de Jordan la oportunidad de seguir sus pasos de grandeza. El color fresco recorta los materiales clásicos y limpios, lo que inyecta una novedad en el diseño familiar. <br></p>
+                <p > <br></p>
                 </div>
             </div>
         </div>
     </div>
 </div>
 </body>
-</htlm>
+</html>

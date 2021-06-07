@@ -20,6 +20,8 @@ class Zapatilla(models.Model):
     foto = models.ImageField(upload_to='Zapas',verbose_name='Foto de Zapatilla')
     genero = models.ForeignKey(Genero,on_delete=models.CASCADE)
     marca = models.ForeignKey(Marca,on_delete=models.CASCADE)
+    def __str__ (self):
+        return self.modelo
 
 class Usuario(models.Model):
     rut = models.CharField(max_length=13,primary_key=True,verbose_name='Rut de Usuario')
