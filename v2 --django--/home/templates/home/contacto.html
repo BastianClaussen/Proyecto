@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'home/css/bootstrap.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'home/css/style2.css' %}">
+    <script src="{% static 'home/js/mapa.js' %}"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> 
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+    <script type="text/javascript">
+   
+        $(document).ready(function(){
+          $('#alert').hide();
+          $("#rut").mask("00.000.000-0");
+
+          $('#contacto').submit(function(){
+          var mensaje="";
+         
+         
+          if($("#nombre").val().trim().length == 0){
+                mensaje = mensaje + "<br>El campo nombre no debe estar vacío";
+            }
+            if(isNaN($("#numero").val)){
+                mensaje = mensaje + "<br>Verifique el formato del Numero de telefono";
+            }
+          if (mensaje!="") {
+            $('#alert').html(mensaje);
+            $('#alert').show();
+            $("#recuperar")[0].reset();
+            return false;
+          }
+
+          
+          });
+        });
+
+        
+    
+    </script>
+    <title>Contáctanos</title>
+</head>
+<body >
+
+    <nav class="navbar navbar-expand-md navbar-primary bg-light fixed-top">
+
+        <a href="{% url 'index' %}" id="logo" class="rounded">
+        </a>
+    
+        <button class="navbar-toggler bg-dark navbar-dark" type="button" data-toggle="collapse" data-target="#menu">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+    
+        <div class="collapse navbar-collapse" id="menu">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item">
+                    <a class="nav-link bglink rounded" href="{% url 'hombres' %}">
+                        HOMBRE
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link bglink rounded" href="{% url 'mujeres' %}">
+                        MUJER
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link bglink rounded" href="{% url 'ninos' %}">
+                        NIÑO
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link bglink rounded"  href="{% url 'contacto' %}">
+                        C0NTACTO
+                    </a>
+                </li>
+            </ul>
+    
+    
+            <form class="form-inline ">
+                <input class="form-control" type="search" placeholder="¿Qué desea buscar?" aria-label="Buscar">
+                <button class="btn btn-outline-dark ml-3" type="submit">Buscar</button>
+            </form>
+    
+            <a href="." >
+                <i class="material-icons-outlined mx-3" style="color: black;font-size: 40px;">
+                    shopping_bag
+                </i>
+            </a>
+            <a href="{% url 'crear_cuenta' %}">
+                <span class="material-icons-outlined mt-1" style="font-size: 40px; color: black;">
+                    person_outline
+                </span>
+            </a>
+    
+        </div>
+    </nav>
+
+<div class="container bg-light p-3">
+    <h1 class="text-center">Información de Contacto</h1>
+   <div class="row">
+    <div class="col-12 col-md-6 col-lg-6 mt-5">
+        
+        <span class="display-4 info">
+            <span class="material-icons-outlined mt-1 display" style="font-size: 40px; color: black;">
+            alternate_email
+            </span>
+        wildfang@consultas.com</span><br><br>
+
+        
+        <span class="display-4 info">
+            <span class="material-icons-outlined mt-1" style="font-size: 40px; color: black;">
+            place
+        </span>
+        Costanera center(Más detalles al final de la página).</span><br><br>
+
+        
+        <span class="display-4 info">
+            <span class="material-icons-outlined mt-1" style="font-size: 40px; color: black;">
+            call
+        </span><br>
+        +56 9 1414 9429 <br>
+        +56 22 3912 1293</span><br>
+    </div>
+
+    <div class="col-12 col-md-6 col-lg-6 mt-5">
+        
+        <form action="https://formspree.io/f/xjvjyvye" method="POST" name="contacto" id="contacto" >
+        <div class="row">
+            <div class="form-group col-md-6">
+                <label for="rut" style="display: block;">Rut</label>
+                <input type="text" class="form-control" autocomplete="off" name="rut" id="rut" required maxlength=9>
+            </div>
+            
+            <div class=" form-group col-md-6">
+                <label for="nombre">Nombre Completo</label>
+                <input type="text" class="form-control " name="nombre" id="nombre"
+                    placeholder="Ingrese su nombre">
+            </div>
+        
+            
+    
+        </div>
+       
+     
+
+        <div class="row">
+            <div class=" form-group col-md-6">
+                <label for="correo">Correo Eletrónico</label>
+                <input type="email" class="form-control " name="correo" id="correo" placeholder="ejemplo@ejemplo.com">
+                    
+            </div>
+
+            <div class="form-group col-md-6">
+                <label for="numero">Número de Teléfono</label>
+                <input type="tel" class="form-control" name="numero" id="numero" required maxlength=10 placeholder="9 9999 9999">
+            </div>
+    
+            
+        </div>
+
+        <div class="form-group">
+            <label for="mensaje" style="display: block;">Mensaje</label>
+            <textarea class="form-control" id="mensaje" name="mensaje" rows="5" required></textarea>
+        </div>
+        
+
+        <div class="form-group">
+            <div id="alert" class="alert alert-danger"></div>
+            <button type="reset" class="btn btn-dark">Limpiar Campos</button>
+            <button type="submit" class="btn btn-primary">Enviar Formulario</button>
+        </div>
+
+
+
+    </form>
+    </div>
+   </div>
+    
+</div>
+
+<div class="container mt-5">
+    <div class="row bg-light">
+        <div class="col-12 col-lg-12 text-center mt-2">
+            <h5>Encuentranos en Costanera center (Nivel 4 al lado de Adidas)</h5>
+            <br>
+            <H6>Av. Andrés Bello 2425, Providencia, Región Metropolitana</H6>
+        </div>
+        <div class="col-12 col-lg-12">
+            <div id ="map"></div>
+            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDaeWicvigtP9xPv919E-RNoxfvC-Hqik&callback=iniciarMap"></script>        
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

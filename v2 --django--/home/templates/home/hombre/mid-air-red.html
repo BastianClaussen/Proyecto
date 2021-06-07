@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'home/css/bootstrap.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'home/css/style.1.css' %}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <title>Document</title>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-md navbar-primary bg-light fixed-top">
+
+        <a href="{% url 'index' %}" id="logo" class="rounded">
+        </a>
+    
+        <button class="navbar-toggler bg-dark navbar-dark" type="button" data-toggle="collapse" data-target="#menu">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+    
+        <div class="collapse navbar-collapse" id="menu">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item">
+                    <a class="nav-link bglink rounded" href="{% url 'hombres' %}">
+                        HOMBRE
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link bglink rounded" href="{% url 'mujeres' %}">
+                        MUJER
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link bglink rounded" href="{% url 'ninos' %}">
+                        NIÑO
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link bglink rounded"  href="{% url 'contacto' %}">
+                        C0NTACTO
+                    </a>
+                </li>
+            </ul>
+    
+    
+            <form class="form-inline ">
+                <input class="form-control" type="search" placeholder="¿Qué desea buscar?" aria-label="Buscar">
+                <button class="btn btn-outline-dark ml-3" type="submit">Buscar</button>
+            </form>
+    
+            <a href="." >
+                <i class="material-icons-outlined mx-3" style="color: black;font-size: 40px;">
+                    shopping_bag
+                </i>
+            </a>
+            <a href="{% url 'crear_cuenta' %}">
+                <span class="material-icons-outlined mt-1" style="font-size: 40px; color: black;">
+                    person_outline
+                </span>
+            </a>
+    
+        </div>
+    </nav>
+    <br><br>
+
+<div class="container">
+<div class="row"> 
+<div class="col-12 col-sm-12 col-md-12 col-lg-9">
+  
+    <div id="control-galeria" class="carousel slide fondo" data-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img class="d-block mx-auto w-50 h-50" src="{% static 'home/img/Air-Red/1.png' %}" alt="First slide">
+          </div>
+          <div class="carousel-item">
+            <img class="d-block mx-auto w-50 h-50" src="{% static 'home/img/Air-Red/2.png' %}" alt="Second slide">
+          </div>
+          <div class="carousel-item">
+            <img class="d-block mx-auto w-50 h-50" src="{% static 'home/img/Air-Red/3.png' %}" alt="Third slide">
+          </div>
+          <div class="carousel-item"> 
+              <img class="d-block mx-auto w-50 h-50" src="{% static 'home/img/Air-Red/4.png' %}" alt="First slide">
+        </div>
+        
+        </div>
+
+        <a class="carousel-control-prev" href="#control-galeria" role="button" data-slide="prev">
+            <i class="material-icons arrow-next"  aria-hidden="true">chevron_left</i>
+          <span class="sr-only">Anterior-</span>
+        </a>
+
+        <a class="carousel-control-next" href="#control-galeria" role="button" data-slide="next">
+            <i class="material-icons arrow-next"  aria-hidden="true">chevron_right</i>
+          <span class="sr-only">Siguiente</span>
+        </a>
+      </div>  
+</div>
+
+<div class="col-12 col-sm-12 col-md-12 col-lg-3 ">
+    <div class="text-center pb-5 fondo espacio"><h1 class=" ">Zapatillas Jordan air mid </h1>
+        <br>
+        <h5 class="text-left ml-3">Genero: Unisex </h5>
+        <h5 class="text-left ml-3">Precio: $85.900 </h5>
+        <br><br>
+        <div class="btn-group" role="group">
+            <button type="button" class="btn btn-outline-dark">39</button>
+            <button type="button" class="btn btn-outline-dark">40</button>
+            <button type="button" class="btn btn-outline-dark">42</button>
+            
+        </div> 
+        <button type="button" class="btn btn-outline-dark">Añadir al Carro</button></div>
+</div>  
+
+
+</div>
+</div> 
+<br>
+<br>
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="fondo">
+                <div class="m-3">
+                <h3>Descripción</h3>
+                <p >El calzado Air Jordan 1 Mid está inspirado en el primer AJ1, que ofrece a los retro fans de Jordan la oportunidad de seguir sus pasos de grandeza. El color fresco recorta los materiales clásicos y limpios, lo que inyecta una novedad en el diseño familiar. <br></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</htlm>

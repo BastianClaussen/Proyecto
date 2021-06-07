@@ -1,0 +1,37 @@
+from django.contrib import admin
+from django.urls import path, include
+from .views import index,blazer,crater,energyx,hombres,m,mid_air_red,quest3,listar, regMarca, regUser, regZap,titan,mujeres,PM1,PM2,PM3,PM4,PM5,PM6,PM7,PM8,ninos,m1,stmlur,dc,teamcourt,xray,contacto,recuperar,crear_cuenta
+
+urlpatterns = [
+    path('', index, name="index"),
+    path('blaze', blazer, name="blazer"),
+    path('crater', crater, name="crater"),
+    path('energyx', energyx, name="energyx"),
+    path('hombres', hombres, name="hombres"),
+    path('m', m, name="m"),
+    path('mid_air_red', mid_air_red, name="mid_air_red"),
+    path('quest3', quest3, name="quest3"),
+    path('titan', titan, name="titan"),
+    path('mujeres', mujeres, name="mujeres"),
+    path('pm1', PM1, name="PM1"),
+    path('pm2', PM2, name="PM2"),
+    path('pm3', PM3, name="PM3"),
+    path('pm4', PM4, name="PM4"),
+    path('pm5', PM5, name="PM5"),
+    path('pm6', PM6, name="PM6"),
+    path('pm7', PM7, name="PM7"),
+    path('pm8', PM8, name="PM8"),
+    path('ninos', ninos, name="ninos"),
+    path('dc', dc, name="dc"),
+    path('teamcourt', teamcourt, name="teamcourt"),
+    path('xray', xray, name="xray"),
+    path('m1', m1, name="m1"),
+    path('stmlur', stmlur, name="stmlur"),
+    path('contacto', contacto, name="contacto"),
+    path('recuperar', recuperar, name="recuperar"),
+    path('crear_cuenta', crear_cuenta, name="crear_cuenta"),
+    path('regZap', regZap, name='regZap'),
+    path('formulario',listar,name='formulario'),
+    path('regMarca',regMarca,name='regMarca'),
+    path('regUser',regUser,name='regUser'),
+]   

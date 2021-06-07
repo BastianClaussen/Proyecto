@@ -1,0 +1,84 @@
+
+
+@media (max-width : 767px) {  
+        .container{
+            border: 1px solid black;
+            margin-top: 20%;
+        }
+      .form-control
+      {
+        width: 75%;
+        display: inline-block;
+
+      }
+      #map{
+        height: 300px;
+        width: 100%;
+      }
+      .info{
+          font-size: 30px;
+      }
+}
+ 
+/*Minimo de 768px o más*/
+@media (min-width: 768px) and (max-width: 1200px)  {  
+    .container{
+        border: 1px solid black;
+        margin-top: 10%;
+    }
+      #map{
+        height: 350px;
+        width: 100%;
+      }
+      .info{
+        font-size: 27px;
+    }
+}
+
+ 
+/*Minimo de 1200px o más*/
+@media (min-width: 1200px) {  
+ 
+    .container { 
+        max-width: 1500px;
+        border: 1px solid black;
+        margin-top: 5%;
+        } 
+      #map{
+        height: 500px;
+        width: 100%;
+      }
+      .info{
+        font-size: 27px;
+    }
+}
+
+    
+
+body{
+    background-image: url(../img/Hexagon1.jpg);
+    margin-top: 5%;
+}
+
+#logo{
+    width: 100px;
+    height: 55px;
+    background: no-repeat;
+    background-image: url(../img/logo/logox.png);
+}
+
+#logo:hover{
+
+    background-image: url(../img/logo/logox2.png);
+    background-color: black;
+}
+.bglink{
+  color: black;
+}
+.bglink:hover{
+    background-color: black;
+    color:white;
+}
+.navbar .navbar-collapse {
+    text-align: center;
+}
