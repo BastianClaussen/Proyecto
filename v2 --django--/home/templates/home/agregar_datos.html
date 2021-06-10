@@ -28,12 +28,6 @@
         crossorigin="anonymous"></script>
 
 </head>
-<script type="text/javascript">
-    $(document).ready(function () {
-        $("#precio").mask("000.000");
-    });
-
-</script>
 
 <body>
     <nav class="navbar navbar-expand-md navbar-primary bg-light fixed-top">
@@ -92,7 +86,7 @@
 
     <div class="container bg-light p-5">
         <div class="row">
-            <div class="col">
+            <div class="col-4">
                 <h5>INSERTAR MARCA</h5>
                 <form action="{% url 'regMarca' %}" id="regMarca" method="POST">
                     {% csrf_token %}
@@ -107,7 +101,7 @@
                     <button type="submit" class="btn btn-dark">Registrar Marca</button>
                 </form>
             </div>
-            <div class="col">
+            <div class="col-4">
                 <h5>INSERTAR ZAPATILLA</h5>
                 <form action="{% url 'regZap' %}" id="regZap" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
@@ -150,6 +144,29 @@
                     <button type="submit" class="btn btn-dark">Registrar Zapatilla</button>
                 </form>
             </div>
+            <div class="col-4">
+                <h5>INSERTAR STOCK</h5>
+                <form action="{% url 'regStock' %}" id="regStock" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="idStock">ID Stock: </label>
+                        <input type="number" class="form-control" id="idStock" name="idStock" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="idZapatilla ">Id Zapatilla: </label>
+                        <input type="number" class="form-control" id="idZapatilla" name="idZapatilla">
+                    </div>
+                    <div class="form-group">
+                        <label for="talla ">Talla: </label>
+                        <input type="number" class="form-control" id="talla" name="talla">
+                    </div>
+                    <div class="form-group">
+                        <label for="cantidad ">Cantidad: </label>
+                        <input type="number" class="form-control" id="cantidad" name="cantidad">
+                    </div>
+                    <button type="submit" class="btn btn-dark">Registrar Stock</button>
+                </form>
+        </div>
         </div>
     </div>
 
