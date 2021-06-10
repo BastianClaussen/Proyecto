@@ -3,7 +3,6 @@ from typing import MutableMapping
 from django.shortcuts import redirect, render
 from .models import Genero, Marca, Usuario, Zapatilla
 from django.contrib import messages
-from django.db.models.functions import ExtractYear
 # Create your views here.
 def index(request):
     return render(request,'home/index.html')
@@ -19,7 +18,9 @@ def hombres(request):
 def m(request):
     return render(request,'home/hombre/m.html')
 def mid_air_red(request):
-    return render(request,'home/hombre/mid-air-red.html')
+    midAir = Zapatilla.objects.filter(pk=1)
+    contexto = {'midAir':midAir}
+    return render(request,'home/hombre/mid-air-red.html',contexto)
 def quest3(request):
     return render(request,'home/hombre/quest3.html')
 def titan(request):
@@ -49,7 +50,7 @@ def ninos(request):
 def m1(request):
     return render(request,'home/ninio/m1.html')
 def stmlur(request):
-    return render(request,'home/ninio/stlmur.html')
+    return render(request,'home/ninio/stmlur.html')
 def dc(request):
     return render(request,'home/ninio/dc.html')
 def teamcourt(request):
