@@ -15,13 +15,11 @@ class Marca(models.Model):
 class Zapatilla(models.Model):
     idZapatilla = models.IntegerField(primary_key=True, verbose_name='Id de Zapatilla')
     modelo = models.CharField(max_length=50, verbose_name='Modelo de Zapatilla')
-    descripcion = models.CharField(max_length=255,verbose_name='Descripcion Zapatilla')
+    descripcion = models.TextField(verbose_name='Descripcion Zapatilla')
     precio = models.IntegerField(verbose_name='Precio Zapatilla')
     foto = models.ImageField(upload_to='Zapas',verbose_name='Foto de Zapatilla')
     genero = models.ForeignKey(Genero,on_delete=models.CASCADE)
     marca = models.ForeignKey(Marca,on_delete=models.CASCADE)
-    def __str__ (self):
-        return self.modelo
 
 class Usuario(models.Model):
     rut = models.CharField(max_length=13,primary_key=True,verbose_name='Rut de Usuario')
