@@ -1,11 +1,13 @@
 from io import StringIO
 from typing import MutableMapping
 from django.shortcuts import redirect, render
-from .models import Genero, Marca, Usuario, Zapatilla
+from .models import Genero, Marca, Usuario, Zapatilla, Stock
 from django.contrib import messages
 # Create your views here.
 def index(request):
-    return render(request,'home/index.html')
+    zapatillasHombre = Zapatilla.objects.filter(genero_id = 1)[:6]
+    contexto = {'zapatillas':zapatillasHombre}
+    return render(request, 'home/index.html', contexto)
 ####    PAGINA PRINCIPAL INDEX #####
 def blazer(request):
     return render(request,'home/hombre/blazer.html')
@@ -14,7 +16,9 @@ def crater(request):
 def energyx(request):
     return render(request,'home/hombre/energyx.html')
 def hombres(request):
-    return render(request,'home/hombre/hombres.html')
+    zapatillasHombre = Zapatilla.objects.filter(genero_id = 1)
+    contexto = {'zapatillas':zapatillasHombre}
+    return render(request,'home/hombre/hombres.html', contexto)
 def m(request):
     return render(request,'home/hombre/m.html')
 def mid_air_red(request):
@@ -98,6 +102,16 @@ def regMarca(request):
     Marca.objects.create(idMarca = idMarca, nombreMarca = nombreMarca)
     return redirect(listar)
 
+def regStock(request):
+    idStock = request.POST['idStock']
+    talla = request.POST['talla']
+    cantidad = request.POST['cantidad']
+
+    zapatilla = Zapatilla.objects.get(idZapatilla = request.POST['idZapatilla'])
+
+    Stock.objects.create(idStock = idStock,talla = talla, cantidad = cantidad, zapatilla = zapatilla)
+    return redirect(listar)
+
 def regUser(request):
     rut = request.POST['rut']
     nombre = request.POST['nombre']
@@ -110,3 +124,14 @@ def regUser(request):
     Usuario.objects.create(rut = rut, nombre = nombre, apellido = apellido, fecha_nac = fecha_nac, mail = mail,
                            password = password, nomUsuario = nomUsuario, tipoUsuario = tipoUsuario)
     return redirect(crear_cuenta)
+
+def mostrarZapatilla(request,id):
+    zapatillas = Zapatilla.objects.get(idZapatilla = id)
+    stock = Stock.objects.filter(zapatilla_id = id )
+    contexto = {
+        'zapatilla' : zapatillas,
+        'stock' : stock,
+    }
+
+    return render(request,'home/zapatilla.html',contexto)
+

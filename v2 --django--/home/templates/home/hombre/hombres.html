@@ -73,69 +73,17 @@
 <div class="container">
     <h1 class="bg-dark text-light mb-0 text-center pt-3" style="height: 80px;">HOMBRES</h1>
     <div class="row">
+        {% for x in zapatillas%}
         <div class="col-6 col-sm-4 col-md-4 col-lg-3 p-0"> 
             <div class=" tarjeta rounded">
-                <img src="{% static 'home/img/Air-Red/1-portada.png' %}" class="img-fluid imagen rounded"  alt="">  
-                <h6 class="font-weight-bold text-left mt-2 ml-3 cat">Hombre</h6>
-                <h6 class="font-weight-bold text-left ml-3">Zapatillas Air Jordan 1 Mid</h6>
-                <h6 class="m-0 text-left ml-3 pb-5">$85.000</h6>
-                <a href="{% url 'mid_air_red' %}" class="stretched-link"></a>
+                <img src="{{ x.foto.url}}" class="img-fluid imagen rounded"  alt="">  
+                <h6 class="font-weight-bold text-left mt-2 ml-3 cat">{{ x.genero.nombre }}</h6>
+                <h6 class="font-weight-bold text-left ml-3">Zapatillas {{ x.modelo }}</h6>
+                <h6 class="m-0 text-left ml-3 pb-5">${{ x.precio }}</h6>
+                <a href="{% url 'mostrarZapatilla' x.idZapatilla %}" class="stretched-link"></a>
             </div>   
         </div>
-        <div class="col-6 col-sm-4 col-md-4 col-lg-3 p-0"> 
-            <div class=" tarjeta rounded">
-                <img src="{% static 'home/img/Blazer-mid/blazer-portada.png' %}" class="img-fluid imagen rounded" alt="">  
-                <h6 class="font-weight-bold text-left mt-2 ml-3 cat">Hombre</h6>
-                <h6 class="font-weight-bold text-left ml-3">Zapatillas Blazer Mid 77</h6>
-                <h6 class="m-0 text-left ml-3 pb-5">$150.000</h6>
-                <a href="{% url 'blazer' %}" class="stretched-link"></a>
-            </div>   
-        </div>
-        <div class="col-6 col-sm-4 col-md-4 col-lg-3 p-0"> 
-            <div class=" tarjeta rounded">
-                <img src="{% static 'home/img/titan/titan-portada.png' %}" class="img-fluid imagen rounded"  alt="">  
-                <h6 class="font-weight-bold text-left mt-2 ml-3 cat">Hombre</h6>
-                <h6 class="font-weight-bold text-left ml-3">Zapatillas Titan</h6>
-                <h6 class="m-0 text-left ml-3 pb-5">$25.000</h6>
-                <a href="{% url 'titan' %}" class="stretched-link"></a>
-            </div>   
-        </div>
-        <div class="col-6 col-sm-4 col-md-4 col-lg-3 p-0"> 
-            <div class=" tarjeta rounded">
-                <img src="{% static 'home/img/crater/crater-portada.png' %}" class="img-fluid imagen rounded "  alt="">  
-                <h6 class="font-weight-bold text-left mt-2 ml-3 cat">Hombre</h6>
-                <h6 class="font-weight-bold text-left ml-3">Zapatillas Jordan Crater</h6>
-                <h6 class="m-0 text-left ml-3 pb-5">$40.000</h6>
-                <a href="{% url 'crater' %}" class="stretched-link"></a>
-            </div>   
-        </div>
-        <div class="col-6 col-sm-4 col-md-4 col-lg-3 p-0"> 
-            <div class=" tarjeta rounded">
-                <img src="{% static 'home/img/energyx/energyx-portada.png' %}" class="img-fluid imagen rounded"  alt="">  
-                <h6 class="font-weight-bold text-left mt-2 ml-3 cat">Hombre</h6>
-                <h6 class="font-weight-bold text-left ml-3">Zapatillas Energy Falcon X</h6>
-                <h6 class="m-0 text-left ml-3 pb-5">$30.000</h6>
-                <a href="{% url 'energyx' %}" class="stretched-link"></a>
-            </div>   
-        </div>
-        <div class="col-6 col-sm-4 col-md-4 col-lg-3 p-0"> 
-            <div class=" tarjeta rounded">
-                <img src="{% static 'home/img/m1/m-portada.png' %}" class="img-fluid imagen rounded"  alt="">  
-                <h6 class="font-weight-bold text-left mt-2 ml-3 cat">Hombre</h6>
-                <h6 class="font-weight-bold text-left ml-3">Zapatillas Wnt M' Shoe Trase </h6>
-                <h6 class="m-0 text-left ml-3 pb-5">$35.000</h6>
-                <a href="{% url 'm' %}" class="stretched-link"></a>
-            </div>   
-        </div>
-        <div class="col-6 col-sm-4 col-md-4 col-lg-3 p-0"> 
-            <div class=" tarjeta rounded">
-                <img src="{% static 'home/img/Run-quest/quest-portada.png' %}" class="img-fluid imagen rounded"  alt="">  
-                <h6 class="font-weight-bold text-left mt-2 ml-3 cat">Hombre</h6>
-                <h6 class="font-weight-bold text-left ml-3">Zapatillas Nike Quest 3</h6>
-                <h6 class="m-0 text-left ml-3 pb-5">$65.000</h6>
-                <a href="{% url 'quest3' %}" class="stretched-link"></a>
-            </div>   
-        </div>
+        {% endfor %}
 
     </div>
 </div>

@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
-from .views import index,blazer,crater,energyx,hombres,m,mid_air_red,quest3,listar, regMarca, regUser, regZap,titan,mujeres,PM1,PM2,PM3,PM4,PM5,PM6,PM7,PM8,ninos,m1,stmlur,dc,teamcourt,xray,contacto,recuperar,crear_cuenta
+from .views import index,blazer,crater,energyx,hombres,m,mid_air_red,quest3,listar, regStock,regMarca,mostrarZapatilla, regUser,regZap,titan,mujeres,PM1,PM2,PM3,PM4,PM5,PM6,PM7,PM8,ninos,m1,stmlur,dc,teamcourt,xray,contacto,recuperar,crear_cuenta
 
 urlpatterns = [
     path('', index, name="index"),
@@ -34,4 +34,6 @@ urlpatterns = [
     path('formulario',listar,name='formulario'),
     path('regMarca',regMarca,name='regMarca'),
     path('regUser',regUser,name='regUser'),
+    path('mostrarZapatilla/<int:id>',mostrarZapatilla,name='mostrarZapatilla'),
+    path('regStock',regStock,name='regStock'),
 ]   
