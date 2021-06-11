@@ -85,63 +85,67 @@
 
     
     <div class="container bg-light p-5">
-        <div class="text-center">
-            <a class="btn btn-dark text-light mt-2 ml-5 " href="{% url 'editarLista' %}" id="btn-sto">Modificar Datos</a>
-        </div>
-        
         <div class="row">
             <div class="col-4 mt-5" id="ins-marca">
                 <h5>INSERTAR MARCA</h5>
-                <form action="{% url 'regMarca' %}" id="regMarca" method="POST">
+                <form action="{% url 'editarMarcaSql' %}" id="regMarca" method="POST">
                     {% csrf_token %}
                     <div class="form-group">
                         <label for="idMarca ">ID Marca: </label>
-                        <input type="number" class="form-control" id="idMarca" name="idMarca" required>
+                        <input type="number" value="{{ marcas.idMarca }}" class="form-control" id="idMarca" name="idMarca" required readonly>
                     </div>
                     <div class="form-group">
                         <label for="nombreMarca ">Nombre de la Marca: </label>
-                        <input type="text" class="form-control" id="nombreMarca" name="nombreMarca">
+                        <input type="text" value="{{ marcas.nombreMarca }}" class="form-control" id="nombreMarca" name="nombreMarca">
                     </div>
                     <button type="submit" class="btn btn-dark">Registrar Marca</button>
                 </form>
             </div>
             <div class="col-4 mt-5">
                 <h5>INSERTAR ZAPATILLA</h5>
-                <form action="{% url 'regZap' %}" id="regZap" method="POST" enctype="multipart/form-data">
+                <form action="{% url 'editarZapSql' %}" id="regZap" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="form-group">
                         <label for="idZapatilla ">ID Zapatilla: </label>
-                        <input type="number" class="form-control" id="idZapatilla" name="idZapatilla" required>
+                        <input type="number" class="form-control" id="idZapatilla" name="idZapatilla" value="{{ zapatilla.idZapatilla}}" required readonly>
                     </div>
                     <div class="form-group">
                         <label for="modelo ">Modelo Zapatilla: </label>
-                        <input type="text" class="form-control" id="modelo" name="modelo">
+                        <input type="text" class="form-control" id="modelo" value="{{ zapatilla.modelo}}" name="modelo">
                     </div>
                     <div class="form-group">
                         <label for="descripcion ">Descripcion Zapatilla: </label>
-                        <textarea class="form-control" id="descripcion" name="descripcion"></textarea>
+                        <textarea class="form-control" id="descripcion" name="descripcion">{{ zapatilla.descripcion }}</textarea>
                     </div>
                     <div class="form-group">
                         <label for="precio ">Precio Zapatilla: </label>
-                        <input type="text" class="form-control" class="precio" id="precio" name="precio">
+                        <input type="text" class="form-control" value="{{ zapatilla.precio}}" class="precio" id="precio" name="precio">
                     </div>
                     <div class="form-group">
                         <label for="foto ">Foto Zapatilla: </label>
-                        <input type="file" class="form-control" id="foto" name="foto">
+                        <input type="file" class="form-control"  value="{{ zapatilla.foto.url }}" id="foto" name="foto">
                     </div>
                     <div class="form-group">
                         <label for="genero ">Genero: </label>
                         <select class="form-control" name="genero" id="genero">
-                            {% for x in generos %}
-                            <option value="{{x.idGenero}}">{{x.nombre}}</option>
+                            {% for x in genero %}
+                            {% if x.idGenero == zapatilla.genero.idGenero%}
+                            <option value="{{x.idGenero}}" selected>{{x.nombre}}</option>
+                            {% else %}
+                            <option value="{{x.idGenero}}" >{{x.nombre}}</option>
+                            {% endif %}
                             {% endfor %}
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="marca ">Marca: </label>
                         <select class="form-control" name="marca" id="marca">
-                            {% for i in marcas %}
+                            {% for i in marca %}
+                            {% if x.idGenero == zapatilla.genero.idGenero%}
+                            <option value="{{i.idMarca}}" selected>{{i.nombreMarca}}</option>
+                            {% else %}
                             <option value="{{i.idMarca}}">{{i.nombreMarca}}</option>
+                            {% endif %}
                             {% endfor %}
                         </select>
                     </div>
@@ -150,23 +154,23 @@
             </div>
             <div class="col-4 mt-5" >
                 <h5>INSERTAR STOCK</h5>
-                <form action="{% url 'regStock' %}" id="regStock" method="POST">
+                <form action="{% url 'editarStockSql' %}" id="regStock" method="POST">
                     {% csrf_token %}
                     <div class="form-group">
                         <label for="idStock">ID Stock: </label>
-                        <input type="number" class="form-control" id="idStock" name="idStock" required>
+                        <input type="number" class="form-control" value="{{stockf.idStock}}" id="idStock" name="idStock" required readonly>
                     </div>
                     <div class="form-group">
-                        <label for="idZapatilla ">Id Zapatilla: </label>
-                        <input type="number" class="form-control" id="idZapatilla" name="idZapatilla">
+                        <label for="idZapatillaSt ">Id Zapatilla: </label>
+                        <input type="number" class="form-control" value="{{stockf.zapatilla.idZapatilla}}" id="idZapatillaSt" name="idZapatillaSt">
                     </div>
                     <div class="form-group">
                         <label for="talla ">Talla: </label>
-                        <input type="number" class="form-control" id="talla" name="talla">
+                        <input type="number" class="form-control" value="{{stockf.talla}}" id="talla" name="talla">
                     </div>
                     <div class="form-group">
                         <label for="cantidad ">Cantidad: </label>
-                        <input type="number" class="form-control" id="cantidad" name="cantidad">
+                        <input type="number" class="form-control" value="{{stockf.cantidad}}" id="cantidad" name="cantidad">
                     </div>
                     <button type="submit" class="btn btn-dark">Registrar Stock</button>
                 </form>

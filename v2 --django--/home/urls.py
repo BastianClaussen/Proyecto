@@ -1,10 +1,19 @@
 from django.contrib import admin
 from django.urls import path, include
-from .views import index,blazer,crater,energyx,hombres,m,mid_air_red,quest3,listar, regStock,regMarca,mostrarZapatilla, regUser,regZap,titan,mujeres,PM1,PM2,PM3,PM4,PM5,PM6,PM7,PM8,ninos,m1,stmlur,dc,teamcourt,xray,contacto,recuperar,crear_cuenta
+from .views import editarMarca, editarMarcaSql, editarStock, editarStockSql, editarZap,editarLista, editarZapSql, eliminarMarca, eliminarStock, eliminarZap, index,crater,energyx,hombres,m,mid_air_red,quest3,listar, regStock,regMarca,mostrarZapatilla, regUser,regZap,titan,mujeres,PM1,PM2,PM3,PM4,PM5,PM6,PM7,PM8,ninos,m1,stmlur,dc,teamcourt,xray,contacto,recuperar,crear_cuenta
 
 urlpatterns = [
     path('', index, name="index"),
-    path('blaze', blazer, name="blazer"),
+    path('editarZap/<int:id>', editarZap, name="editarZap"),
+    path('editarZapSql', editarZapSql, name="editarZapSql"),
+    path('editarLista', editarLista, name="editarLista"),
+    path('eliminarZap/<int:id>', eliminarZap, name="eliminarZap"),
+    path('editarMarca/<int:id>', editarMarca, name="editarMarca"),
+    path('editarMarcaSql', editarMarcaSql, name="editarMarcaSql"),
+    path('eliminarMarca/<int:id>', eliminarMarca, name="eliminarMarca"),
+    path('editarStock/<int:id>', editarStock, name="editarStock"),
+    path('editarStockSql', editarStockSql, name="editarStockSql"),
+    path('eliminarStock/<int:id>', eliminarStock, name="eliminarStock"),
     path('crater', crater, name="crater"),
     path('energyx', energyx, name="energyx"),
     path('hombres', hombres, name="hombres"),

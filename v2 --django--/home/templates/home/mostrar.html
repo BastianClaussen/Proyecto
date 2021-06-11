@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Datos</title>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'home/css/bootstrap.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'home/css/style2.css' %}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-md navbar-primary bg-light fixed-top">
+
+        <a href="{% url 'index' %}" id="logo" class="rounded">
+        </a>
+
+        <button class="navbar-toggler bg-dark navbar-dark" type="button" data-toggle="collapse" data-target="#menu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="menu">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item">
+                    <a class="nav-link bglink rounded" href="{% url 'hombres' %}">
+                        HOMBRE
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link bglink rounded" href="{% url 'mujeres' %}">
+                        MUJER
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link bglink rounded" href="{% url 'ninos' %}">
+                        NIÑO
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link bglink rounded" href="{% url 'contacto' %}">
+                        C0NTACTO
+                    </a>
+                </li>
+            </ul>
+
+
+            <form class="form-inline ">
+                <input class="form-control" type="search" placeholder="¿Qué desea buscar?" aria-label="Buscar">
+                <button class="btn btn-outline-dark ml-3" type="submit">Buscar</button>
+            </form>
+
+            <a href=".">
+                <i class="material-icons-outlined mx-3" style="color: black;font-size: 40px;">
+                    shopping_bag
+                </i>
+            </a>
+            <a href="{% url 'crear_cuenta' %}">
+                <span class="material-icons-outlined mt-1" style="font-size: 40px; color: black;">
+                    person_outline
+                </span>
+            </a>
+
+        </div>
+    </nav>
+
+    
+    <div class="container bg-light p-5">
+        <h1 class="">Modificar Datos</h1>
+        <a class="btn btn-dark text-light mt-2" href="#" id="btn-zap">Zapatillas</a>
+        <a class="btn btn-dark text-light mt-2" href="#" id="btn-mar">Marcas</a>
+        <a class="btn btn-dark text-light mt-2" href="#" id="btn-sto">Stock</a>
+        <a class="btn btn-dark text-light mt-2 ml-5" href="{% url 'formulario' %}" id="btn-sto">Ingresar Datos</a>
+            <div class="row mt-5">
+                <div class="col">
+                    <table class="table table-striped" id="tabla-zap">
+                    <thead class="thead-dark">
+                      <tr>
+                        <th scope="col">idZapatilla</th>
+                        <th scope="col">Modelo</th>
+                        <th scope="col">Descripcion</th>
+                        <th scope="col">Precio</th>
+                        <th scope="col">Foto</th>
+                        <th scope="col">Genero</th>
+                        <th scope="col">Marca</th>
+                        <th scope="col">Acciones</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        {% for x in zapatilla %}
+                      <tr>
+                        <th scope="row">{{ x.idZapatilla}}</th>
+                        <td>{{ x.modelo }}</td>
+                        <td>{{ x.descripcion }}</td>
+                        <td>{{ x.precio }}</td>
+                        <td>{{ x.foto }}</td>
+                        <td>{{ x.genero.nombre }}</td>
+                        <td>{{ x.marca.nombreMarca }}</td>  
+                        <td>
+                            <a class="btn btn-dark text-light" id="btn-mod-tabla-zap" href="{% url 'editarZap' x.idZapatilla %}">Modificar</a>
+                            <a class="btn btn-dark text-light mt-2" id="btn-del-tabla-zap" href="{% url 'eliminarZap' x.idZapatilla %}">Eliminar</a>
+                        </td>
+                    </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                  <table class="table table-striped" id="tabla-mar">
+                    <thead class="thead-dark">
+                      <tr>
+                        <th scope="col">idZapatilla</th>
+                        <th scope="col">Modelo</th>
+                        <th scope="col">Acciones</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        {% for m in marca %}
+                      <tr>
+                        <th scope="row">{{ m.idMarca}}</th>
+                        <td>{{ m.nombreMarca }}</td>
+                        <td>
+                            <a class="btn btn-dark text-light" id="btn-mod-tabla-mar" href="{% url 'editarMarca' m.idMarca %}">Modificar</a>
+                            <a class="btn btn-dark text-light" id="btn-del-tabla-mar" href="{% url 'eliminarMarca' m.idMarca %}">Eliminar</a>
+                        </td>
+                    </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                  <table class="table table-striped" id="tabla-sto">
+                    <thead class="thead-dark">
+                      <tr>
+                        <th scope="col">idStock</th>
+                        <th scope="col">Talla</th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col">Zapatilla</th>
+                        <th scope="col">Acciones</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        {% for s in stock %}
+                      <tr>
+                        <th scope="row">{{ s.idStock }}</th>
+                        <td>{{ s.talla }}</td>
+                        <td>{{ s.cantidad }}</td>
+                        <td>{{ s.zapatilla.idZapatilla }}</td>
+                        <td>
+                            <a class="btn btn-dark text-light" id="btn-mod-tabla-sto" href="{% url 'editarStock' s.idStock %}">Modificar</a>
+                            <a class="btn btn-dark text-light" id="btn-del-tabla-sto" href="{% url 'eliminarStock' s.idStock %}">Eliminar</a>
+                        </td>
+                    </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+<script type="text/javascript">
+    $("#tabla-zap").hide();
+    $("#tabla-sto").hide();
+    $("#tabla-mar").hide();
+
+  
+    $("#btn-zap").click(function() { /// zap
+      $("#tabla-zap").toggle();
+  
+      if ($( "#tabla-zap" ).is( ":visible" )) {
+        $("#tabla-mar").hide();
+        $("#tabla-sto").hide();
+      }
+  
+  });
+
+  $("#btn-mar").click(function() { /// marcas
+      $("#tabla-mar").toggle();
+  
+      if ($( "#tabla-mar" ).is( ":visible" )) {
+        $("#tabla-zap").hide();
+        $("#tabla-sto").hide();
+      }
+  
+  });
+  $("#btn-sto").click(function() { /// stock
+      $("#tabla-sto").toggle();
+  
+      if ($( "#tabla-sto" ).is( ":visible" )) {
+        $("#tabla-mar").hide();
+        $("#tabla-zap").hide();
+      }
+  
+  });
+  
+  </script>
+</html>

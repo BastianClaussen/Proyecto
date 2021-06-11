@@ -9,8 +9,7 @@ def index(request):
     contexto = {'zapatillas':zapatillasHombre}
     return render(request, 'home/index.html', contexto)
 ####    PAGINA PRINCIPAL INDEX #####
-def blazer(request):
-    return render(request,'home/hombre/blazer.html')
+
 def crater(request):
     return render(request,'home/hombre/crater.html')
 def energyx(request):
@@ -74,7 +73,8 @@ def crear_cuenta(request):
 def listar(request):
     generos = Genero.objects.all()
     marcas = Marca.objects.all()
-    contexto = {'generos':generos,'marcas':marcas}
+    contexto = {'generos':generos,
+                'marcas':marcas}
     return render(request, 'home/agregar_datos.html', contexto)
 
 
@@ -134,4 +134,123 @@ def mostrarZapatilla(request,id):
     }
 
     return render(request,'home/zapatilla.html',contexto)
+
+
+def editarLista(request):
+    zapatillas = Zapatilla.objects.all()
+    stock = Stock.objects.all()
+    marca = Marca.objects.all()
+
+    contexto = {
+        'zapatilla' : zapatillas,
+        'stock' : stock,
+        'marca' : marca
+    }
+
+    return render(request,'home/mostrar.html',contexto)
+
+
+def editarZap(request,id):
+    zapMod = Zapatilla.objects.get(idZapatilla = id)
+    genMod = Genero.objects.all()
+    marcMod = Marca.objects.all()
+    contexto = {
+        'zapatilla' : zapMod,
+        'genero' : genMod,
+        'marca' : marcMod
+    }
+    return render(request,'home/modificar.html',contexto)
+
+
+def editarZapSql(request):
+    newidZapatilla = request.POST['idZapatilla']
+    newModelo = request.POST['modelo']
+    newDescripcion = request.POST['descripcion']
+    newPrecio = request.POST['precio']
+    newFoto = request.FILES['foto']
+    newGenero = request.POST['genero']
+    newMarca = request.POST['marca']
+
+    newZapatilla = Zapatilla.objects.get(idZapatilla=newidZapatilla)
+
+    newZapatilla.modelo = newModelo
+    newZapatilla.descripcion = newDescripcion
+    newZapatilla.precio = newPrecio
+    newZapatilla.foto = newFoto
+
+    genero = Genero.objects.get(idGenero = newGenero)
+    marca = Marca.objects.get(idMarca = newMarca)
+
+    newZapatilla.genero = genero
+    newZapatilla.marca = marca
+    newZapatilla.save()
+    return redirect('editarLista')
+
+def eliminarZap(request,id):
+    zapatilla = Zapatilla.objects.get(idZapatilla = id)
+    zapatilla.delete()
+
+    return redirect('editarLista') 
+
+
+
+
+def editarMarca(request,id):
+    marca = Marca.objects.get(idMarca = id)
+    contexto = {
+        'marcas' : marca,
+    }
+    return render(request,'home/modificar.html',contexto)
+
+def editarMarcaSql(request):
+    newidMarca = request.POST['idMarca']
+    newNombreMarca = request.POST['nombreMarca']
+
+    newMarca = Marca.objects.get(idMarca=newidMarca)
+
+    newMarca.nombreMarca = newNombreMarca
+
+    newMarca.save()
+    return redirect('editarLista')
+
+def eliminarMarca(request,id):
+    marca = Marca.objects.get(idMarca = id)
+    marca.delete()
+
+    return redirect('editarLista') 
+
+
+
+
+
+def editarStock(request,id):
+    stock = Stock.objects.get(idStock = id)
+    zapatilla = Zapatilla.objects.all()
+    contexto = {
+        'stockf' : stock,
+        'zapstock': zapatilla
+    }
+    return render(request,'home/modificar.html',contexto)
+
+def editarStockSql(request):
+    newidStock = request.POST['idStock']
+    newCantidad = request.POST['cantidad']
+    newtalla = request.POST['talla']
+
+    newStock = Stock.objects.get(idStock=newidStock)
+
+    idZapatilla = Zapatilla.objects.get(idZapatilla = request.POST['idZapatillaSt'])
+
+    newStock.cantidad = newCantidad
+    newStock.zapatilla = idZapatilla
+    newStock.talla = newtalla
+
+    newStock.save()
+    return redirect('editarLista')
+
+def eliminarStock(request,id):
+    stock = Stock.objects.get(idStock = id)
+    stock.delete()
+
+    return redirect('editarLista') 
 
