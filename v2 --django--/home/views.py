@@ -247,6 +247,7 @@ def eliminarStock(request,id):
 
 def buscar(request):
     busqueda = request.POST['buscar']
+    
     if busqueda:
         marca = Marca.objects.filter(nombreMarca__icontains = busqueda)
         if marca:
@@ -290,11 +291,12 @@ def usuario(request):
 
 def procesarPedido(request):
     usuario = Usuario.objects.get(rut = '21.004.733-6')
+
     if request.method == 'POST':
         zapatilla = request.POST.getlist('zapatilla')
-        
         for x in zapatilla:
             t = x.split(',')
+            
             id = t[0]
             talla = t[1]
             cantidad = t[2]
@@ -303,9 +305,9 @@ def procesarPedido(request):
             zapatilla = Zapatilla.objects.get(idZapatilla = id)
 
             pedido, created = Pedido.objects.get_or_create(usuario = usuario)
+
             detalle, created = Detalle.objects.get_or_create(pedido=pedido, zapatilla = zapatilla)
 
-            
 
             detalle.cantidad = cantidad
             detalle.subTotal = subTotal

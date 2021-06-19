@@ -9,6 +9,7 @@ class Carrito{
         }
     }
 
+    
     leerDatos(zapatilla){
         const infoZapatilla = {
             foto : zapatilla.querySelector('.foto').value,

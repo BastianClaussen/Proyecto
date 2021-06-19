@@ -3,3 +3,10 @@ input de la imagen
 hacer una concatenacion con
 
 idZapatilla _ 2 primeras letras del nombre 
+
+1_Ai.jpg
+1_Ai.2.jpg
+1_Ai.3.jpg
+
+2.jpg
+2.3_
