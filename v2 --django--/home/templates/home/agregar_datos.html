@@ -95,10 +95,6 @@
                 <form action="{% url 'regMarca' %}" id="regMarca" method="POST">
                     {% csrf_token %}
                     <div class="form-group">
-                        <label for="idMarca ">ID Marca: </label>
-                        <input type="number" class="form-control" id="idMarca" name="idMarca" required>
-                    </div>
-                    <div class="form-group">
                         <label for="nombreMarca ">Nombre de la Marca: </label>
                         <input type="text" class="form-control" id="nombreMarca" name="nombreMarca">
                     </div>
@@ -109,10 +105,6 @@
                 <h5>INSERTAR ZAPATILLA</h5>
                 <form action="{% url 'regZap' %}" id="regZap" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
-                    <div class="form-group">
-                        <label for="idZapatilla ">ID Zapatilla: </label>
-                        <input type="number" class="form-control" id="idZapatilla" name="idZapatilla" required>
-                    </div>
                     <div class="form-group">
                         <label for="modelo ">Modelo Zapatilla: </label>
                         <input type="text" class="form-control" id="modelo" name="modelo">
@@ -152,10 +144,6 @@
                 <h5>INSERTAR STOCK</h5>
                 <form action="{% url 'regStock' %}" id="regStock" method="POST">
                     {% csrf_token %}
-                    <div class="form-group">
-                        <label for="idStock">ID Stock: </label>
-                        <input type="number" class="form-control" id="idStock" name="idStock" required>
-                    </div>
                     <div class="form-group">
                         <label for="idZapatilla ">Id Zapatilla: </label>
                         <input type="number" class="form-control" id="idZapatilla" name="idZapatilla">

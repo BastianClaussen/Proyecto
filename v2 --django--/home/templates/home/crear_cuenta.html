@@ -9,15 +9,21 @@
     <link rel="stylesheet" type="text/css" href="{% static 'home/css/style2.css' %}">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script><script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-    
+
     <script type="text/javascript">
       $(document).ready(function(){
         $("#rut").mask("00.000.000-0");
+      
+        $('#mostrar-login').click(function(){
+          
+      });
       });
       
+
     </script>  
     
     <title>Usuarios</title>
@@ -69,11 +75,27 @@
                 shopping_bag
             </i>
         </a>
-        <a href="{% url 'crear_cuenta' %}">
-            <span class="material-icons-outlined mt-1" style="font-size: 40px; color: black;">
-                person_outline
-            </span>
+        {% if user.is_authenticated%}
+        <a href="">
+          <span class="mt-1" style="color: black;">
+              {{ user.username }}
+          </span>
         </a>
+        <a href="{% url 'logout' %}">
+          <span class="mt-1 ml-4" style="color: black;">
+              Cerrar Sesion
+          </span>
+        </a>
+        {%else %}
+        <a href="{% url 'crear_cuenta' %}">
+          <span class="material-icons-outlined mt-1" style="font-size: 40px; color: black;">
+              person_outline
+          </span>
+        </a>
+        {% endif %}
+
+
+        
 
     </div>
 </nav>
@@ -85,26 +107,44 @@
         <div class="text-center">
           <button type="button" class="btn btn-outline-dark mt-5" id="btn-mostrar-login">Iniciar sesión</button>
         </div>
+        <script>
+          
+          {% if messages %}
+            {% for i in messages %}
+            Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: '{{i}}',
+            timer: 3000
+          });
+            {% endfor %}
+          {% endif %}
+
+        </script>
+        
         <div id="contenido-login">
-        <form action="" method="POST" class="mt-5 " id="contenido-login">
+        <form action="{% url 'sesion' %}" method="POST" class="mt-5 " id="formulario_sesion">
+          {% csrf_token %}
               <div class="form-group row">
-                <label for="example-email-input" class="col-2 col-form-label">Email</label>
+                <label for="username" class="col-2 col-form-label">Nombre de usuario:</label>
                 <div class="col-10">
-                  <input class="form-control" type="email" placeholder="Mail"  id="example-email-input">
+                  <input class="form-control" type="text" placeholder="Nombre de usuario"  id="username" name="username" required>
                 </div>
               </div>
 
               <div class="form-group row">
-                <label for="example-password-input" class="col-2 col-form-label">Contraseña</label>
+                
+                <label for="password" class="col-2 col-form-label">Contraseña</label>
                 <div class="col-10 ">
-                  <input class="form-control" type="password" placeholder="Contraseña" id="example-password-input">
+                  <input class="form-control" type="password" placeholder="Contraseña" id="password" name="password">
                 </div>
               </div>
 
+              <div class="text-center">
+                <button type="submit" class="btn btn-outline-dark" id="mostrar-login" >Iniciar sesión</button>
+            </div>
         </form>
-        <div class="text-center">
-            <button type="button" class="btn btn-outline-dark "  id="mostrar-login" >Iniciar sesión</button>
-        </div>
+        
         </div>
 
           <br>
@@ -117,6 +157,7 @@
               <button type="button" class="btn btn-outline-dark mt-5" id="btn-mostrar-registro">Registrarse</button>
             </div>
             <div id="contenido-registro">
+              
             <form action="{% url 'regUser' %}" method="POST" class="mt-5" id="unhide" name="registro">
               {% csrf_token %}    
               <div class="form-group row">
@@ -161,7 +202,7 @@
                     </div>
                   </div>
                   <div class="text-center">
-                    <button  class="btn btn-outline-dark" onclick="nombreUsuario">Registrarse</button>
+                    <button type="submit" class="btn btn-outline-dark" onclick="nombreUsuario">Registrarse</button>
                   </div>
                 </form>
             

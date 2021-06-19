@@ -1,0 +1,5 @@
+input de la imagen
+
+hacer una concatenacion con
+
+idZapatilla _ 2 primeras letras del nombre 

@@ -54,3 +54,9 @@ body {
     background-color: black;
     border-radius: 5px;
 }
+
+.user-dropdown .dropdown-menu {
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    top: 100% !important;
+  }

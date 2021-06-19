@@ -12,7 +12,10 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="{% static 'home/js/talla.js' %}"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>Document</title>
+
 </head>
 <body>
 
@@ -23,8 +26,7 @@
     
         <button class="navbar-toggler bg-dark navbar-dark" type="button" data-toggle="collapse" data-target="#menu">
             <span class="navbar-toggler-icon"></span>
-          </button>
-    
+        </button>
         <div class="collapse navbar-collapse" id="menu">
             <ul class="navbar-nav mx-auto">
                 <li class="nav-item">
@@ -48,36 +50,54 @@
                     </a>
                 </li>
             </ul>
-    
-    
-            <form class="form-inline ">
-                <input class="form-control" type="search" placeholder="¿Qué desea buscar?" aria-label="Buscar">
-                <button class="btn btn-outline-dark ml-3" type="submit">Buscar</button>
-            </form>
-    
-            <a href="." >
-                <i class="material-icons-outlined mx-3" style="color: black;font-size: 40px;">
-                    shopping_bag
-                </i>
-            </a>
-            <a href="{% url 'crear_cuenta' %}">
-                <span class="material-icons-outlined mt-1" style="font-size: 40px; color: black;">
-                    person_outline
-                </span>
-            </a>
+                <form class="form-inline ">
+                
+                    <input class="form-control" type="search" placeholder="¿Qué desea buscar?" aria-label="Buscar">
+                    <button class="btn btn-outline-dark ml-3" type="submit">Buscar</button>
+                </form>
+                
+                <div class="user-dropdown text-center">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item dropdown">
+                            <a href="{% url 'carrito' %}"  id="procesar-pedido">
+                                <i class="material-icons-outlined mx-3" style="color: black;font-size: 40px;">
+                                    shopping_bag
+                                </i>
+                            </a>
+                            <div id="carrito" class="dropdown-menu" aria-labelledby="navbarCollapse">
+                                <table id="lista-carrito" class="table">
+                                    <tbody></tbody>
+                                </table>
+        
+                                <a href="#" id="vaciar-carrito" class="btn btn-primary btn-block">Vaciar Carrito</a>
+                                <a href="#" id="procesar-pedido" class="btn btn-danger btn-block">Procesar
+                                    Compra</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <a href="{% url 'login' %}">
+                    <span class="material-icons-outlined mt-1" style="font-size: 40px; color: black;">
+                        person_outline
+                    </span>
+                </a>
+            
+            
+            
     
         </div>
     </nav>
     <br><br>
 
-<div class="container">
-<div class="row"> 
+<div class="container" id="lista-productos">
+<div class="row" > 
 <div class="col-12 col-sm-12 col-md-12 col-lg-9">
-  
+    
     <div id="control-galeria" class="carousel slide fondo" data-ride="carousel">
         <div class="carousel-inner">
           <div class="carousel-item active">
-            <img class="d-block mx-auto w-50 h-50" src="{{ zapatilla.foto.url }}" alt="First slide">
+            <img class="d-block mx-auto w-50 h-50"  src="{{ zapatilla.foto.url }}" alt="First slide">
+            <input type="hidden" class="foto" value="{{ zapatilla.foto.url }}">
           </div>
           <!--<div class="carousel-item">
             <img class="d-block mx-auto w-50 h-50" src="{% static 'home/img/Air-Red/2.png' %}" alt="Second slide">
@@ -103,24 +123,26 @@
       </div>  
 </div>
 
-<div class="col-12 col-sm-12 col-md-12 col-lg-3 ">
-    <div class="text-center pb-5 fondo espacio"><h1 class=" ">Zapatillas {{zapatilla.modelo}}</h1>
-        
+<div class="col-12 col-sm-12 col-md-12 col-lg-3 " > 
+    <div class="text-center pb-5 fondo espacio" >
+        <input type="hidden" class="foto" value="{{ zapatilla.foto.url }}">
+        <h1 class="modelo">Zapatillas <span id="">{{zapatilla.modelo}}</span></h1>
         <br>
-        <h5 class="text-left ml-3">Marca: {{ zapatilla.marca.nombreMarca }}</h5>
+        <h5 class="text-left ml-3" id="marca">Marca: <span id="">{{ zapatilla.marca.nombreMarca }}</span></h5>
         <h5 class="text-left ml-3">Genero: {{ zapatilla.genero.nombre}} </h5>
-        <h5 class="text-left ml-3">Precio: ${{ zapatilla.precio}} </h5>
+        <h5 class="text-left ml-3" id="precio">Precio: $ <span>{{ zapatilla.precio}}</span></h5>
         <br><br>
-        <div class="btn-group" role="group">
+        <div class="btn-group" id="aBtnGroup" role="group" >
             {% for x in stock %}
-            <button type="button" class="btn btn-outline-dark">{{ x.talla }}</button>
+            <button type="button" class="btn btn-outline-dark" value="{{ x.idStock }} ">{{ x.talla }}</button>
             {% endfor %}
         </div> 
         <br>
         <br>
-        <button type="button" class="btn btn-outline-dark">Añadir al Carro</button></div>
+        <input type="hidden" name="talla" id="talla" data-id="">
+        <button type="button" class="btn btn-outline-dark agregar-a-carrito"  data-id="{{zapatilla.idZapatilla}}">Añadir al Carro</button>
+    </div>
 </div>  
-
 
 </div>
 </div> 
@@ -134,10 +156,13 @@
                 <div class="m-3">
                 <h3>Descripción</h3>
                 <p > {{ zapatilla.descripcion }} </p>
+                
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script src="{% static 'home/js/carritov2.js' %}"></script>
+<script src="{% static 'home/js/pedidov2.js' %}"></script>
 </body>
 </html>

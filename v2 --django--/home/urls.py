@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
-from .views import editarMarca, editarMarcaSql, editarStock, editarStockSql, editarZap,editarLista, editarZapSql, eliminarMarca, eliminarStock, eliminarZap, index,crater,energyx,hombres,m,mid_air_red,quest3,listar, regStock,regMarca,mostrarZapatilla, regUser,regZap,titan,mujeres,PM1,PM2,PM3,PM4,PM5,PM6,PM7,PM8,ninos,m1,stmlur,dc,teamcourt,xray,contacto,recuperar,crear_cuenta
+from django.contrib.auth.views import LoginView,LogoutView
+from .views import  buscar, carrito, editarMarca, editarMarcaSql, editarStock, editarStockSql, editarZap,editarLista, editarZapSql, eliminarCarrito, eliminarMarca, eliminarStock, eliminarZap, index,hombres,listar, login_view, logout_view, mid_air_red, procesarPedido, regStock,regMarca,mostrarZapatilla, regUser,regZap,mujeres,PM1,PM2,PM3,PM4,PM5,PM6,PM7,PM8,ninos,m1,stmlur,dc,teamcourt, usuario,xray,contacto,recuperar,crear_cuenta
 
 urlpatterns = [
     path('', index, name="index"),
@@ -14,13 +15,7 @@ urlpatterns = [
     path('editarStock/<int:id>', editarStock, name="editarStock"),
     path('editarStockSql', editarStockSql, name="editarStockSql"),
     path('eliminarStock/<int:id>', eliminarStock, name="eliminarStock"),
-    path('crater', crater, name="crater"),
-    path('energyx', energyx, name="energyx"),
     path('hombres', hombres, name="hombres"),
-    path('m', m, name="m"),
-    path('mid_air_red', mid_air_red, name="mid_air_red"),
-    path('quest3', quest3, name="quest3"),
-    path('titan', titan, name="titan"),
     path('mujeres', mujeres, name="mujeres"),
     path('pm1', PM1, name="PM1"),
     path('pm2', PM2, name="PM2"),
@@ -45,4 +40,13 @@ urlpatterns = [
     path('regUser',regUser,name='regUser'),
     path('mostrarZapatilla/<int:id>',mostrarZapatilla,name='mostrarZapatilla'),
     path('regStock',regStock,name='regStock'),
+    path('buscar',buscar,name='buscar'),
+    path('carrito',carrito,name='carrito'),
+    path('procesarPedido',procesarPedido,name='procesarPedido'),
+    path('mid_air_red',mid_air_red,name='mid_air_red'),
+    path('login/', LoginView.as_view(template_name='home/crear_cuenta.html'),name='login'),
+    path('sesion', login_view ,name='sesion'),
+    path('logout', logout_view ,name='logout'),
+    path('usuario', usuario, name='usuario'),
+    path('eliminarCarrito/<int:id>',eliminarCarrito,name='eliminarCarrito')
 ]   
