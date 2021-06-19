@@ -21,7 +21,9 @@ def mid_air_red(request):
     return render(request,'home/hombre/mid-air-red.html',contexto)
 ####    PAGINA HOMBRE Y MODELOS #####
 def mujeres(request):
-    return render(request,'home/mujer/mujeres.html')
+    zapatillasMujer = Zapatilla.objects.filter(genero_id = 2)
+    contexto = {'zapatillas':zapatillasMujer}
+    return render(request,'home/mujer/mujeres.html', contexto)
 def PM1(request):
     return render(request,'home/mujer/PM1.html')
 def PM2(request):
@@ -40,7 +42,9 @@ def PM8(request):
     return render(request,'home/mujer/PM8.html')
 ####    PAGINA MUJERES Y MODELOS #####
 def ninos(request):
-    return render(request,'home/ninio/ninos.html')
+    zapatillasnino = Zapatilla.objects.filter(genero_id = 3)
+    contexto = {'zapatillas':zapatillasnino}
+    return render(request,'home/ninio/ninos.html',contexto)
 def m1(request):
     return render(request,'home/ninio/m1.html')
 def stmlur(request):

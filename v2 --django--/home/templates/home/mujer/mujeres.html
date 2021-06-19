@@ -15,6 +15,7 @@
     <title>Document</title>
 </head>
 <body>
+
     <nav class="navbar navbar-expand-md navbar-primary bg-light fixed-top">
 
         <a href="{% url 'index' %}" id="logo" class="rounded">
@@ -72,78 +73,18 @@
 <div class="container">
     <h1 class="bg-dark text-light mb-0 text-center pt-3" style="height: 80px;">MUJERES</h1>
     <div class="row">
+        {% for x in zapatillas%}
         <div class="col-6 col-sm-4 col-md-4 col-lg-3 p-0"> 
             <div class=" tarjeta rounded">
-                <img src="{% static 'home/img/Zapatillas Mujer/882004865_5.jpg' %}" class="img-fluid imagen rounded"  alt="">       
-                <h6 class="font-weight-bold text-left mt-2 ml-3 cat">Mujer</h6>   
-                <h6 class="font-weight-bold text-left ml-3">Zapatillas </h6>     
-                <h6 class="m-0 text-left ml-3 pb-5">$45.000</h6>                        
-                <a href="{% url 'PM1' %}" class="stretched-link"></a>                 
+                <img src="{{ x.foto.url}}" class="img-fluid imagen rounded"  alt="">  
+                <h6 class="font-weight-bold text-left mt-2 ml-3 cat">{{ x.genero.nombre }}</h6>
+                <h6 class="font-weight-bold text-left ml-3">Zapatillas {{ x.modelo }}</h6>
+                <h6 class="m-0 text-left ml-3 pb-5">${{ x.precio }}</h6>
+                <a href="{% url 'mostrarZapatilla' x.idZapatilla %}" class="stretched-link"></a>
             </div>   
         </div>
-        <div class="col-6 col-sm-4 col-md-4 col-lg-3 p-0"> 
-            <div class=" tarjeta rounded">
-                <img src="{% static 'home/img/Zapatillas Mujer/S222M.jpg' %}" class="img-fluid imagen rounded"  alt="">     
-                <h6 class="font-weight-bold text-left mt-2 ml-3 cat">Mujer</h6>    
-                <h6 class="font-weight-bold text-left ml-3">Zapatillas </h6>    
-                <h6 class="m-0 text-left ml-3 pb-5">$30.000</h6>                         
-                <a href="{% url 'PM2' %}" class="stretched-link"></a>                    
-            </div>   
-        </div>
-        <div class="col-6 col-sm-4 col-md-4 col-lg-3 p-0"> 
-            <div class=" tarjeta rounded">
-                <img src="{% static 'home/img/Zapatillas Mujer/X3M.jpg' %}" class="img-fluid imagen rounded"  alt="">    
-                <h6 class="font-weight-bold text-left mt-2 ml-3 cat">Mujer</h6>    
-                <h6 class="font-weight-bold text-left ml-3">Zapatillas </h6>    
-                <h6 class="m-0 text-left ml-3 pb-5">$20.000</h6>                        
-                <a href="{% url 'PM3' %}" class="stretched-link"></a>                 
-            </div>   
-        </div>
-        <div class="col-6 col-sm-4 col-md-4 col-lg-3 p-0"> 
-            <div class=" tarjeta rounded">
-                <img src="{% static 'home/img/Zapatillas Mujer/B4M.jpg' %}" class="img-fluid imagen rounded"  alt="">   
-                <h6 class="font-weight-bold text-left mt-2 ml-3 cat">Mujer</h6>    
-                <h6 class="font-weight-bold text-left ml-3">Zapatillas </h6>      
-                <h6 class="m-0 text-left ml-3 pb-5">$35.000</h6>                        
-                <a href="{% url 'PM4' %}" class="stretched-link"></a>                 
-            </div>   
-        </div>
-        <div class="col-6 col-sm-4 col-md-4 col-lg-3 p-0"> 
-            <div class=" tarjeta rounded">
-                <img src="{% static 'home/img/Zapatillas Mujer/M5.jpg' %}" class="img-fluid imagen rounded"  alt="">    
-                <h6 class="font-weight-bold text-left mt-2 ml-3 cat">Mujer</h6>  
-                <h6 class="font-weight-bold text-left ml-3">Zapatillas </h6>      
-                <h6 class="m-0 text-left ml-3 pb-5">$45.000</h6>                      
-                <a href="{% url 'PM5' %}" class="stretched-link"></a>                      
-            </div>   
-        </div>
-        <div class="col-6 col-sm-4 col-md-4 col-lg-3 p-0"> 
-            <div class=" tarjeta rounded">
-                <img src="{% static 'home/img/Zapatillas Mujer/G6M.jpg' %}" class="img-fluid imagen rounded"  alt="">    
-                <h6 class="font-weight-bold text-left mt-2 ml-3 cat">Mujer</h6>
-                <h6 class="font-weight-bold text-left ml-3">Zapatillas </h6>    
-                <h6 class="m-0 text-left ml-3 pb-5">$40.000</h6>                   
-                <a href="{% url 'PM6' %}" class="stretched-link"></a>                 
-            </div>   
-        </div>
-        <div class="col-6 col-sm-4 col-md-4 col-lg-3 p-0"> 
-            <div class=" tarjeta rounded">
-                <img src="{% static 'home/img/Zapatillas Mujer/W7M.jpg' %}" class="img-fluid imagen rounded"  alt="">    
-                <h6 class="font-weight-bold text-left mt-2 ml-3 cat">Mujer</h6>    
-                <h6 class="font-weight-bold text-left ml-3">Zapatillas </h6>     
-                <h6 class="m-0 text-left ml-3 pb-5">$15.000</h6>                      
-                <a href="{% url 'PM7' %}" class="stretched-link"></a>                     
-            </div>   
-        </div>
-        <div class="col-6 col-sm-4 col-md-4 col-lg-3 p-0"> 
-            <div class=" tarjeta rounded">
-                <img src="{% static 'home/img/Zapatillas Mujer/U8M.jpg' %}" class="img-fluid imagen rounded"  alt="">    
-                <h6 class="font-weight-bold text-left mt-2 ml-3 cat">Mujer</h6> 
-                <h6 class="font-weight-bold text-left ml-3">Zapatillas </h6>       
-                <h6 class="m-0 text-left ml-3 pb-5">$75.000</h6>                    
-                <a href="{% url 'PM8' %}" class="stretched-link"></a>                        
-            </div>   
-        </div>
+        {% endfor %}
+
     </div>
 </div>
 
