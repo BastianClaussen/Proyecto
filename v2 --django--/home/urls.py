@@ -1,7 +1,9 @@
+from home.models import Direccion, Pedido
 from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth.views import LoginView,LogoutView
-from .views import  buscar, carrito, editarMarca, editarMarcaSql, editarStock, editarStockSql, editarZap,editarLista, editarZapSql, eliminarCarrito, eliminarMarca, eliminarStock, eliminarZap, index,hombres,listar, login_view, logout_view, mid_air_red, procesarPedido, regStock,regMarca,mostrarZapatilla, regUser,regZap,mujeres,PM1,PM2,PM3,PM4,PM5,PM6,PM7,PM8,ninos,m1,stmlur,dc,teamcourt, usuario,xray,contacto,recuperar,crear_cuenta
+from django.contrib.auth.decorators import login_required
+from .views import  direccion, datos, infoTalla, mid_air_blue, mid_air_gray, mid_air_purple, mostrarZapatilla, ordenLista, talla, buscar, carrito, direccionUsuario, editarMarca, editarMarcaSql, editarStock, editarStockSql, editarZap,editarLista, editarZapSql, eliminarCarrito, eliminarDireccion, eliminarMarca, eliminarStock, eliminarZap, index,hombres,listar, login_view, logout_view, mid_air_red, modificarUsuario, procesarPedido, regStock,regMarca, regUser,regZap,mujeres,ninos, usuario,contacto,recuperar,crear_cuenta
 
 urlpatterns = [
     path('', index, name="index"),
@@ -17,20 +19,10 @@ urlpatterns = [
     path('eliminarStock/<int:id>', eliminarStock, name="eliminarStock"),
     path('hombres', hombres, name="hombres"),
     path('mujeres', mujeres, name="mujeres"),
-    path('pm1', PM1, name="PM1"),
-    path('pm2', PM2, name="PM2"),
-    path('pm3', PM3, name="PM3"),
-    path('pm4', PM4, name="PM4"),
-    path('pm5', PM5, name="PM5"),
-    path('pm6', PM6, name="PM6"),
-    path('pm7', PM7, name="PM7"),
-    path('pm8', PM8, name="PM8"),
+    path('mostrarZapatilla/<int:id>',mostrarZapatilla,name='mostrarZapatilla'),
+    path('direccion', direccion, name="direccion"),
+    path('datos', datos, name="datos"),
     path('ninos', ninos, name="ninos"),
-    path('dc', dc, name="dc"),
-    path('teamcourt', teamcourt, name="teamcourt"),
-    path('xray', xray, name="xray"),
-    path('m1', m1, name="m1"),
-    path('stmlur', stmlur, name="stmlur"),
     path('contacto', contacto, name="contacto"),
     path('recuperar', recuperar, name="recuperar"),
     path('crear_cuenta', crear_cuenta, name="crear_cuenta"),
@@ -38,15 +30,23 @@ urlpatterns = [
     path('formulario',listar,name='formulario'),
     path('regMarca',regMarca,name='regMarca'),
     path('regUser',regUser,name='regUser'),
-    path('mostrarZapatilla/<int:id>',mostrarZapatilla,name='mostrarZapatilla'),
     path('regStock',regStock,name='regStock'),
     path('buscar',buscar,name='buscar'),
     path('carrito',carrito,name='carrito'),
     path('procesarPedido',procesarPedido,name='procesarPedido'),
     path('mid_air_red',mid_air_red,name='mid_air_red'),
+    path('mid_air_purple',mid_air_purple,name='mid_air_purple'),
+    path('mid_air_blue',mid_air_blue,name='mid_air_blue'),
+    path('mid_air_gray',mid_air_gray,name='mid_air_gray'),
     path('login/', LoginView.as_view(template_name='home/crear_cuenta.html'),name='login'),
     path('sesion', login_view ,name='sesion'),
+    path('ordenLista', ordenLista ,name='ordenLista'),
     path('logout', logout_view ,name='logout'),
-    path('usuario', usuario, name='usuario'),
-    path('eliminarCarrito/<int:id>',eliminarCarrito,name='eliminarCarrito')
+    path('usuario',login_required(usuario), name='usuario'),
+    path('talla/<int:id>', talla, name='talla'),
+    path('infoTalla/<int:id>', infoTalla, name='infoTalla'),
+    path('direccionUsuario', direccionUsuario, name='direccionUsuario'),
+    path('modificarUsuario/<rut>', modificarUsuario, name='modificarUsuario'),
+    path('eliminarDireccion/<int:id>', eliminarDireccion, name='eliminarDireccion'),
+    path('eliminarCarrito/<int:id>/<int:talla>',eliminarCarrito,name='eliminarCarrito')
 ]   

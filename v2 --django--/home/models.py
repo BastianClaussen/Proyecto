@@ -1,7 +1,10 @@
 from datetime import datetime
 from django.db.models.deletion import CASCADE
+from django.utils import tree
 from Wild_Fang.settings import DEFAULT_AUTO_FIELD
 from django.db import models
+from django.contrib.auth.models import User
+
 
 # Create your models here.
 
@@ -18,24 +21,36 @@ class Zapatilla(models.Model):
     modelo = models.CharField(max_length=50, verbose_name='Modelo de Zapatilla')
     descripcion = models.TextField(verbose_name='Descripcion Zapatilla')
     precio = models.IntegerField(verbose_name='Precio Zapatilla')
-    foto = models.ImageField(upload_to='Zapas',verbose_name='Foto de Zapatilla')
+    foto = models.ImageField(upload_to='Zapas',verbose_name='Foto de Zapatilla',null= True)
     genero = models.ForeignKey(Genero,on_delete=models.CASCADE)
     marca = models.ForeignKey(Marca,on_delete=models.CASCADE)
     
 
 class Usuario(models.Model):
-    rut = models.CharField(max_length=13,primary_key=True,verbose_name='Rut de Usuario')
-    nombre = models.CharField(max_length=50,verbose_name='Nombre de Usuario')
-    apellido = models.CharField(max_length=50,verbose_name='Apellido Usuario')
-    fecha_nac = models.DateField(verbose_name='Fecha nacimiento de Usuario')
-    mail =  models.CharField(max_length=50,verbose_name='Correo electronico Usuario')
-    password = models.CharField(max_length=50,verbose_name='Contraseña Usuario')
-    nomUsuario = models.CharField(max_length=50,verbose_name='Nombre de Cuenta de Usuario')
-    tipoUsuario = models.CharField(max_length=50,verbose_name='Tipo de Usuario')
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    rut = models.CharField(max_length=15)
+    fecha_nacimiento = models.DateField(default="")
 
 class MetodoPago(models.Model):
     idMetodo = models.AutoField(primary_key=True,verbose_name='Id de Metodo')
     metodo = models.CharField(max_length=50,verbose_name='Metodo de Pago')
+
+class Region(models.Model):
+    idRegion = models.IntegerField(primary_key=True,verbose_name='Id de Region')
+    nombreRegion = models.CharField(max_length=70,verbose_name='Nombre de la Region')
+
+class Comuna(models.Model):
+    idComuna = models.IntegerField(primary_key=True,verbose_name='Id de Comuna')
+    nombreComuna = models.CharField(max_length=70,verbose_name='Nombre de la Comuna')
+    region = models.ForeignKey(Region,on_delete=models.CASCADE)
+
+class Direccion(models.Model):
+    idDireccion = models.AutoField(primary_key=True,verbose_name='Id de Direccion')
+    calle = models.CharField(max_length=50,verbose_name='Nombre de la calle')
+    numero = models.IntegerField(verbose_name='Numero de la casa')
+    comuna = models.ForeignKey(Comuna,on_delete=models.CASCADE,null=True)
+    region = models.ForeignKey(Region,on_delete=models.CASCADE,null=True)
+    usuario = models.ForeignKey(Usuario,on_delete=models.CASCADE,null=True)
 
 class Pedido(models.Model):
     idPedido = models.AutoField(primary_key=True,verbose_name='Id de Pedido')
@@ -43,6 +58,8 @@ class Pedido(models.Model):
     total = models.IntegerField(verbose_name='Precio total',default=0,blank=True)
     metodopago = models.ForeignKey(MetodoPago,on_delete=models.CASCADE, default=1)
     usuario = models.ForeignKey(Usuario,on_delete=models.CASCADE)
+    direccion = models.ForeignKey(Direccion,on_delete=models.CASCADE, null=True)
+
 
 class Stock(models.Model):
     idStock = models.AutoField(primary_key=True, verbose_name='Id Stock')
@@ -56,17 +73,8 @@ class Detalle(models.Model):
     cantidad = models.IntegerField(verbose_name='Cantidad de Zapatillas compradas',default=0,blank=True)
     pedido = models.ForeignKey(Pedido,on_delete=models.CASCADE)
     zapatilla = models.ForeignKey(Zapatilla,on_delete=models.CASCADE)
+    stock = models.ForeignKey(Stock,on_delete=models.CASCADE, null=True)
 
-class Direccion(models.Model):
-    idDireccion = models.IntegerField(primary_key=True,verbose_name='Id de Direccion')
-    calle = models.CharField(max_length=50,verbose_name='Nombre de la calle')
-    numero = models.IntegerField(verbose_name='Numero de la casa')
 
-class Region(models.Model):
-    idRegion = models.IntegerField(primary_key=True,verbose_name='Id de Region')
-    nombreRegion = models.CharField(max_length=70,verbose_name='Nombre de la Region')
 
-class Comuna(models.Model):
-    idComuna = models.IntegerField(primary_key=True,verbose_name='Id de Comuna')
-    nombreComuna = models.CharField(max_length=70,verbose_name='Nombre de la Comuna')
-    region = models.ForeignKey(Region,on_delete=models.CASCADE)
+

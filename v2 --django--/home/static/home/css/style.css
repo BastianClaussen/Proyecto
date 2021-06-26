@@ -39,11 +39,16 @@
         height: 300px;
         width: 100%;
       }
-      
+      .tarjeta{
+        height: 407.84px ;
+      }
+      .mostrador{
+        height: 257.84px;
+      }
 }
  
 /*Minimo de 768px o más*/
-@media (min-width: 768px) and (max-width: 1200px)  {  
+@media (min-width: 768px) and (max-width: 1500px)  { 
     .carousel-caption{
         text-align: left;
         width: 40%;
@@ -79,12 +84,18 @@
         height: 350px;
         width: 100%;
       }
+      .tarjeta{
+        height: 422.33px ;
+      }
+      .mostrador{
+        height: 272.33px;
+      }
     
 }
 
  
 /*Minimo de 1200px o más*/
-@media (min-width: 1200px) {  
+@media (min-width: 1500px) {  
     .container { max-width: 1500px; }
     .carousel-caption {
         text-align: left;
@@ -113,6 +124,12 @@
       #map{
         height: 500px;
         width: 100%;
+      }
+      .tarjeta{
+        height: 490.25px ;
+      }
+      .mostrador{
+        height: 359.25px;
       }
 }
 
