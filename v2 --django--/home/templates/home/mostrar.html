@@ -74,11 +74,24 @@
                     shopping_bag
                 </i>
             </a>
-            <a href="{% url 'crear_cuenta' %}">
-                <span class="material-icons-outlined mt-1" style="font-size: 40px; color: black;">
-                    person_outline
-                </span>
-            </a>
+            {% if user.is_authenticated%}
+        <a href="{% url 'usuario' %}">
+          <span class="material-icons-outlined mt-1" style="font-size: 40px; color: black;">
+              person_outline
+          </span>
+        </a>
+        <a href="{% url 'logout' %}">
+          <span class="mt-1 ml-4" style="color: black;">
+              Cerrar Sesion
+          </span>
+        </a>
+        {%else %}
+        <a href="{% url 'crear_cuenta' %}">
+          <span class="material-icons-outlined mt-1" style="font-size: 40px; color: black;">
+              person_outline
+          </span>
+        </a>
+        {% endif %}
 
         </div>
     </nav>
@@ -112,11 +125,16 @@
                         <td>{{ x.modelo }}</td>
                         <td>{{ x.descripcion }}</td>
                         <td>{{ x.precio }}</td>
-                        <td>{{ x.foto }}</td>
+                        <td>{% if x.foto %}
+                          <img src="{{ x.foto.url}}" class="img-fluid imagen rounded mostrador"  alt=""> 
+                            {% else %} 
+                          <img src="{% static 'home/img/not-found.png' %}" class="img-fluid imagen rounded mostrador"  alt="" >
+                          {% endif %}</td>
                         <td>{{ x.genero.nombre }}</td>
                         <td>{{ x.marca.nombreMarca }}</td>  
                         <td>
-                            <a class="btn btn-dark text-light" id="btn-mod-tabla-zap" href="{% url 'editarZap' x.idZapatilla %}">Modificar</a>
+                          <a class="btn btn-dark text-light" id="btn-mod-tabla-mar" href="{% url 'talla' x.idZapatilla %}">Agregar Talla</a>
+                          <a class="btn btn-dark text-light mt-2" id="btn-mod-tabla-zap" href="{% url 'editarZap' x.idZapatilla %}">Modificar</a>
                             <a class="btn btn-dark text-light mt-2" id="btn-del-tabla-zap" href="{% url 'eliminarZap' x.idZapatilla %}">Eliminar</a>
                         </td>
                     </tr>
@@ -151,7 +169,6 @@
                         <th scope="col">Talla</th>
                         <th scope="col">Cantidad</th>
                         <th scope="col">Zapatilla</th>
-                        <th scope="col">Acciones</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -160,15 +177,23 @@
                         <th scope="row">{{ s.idStock }}</th>
                         <td>{{ s.talla }}</td>
                         <td>{{ s.cantidad }}</td>
-                        <td>{{ s.zapatilla.idZapatilla }}</td>
-                        <td>
-                            <a class="btn btn-dark text-light" id="btn-mod-tabla-sto" href="{% url 'editarStock' s.idStock %}">Modificar</a>
-                            <a class="btn btn-dark text-light" id="btn-del-tabla-sto" href="{% url 'eliminarStock' s.idStock %}">Eliminar</a>
-                        </td>
+                        <td><img src="{{ s.zapatilla.foto.url }}" alt="" width="100"></td>
+
                     </tr>
                       {% endfor %}
                     </tbody>
                   </table>
+                  {% if messages %}
+            {% for i in messages %}
+            <script>
+            Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: '{{i}}',
+            timer: 3000
+          });</script>
+            {% endfor %}
+          {% endif %}
                 </div>
             </div>
         </div>
@@ -211,6 +236,9 @@
       }
   
   });
-  
+
+        
+        
+
   </script>
 </html>

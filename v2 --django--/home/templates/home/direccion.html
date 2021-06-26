@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'home/css/bootstrap.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'home/css/style.1.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'home/css/tabla.css' %}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <title>Document</title>
+
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-md navbar-primary bg-light fixed-top">
+
+        <a href="{% url 'index' %}" id="logo" class="rounded">
+        </a>
+    
+        <button class="navbar-toggler bg-dark navbar-dark" type="button" data-toggle="collapse" data-target="#menu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="menu">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item">
+                    <a class="nav-link bglink rounded" href="{% url 'hombres' %}">
+                        HOMBRE
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link bglink rounded" href="{% url 'mujeres' %}">
+                        MUJER
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link bglink rounded" href="{% url 'ninos' %}">
+                        NIÑO
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link bglink rounded"  href="{% url 'contacto' %}">
+                        C0NTACTO
+                    </a>
+                </li>
+            </ul>
+                <form class="form-inline ">
+                
+                    <input class="form-control" type="search" placeholder="¿Qué desea buscar?" aria-label="Buscar">
+                    <button class="btn btn-outline-dark ml-3" type="submit">Buscar</button>
+                </form>
+                
+                <div class="user-dropdown text-center">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item dropdown">
+                            <a href="{% url 'carrito' %}"  id="procesar-pedido">
+                                <i class="material-icons-outlined mx-3" style="color: black;font-size: 40px;">
+                                    shopping_bag
+                                </i>
+                            </a>
+                            <div id="carrito" class="dropdown-menu" aria-labelledby="navbarCollapse">
+                                <table id="lista-carrito" class="table">
+                                    <thead>
+                                        <tr>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+        
+                                <a href="#" id="vaciar-carrito" class="btn btn-primary btn-block">Vaciar Carrito</a>
+                                <a href="#" id="procesar-pedido" class="btn btn-danger btn-block">Procesar
+                                    Compra</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                {% if user.is_authenticated%}
+        <a href="{% url 'usuario' %}">
+          <span class="material-icons-outlined mt-1" style="font-size: 40px; color: black;">
+              person_outline
+          </span>
+        </a>
+        <a href="{% url 'logout' %}">
+          <span class="mt-1 ml-4" style="color: black;">
+              Cerrar Sesion
+          </span>
+        </a>
+        {%else %}
+        <a href="{% url 'crear_cuenta' %}">
+          <span class="material-icons-outlined mt-1" style="font-size: 40px; color: black;">
+              person_outline
+          </span>
+        </a>
+        {% endif %}
+            
+            
+            
+    
+        </div>
+    </nav>
+    <br><br>
+
+    <div class="container bg-light" style="height: 500px;">    <div class="row" > 
+        <div class="col-md-3">
+            <div class=" mt-4">
+                <img src="{% static 'home/img/user.png' %}" alt="Foto de perfil" width="150px">
+            </div>
+            <div class="nombre mt-5 ">
+                <span class="display-4" style="font-size: 30px;"><b>{{user.first_name}} {{user.last_name}}</b></span>
+            </div>
+            <div class="menu mt-4">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                      <a class="nav-link" href="{%url 'usuario' %}" id="btn-historial">
+                          <span class="material-icons" style="vertical-align: -6px;">
+                        list
+                        </span>
+                        Historial de Pedidos
+                    </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="{%url 'datos' %}" id="btn-datos">
+                          <span class="material-icons" style="vertical-align: -6px;">
+                        person
+                        </span>
+                        Datos Personales
+                    </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{%url 'direccion' %}" id="btn-direcciones" >
+                            <span class="material-icons" style="vertical-align: -6px;">
+                                home
+                            </span>
+                        Direcciones
+                        </a>
+                    </li>
+                  </ul>
+            </div>
+        </div>
+        <div class="col-md-9 mt-4">
+                    <div id="direcciones"> 
+                    <table class="table" >
+                        <h3>Direcciones Registradas</h3>
+                        <br>
+                        <thead>
+                            <th>Calle</th>
+                            <th>Numero de Casa</th>
+                            <th>Comuna</th>
+                            <th>Region</th>
+                            <th>Eliminar</th>
+                        </thead>
+                        {% for x in direccion %}
+                        <tbody>   
+                            <tr>
+                                <td data-label="Calle ">{{x.calle}}</td>
+                                <td data-label="Numero de Casa">{{x.numero}}</td>
+                                <td data-label="Comuna">{{x.comuna.nombreComuna}}</td>
+                                <td data-label="Region">{{x.region.nombreRegion}}</td>
+                                <td><a href="{% url 'eliminarDireccion' x.idDireccion %}"  
+                                    class="material-icons-outlined">
+                                    highlight_off
+                                    </a></td>
+                            </tr>
+                        </tbody>
+                        {%endfor%}
+                    </table>
+                    <div class="text-center">
+                        <button type="button" class="btn btn-outline-dark" id="btn-agregar-direccion" >Agregar</button>
+                      </div>
+                </div>
+                
+                <form action="{% url 'direccionUsuario' %}" method="POST" class="mt-5" id="agregar-direccion" name="registro">
+                        {% csrf_token %}
+                        <div class="form-group row">
+                              <label for="calle" class="col-2 col-form-label">Calle</label>
+                              <div class="col-10">
+                                <input type="text" placeholder="Calle de la vivienda" class="form-control" autocomplete="off" name="calle" required>
+                              </div>
+                            </div>
+          
+                            <div class="form-group row">
+                              <label for="numero" class="col-2 col-form-label">Numero</label>
+                              <div class="col-10 ">
+                                <input class="form-control" type="number" placeholder="Numero de la vivienda" id="numero" name="numero" >
+                              </div>
+                            </div>
+          
+
+                            <div class="form-group row">
+                                <label for="region" class="col-2 col-form-label">Region</label>
+                                <div class="col-10 ">
+                                  <select class="form-control" name="region" id="region my-dropdown" onclick="sortList()">
+                                      {% for x in region %}
+                                      <option value="{{x.idRegion}}" id="id01">{{x.nombreRegion}}</option>
+                                      {% endfor %}
+                                  </select>
+                              </div>
+                              </div>
+
+
+                            <div class="form-group row">
+                              <label for="comuna" class="col-2 col-form-label">Comuna</label>
+                              <div class="col-10 ">
+                                <select class="form-control" name="comuna" id="comuna">
+                                    {% for x in comuna %}
+                                    <option value="{{x.idComuna}}">{{x.nombreComuna}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            </div>
+
+          
+                            <div class="form-group row">
+                              <label for="clave" class="col-2 col-form-label">Contraseña Actual</label>
+                              <div class="col-10 ">
+                                <input class="form-control" type="password" placeholder="Contraseña" name="clave" id="clave">
+                              </div>
+                            </div>
+
+                            <div class="text-center">
+                              <button type="submit" class="btn btn-outline-dark" >Registrar</button>
+                            </div>
+                </form>
+                    
+        </div>
+        {% if messages %}
+        {% for i in messages %}
+        {% if i.tags == "error" %}
+        <script>
+        Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: '{{i}}',
+        timer: 3000
+      });</script>
+      {% else %}
+      <script>
+      Swal.fire({
+        icon: 'success',
+        text: '{{i}}',
+        timer: 3000
+      });</script>
+      {% endif %}
+        {% endfor %}
+      {% endif %}
+    </div>
+</div> 
+<br>
+<br>
+
+</body>
+<footer class="text-center text-lg-start bg-light text-muted mt-5">
+    <section
+      class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom"
+    >
+    </section>
+
+    <section class="">
+      <div class="container text-center text-md-start mt-5">
+
+        <div class="row mt-3">
+
+          <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+
+            <h6 class="text-uppercase fw-bold mb-4">
+              <i class="fas fa-gem me-3"></i>Wild Fang
+            </h6>
+            <p>
+              Tienda dedicada a la venta de sneakers/zapatillas de las marcas mas top en el mundo.
+            </p>
+          </div>
+
+          <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+
+            <h6 class="text-uppercase fw-bold mb-4">
+              Productos
+            </h6>
+            <p>
+              <a href="{% url 'hombres' %}" class="text-reset">Hombres</a>
+            </p>
+            <p>
+              <a href="{% url 'ninos' %}" class="text-reset">Niños</a>
+            </p>
+            <p>
+              <a href="{% url 'mujeres' %}" class="text-reset">Mujeres</a>
+            </p>
+          </div>
+          <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+
+            <h6 class="text-uppercase fw-bold mb-4">
+              Links
+            </h6>
+            <p>
+              <a href="{% url 'carrito' %}" class="text-reset">Carrito</a>
+            </p>
+            <p>
+                {% if user.is_authenticated %}
+                <a href="{% url 'usuario' %}" class="text-reset">Cuenta</a>
+                {% else %}
+                <a href="{% url 'crear_cuenta' %}" class="text-reset">Cuenta</a>
+                {% endif %}
+            </p>
+            <p>
+                {% if user.is_authenticated %}
+                <a href="{% url 'usuario' %}" class="text-reset">Ordenes</a>
+                {% else %}
+                <a href="{% url 'crear_cuenta' %}" class="text-reset">Ordenes</a>
+                {% endif %}
+            </p>
+            <p>
+              <a href="{% url 'contacto' %}" class="text-reset">Ayuda</a>
+            </p>
+          </div>
+          <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+            <h6 class="text-uppercase fw-bold mb-4">
+              Contacto
+            </h6>
+            <p><i class="material-icons  me-3">place</i>Av. Andrés Bello 2425, Providencia, Región Metropolitana</p>
+            <p>
+              <i class="material-icons me-3">alternate_email</i>
+               wildfang@soporte.com
+            </p>
+            <p><i class="material-icons  me-3">call</i> +56 9 1414 9429</p>
+            <p><i class="material-icons  me-3">call</i> +56 22 3912 1293</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+      © 2021 Copyright:
+      <a class="text-reset fw-bold" href="{% url 'index' %}">Wild Fang</a>
+    </div>
+  </footer>
+<script>
+    $("#agregar-direccion").hide();
+
+    $("#btn-agregar-direccion").click(function() { 
+        $("#agregar-direccion").toggle();
+    });
+</script>
+</html>

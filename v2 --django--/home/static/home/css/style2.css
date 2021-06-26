@@ -1,9 +1,11 @@
 
 
 @media (max-width : 767px) {  
-        .container{
+        .cont{
             border: 1px solid black;
             margin-top: 20%;
+        margin-bottom: 10%;
+
         }
       .form-control
       {
@@ -21,10 +23,12 @@
 }
  
 /*Minimo de 768px o más*/
-@media (min-width: 768px) and (max-width: 1200px)  {  
-    .container{
+@media (min-width: 768px) and (max-width: 1500px)  {  
+    .cont{
         border: 1px solid black;
-        margin-top: 10%;
+        margin-top: 15%;
+        margin-bottom: 10%;
+
     }
       #map{
         height: 350px;
@@ -37,12 +41,13 @@
 
  
 /*Minimo de 1200px o más*/
-@media (min-width: 1200px) {  
+@media (min-width: 1500px) {  
  
-    .container { 
+    .cont{ 
         max-width: 1500px;
         border: 1px solid black;
-        margin-top: 5%;
+        margin-top: 10%;
+        margin-bottom: 10%;
         } 
       #map{
         height: 500px;

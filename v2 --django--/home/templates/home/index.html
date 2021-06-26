@@ -62,11 +62,24 @@
                     shopping_bag
                 </i>
             </a>
-            <a href="{% url 'crear_cuenta' %}">
-                <span class="material-icons-outlined mt-1" style="font-size: 40px; color: black;">
-                    person_outline
-                </span>
-            </a>
+            {% if user.is_authenticated%}
+        <a href="{% url 'usuario' %}">
+          <span class="material-icons-outlined mt-1" style="font-size: 40px; color: black;">
+              person_outline
+          </span>
+        </a>
+        <a href="{% url 'logout' %}">
+          <span class="material-icons-outlined mt-1 ml-4" style=" font-size: 36px; color: black;">
+            logout
+          </span>
+        </a>
+        {%else %}
+        <a href="{% url 'crear_cuenta' %}">
+          <span class="material-icons-outlined mt-1" style="font-size: 40px; color: black;">
+              person_outline
+          </span>
+        </a>
+        {% endif %}
     
         </div>
     </nav>
@@ -97,7 +110,7 @@
                         <h3 class="bannnomb">Air Jordan 1 Low Laser Blue</h3>
                     </div>
                   </div>
-                  <a class="boton-link btn" href=""> Comprar</a>
+                  <a class="boton-link btn" href="{% url 'mid_air_blue' %}"> Comprar</a>
            </div>
           
           <div class="carousel-item">
@@ -106,7 +119,7 @@
                     <div class="carousel-caption ">
                         <h3 class="bannnomb">Air Jordan 1 Mid Deep Blue</h3>
                     </div>
-                    <a class="boton-link btn" href=""> Comprar</a>
+                    <a class="boton-link btn" href="{% url 'mid_air_purple' %}"> Comprar</a>
                 </div>
           </div>
 
@@ -117,7 +130,7 @@
                         <h3 class="bannnomb">Air Jordan 1 Mid Light Gray</h3>
                     </div>
                   </div>
-                <a class="boton-link btn" href=""> Comprar</a>
+                <a class="boton-link btn" href="{% url 'mid_air_gray' %}"> Comprar</a>
           </div>
 
         </div>
@@ -131,24 +144,24 @@
       </div>
 </div>
 <br><br><br><br>
-<div class="container">
-    <div class="row carousel-title justify-content-between bg-dark rounded  text-light">
-    <h2 class="ml-2" >Hombres</h2>
-    <a href="{% url 'hombres' %}" class="h5 mt-2 mr-2" style="color: white;">Ver todo</a>
-    </div>
-       <div class="row">
-           {% for x in zapatillas%}
-        <div class="col-4 col-lg-2 p-0">
-            <div class=" tarjeta rounded">
-                <img src="{{ x.foto.url }}" class="img-fluid rounded"  alt="">  
-                <h6 class="font-weight-bold text-left mt-2 ml-3 cat">{{ x.genero.nombre}}</h6>
-                <h6 class="font-weight-bold text-left ml-3">Zapatillas {{ x.modelo }}</h6>
-                <h6 class="m-0 text-left ml-3 pb-5">${{ x.precio }}</h6>
-                <a href="{% url 'mostrarZapatilla' x.idZapatilla %}" class="stretched-link"></a>
-            </div>
+<div class="container ">
+  <div class="row carousel-title justify-content-between bg-dark rounded  text-light">
+      <h2 class="ml-2">Hombres</h2>
+      <a href="{% url 'hombres' %}" class="h5 mt-2 mr-2" style="color: white;">Ver todo</a>
+      </div>
+  <div class="row">
+      {% for x in zapatillasHombre%}
+      <div class="col-6 col-sm-4 col-md-4 col-lg-2 p-0"> 
+          <div class=" tarjeta rounded">
+              <img src="{{ x.foto.url }}" class="img-fluid rounded mostrador"  alt="">  
+              <h6 class="font-weight-bold text-left mt-2 ml-3 cat">{{ x.genero.nombre}}</h6>
+              <h6 class="font-weight-bold text-left ml-3">Zapatillas {{ x.modelo }}</h6>
+              <h6 class="m-0 text-left ml-3 pb-5">${{ x.precio }}</h6>
+              <a href="{% url 'mostrarZapatilla' x.idZapatilla%}" class="stretched-link"></a>
           </div>
-          {% endfor %}
-       </div>
+        </div>
+        {% endfor %}
+     </div>  
 </div>
         <br><br><br><br>
 <div class="container ">
@@ -157,64 +170,18 @@
         <a href="{% url 'mujeres' %}" class="h5 mt-2 mr-2" style="color: white;">Ver todo</a>
         </div>
     <div class="row">
-
-          <div class="col-4 col-lg-2 p-0">
-            <div class=" tarjeta rounded h-100">
-                <img src="{% static 'home/img/Zapatillas Mujer/882004865_5.jpg' %}" class="img-fluid imagen rounded"  alt="">
-                <h6 class="font-weight-bold text-left mt-2 ml-3 cat">Mujer</h6>
-                <h6 class="font-weight-bold text-left ml-3">Sport2 Zapatilla Urbana Mujer</h6>
-                <h6 class="m-0 nombre img-color text-left ml-3 pb-5">$45.000</h6>
-                <a href="{% url 'PM1' %}" class="stretched-link"></a>
-            </div>
-          </div>
-
-          <div class="col-4 col-lg-2 p-0">
-            <div class=" tarjeta rounded h-100">
-                <img src="{% static 'home/img/Zapatillas Mujer/S222M.jpg' %}" class="img-fluid imagen rounded"  alt="">
-                <h6 class="font-weight-bold text-left mt-2 ml-3 cat">Mujer</h6>
-                <h6 class="font-weight-bold text-left ml-3">Zaptilla Sybilla Urbana Blanca</h6>
-                <h6 class="m-0 nombre img-color text-left ml-3 pb-5">$30.000</h6>
-                <a href="{% url 'PM2' %}" class="stretched-link"></a>
-            </div>
-          </div>
-          <div class="col-4 col-lg-2 p-0">
+        {% for x in zapatillasMujer%}
+        <div class="col-6 col-sm-4 col-md-4 col-lg-2 p-0"> 
             <div class=" tarjeta rounded">
-                <img src="{% static 'home/img/Zapatillas Mujer/X3M.jpg' %}" class="img-fluid imagen rounded"  alt="">
-                <h6 class="font-weight-bold text-left mt-2 ml-3 cat">Mujer</h6>
-                <h6 class="font-weight-bold text-left ml-3">Zaptilla XTI Urbana Mujer Baige</h6>
-                <h6 class="m-0 nombre img-color text-left ml-3 pb-5">$20.000</h6>
-                <a href="{% url 'PM3' %}" class="stretched-link"></a>
+                <img src="{{ x.foto.url }}" class="img-fluid rounded mostrador"  alt="">  
+                <h6 class="font-weight-bold text-left mt-2 ml-3 cat">{{ x.genero.nombre}}</h6>
+                <h6 class="font-weight-bold text-left ml-3">Zapatillas {{ x.modelo }}</h6>
+                <h6 class="m-0 text-left ml-3 pb-5">${{ x.precio }}</h6>
+                <a href="{% url 'mostrarZapatilla' x.idZapatilla%}" class="stretched-link"></a>
             </div>
           </div>
-
-          <div class="col-4 col-lg-2 p-0">
-            <div class=" tarjeta rounded">
-                <img src="{% static 'home/img/Zapatillas Mujer/B4M.jpg' %}" class="img-fluid imagen rounded"  alt="">
-                <h6 class="font-weight-bold text-left mt-2 ml-3 cat">Mujer</h6>
-                <h6 class="font-weight-bold text-left ml-3">Zaptilla XTI Deportiva Mujer Negra</h6>
-                <h6 class="m-0 nombre img-color text-left ml-3 pb-5">$35.000</h6>
-                <a href="{% url 'PM4' %}" class="stretched-link"></a>
-            </div>
-          </div>
-          <div class="col-4 col-lg-2 p-0">
-            <div class=" tarjeta rounded">
-                <img src="{% static 'home/img/Zapatillas Mujer/G6M.jpg' %}" class="img-fluid imagen rounded"  alt="">
-                <h6 class="font-weight-bold text-left mt-2 ml-3 cat">Mujer</h6>
-                <h6 class="font-weight-bold text-left ml-3">Zaptilla Mossimo Urbana Mujer BI</h6>
-                <h6 class="m-0 nombre img-color text-left ml-3 pb-5">$55.000</h6>
-                <a href="{% url 'PM5' %}" class="stretched-link"></a>
-            </div>
-          </div>
-          <div class="col-4 col-lg-2 p-0">
-            <div class=" tarjeta rounded h-100">
-                <img src="{% static 'home/img/Zapatillas Mujer/W7M.jpg' %}" class="img-fluid imagen rounded"  alt="">
-                <h6 class="font-weight-bold text-left mt-2 ml-3 cat">Mujer</h6>
-                <h6 class="font-weight-bold text-left ml-3">Zapatilla mujer Sk994 Taupe</h6>
-                <h6 class="m-0 nombre img-color text-left ml-3 pb-5">$15.000</h6>
-                <a href="{% url 'PM6' %}" class="stretched-link"></a>
-            </div>
-          </div>
-       </div>       
+          {% endfor %}
+       </div>  
 </div>
 
 <br><br><br><br>
@@ -224,65 +191,95 @@
         <a href="{% url 'ninos' %}" class="h5 mt-2 mr-2" style="color: white;">Ver todo</a>
         </div>
     <div class="row">
-        <div class="col-4 col-sm-4 col-md-4 col-lg-2 p-0">  
-            <div class=" tarjeta rounded h-100" >
-                <img src="{% static 'home/img/m1/m-portada.png' %}" class="img-fluid imagen rounded"  alt="">  
-                <h6 class="font-weight-bold text-left mt-2 ml-3 cat">Niño/a</h6>
-                <h6 class="font-weight-bold text-left ml-3">Zapatillas District Urban</h6>
-                <h6 class="m-0 text-left ml-3 pb-5">$25.000</h6>
-                <a href="{% url 'm1' %}" class="stretched-link"></a>
-            </div>   
-        </div>
-        <div class="col-4 col-sm-4 col-md-4 col-lg-2 p-0">  
+        {% for x in zapatillasNino%}
+        <div class="col-6 col-sm-4 col-md-4 col-lg-2 p-0"> 
             <div class=" tarjeta rounded">
-                <img src="{% static 'home/img/s1/stmlur-portada.png' %}" class="img-fluid imagen rounded" alt="">  
-                <h6 class="font-weight-bold text-left mt-2 ml-3 cat">Niño/a</h6>
-                <h6 class="font-weight-bold text-left ml-3">Zapatillas Street Militar Urbana</h6>
-                <h6 class="m-0 text-left ml-3 pb-5">$25.000</h6>
-                <a href="{% url 'stmlur' %}" class="stretched-link"></a>
-            </div>   
-        </div>
-        <div class="col-4 col-sm-4 col-md-4 col-lg-2 p-0">  
-            <div class=" tarjeta rounded">
-                <img src="{% static 'home/img/teamcourt/teamcourt-portada.png' %}" class="img-fluid imagen rounded"  alt="">  
-                <h6 class="font-weight-bold text-left mt-2 ml-3 cat">Niño/a</h6>
-                <h6 class="font-weight-bold text-left ml-3">Zapatillas Teamcourt Urbana</h6>
-                <h6 class="m-0 text-left ml-3 pb-5">$20.000</h6>
-                <a href="{% url 'teamcourt' %}" class="stretched-link"></a>
-            </div>   
-        </div>
-        <div class="col-4 col-sm-4 col-md-4 col-lg-2 p-0">  
-            <div class=" tarjeta rounded">
-                <img src="{% static 'home/img/xray/xray-portada.png' %}" class="img-fluid imagen rounded "  alt="">  
-                <h6 class="font-weight-bold text-left mt-2 ml-3 cat">Niño/a</h6>
-                <h6 class="font-weight-bold text-left ml-3">Zapatillas X-Ray</h6>
-                <h6 class="m-0 text-left ml-3 pb-5">$45.000</h6>
-                <a href="{% url 'xray' %}" class="stretched-link"></a>
-            </div>   
-        </div>
-        <div class="col-4 col-sm-4 col-md-4 col-lg-2 p-0"> 
-            <div class=" tarjeta rounded">
-                <img src="{% static 'home/img/dc/1.jpg' %}" class="img-fluid imagen rounded"  alt="">  
-                <h6 class="font-weight-bold text-left mt-2 ml-3 cat">Niños</h6>
-                <h6 class="font-weight-bold text-left ml-3">Zapatillas Black/Gold DC</h6>
-                <h6 class="m-0 text-left ml-3 pb-5">$50.000</h6>
-                <a href="{% url 'dc' %}" class="stretched-link"></a>
-            </div>   
-        </div>
+                <img src="{{ x.foto.url }}" class="img-fluid rounded mostrador"  alt="">  
+                <h6 class="font-weight-bold text-left mt-2 ml-3 cat">{{ x.genero.nombre}}</h6>
+                <h6 class="font-weight-bold text-left ml-3">Zapatillas {{ x.modelo }}</h6>
+                <h6 class="m-0 text-left ml-3 pb-5">${{ x.precio }}</h6>
+                <a href="{% url 'mostrarZapatilla' x.idZapatilla%}" class="stretched-link"></a>
+            </div>
+          </div>
+          {% endfor %}
        </div>  
 </div>
 
 
-<br><br><br><br>
-<br><br><br><br>
-<br><br><br><br>
-<br><br><br><br>
-<br><br><br><br>
-
-<footer class="footer">
-
-</footer>
-
 
 </body>
+<footer class="text-center text-lg-start bg-light text-muted mt-5">
+    <section
+      class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom"
+    >
+    </section>
+
+    <section class="">
+      <div class="container text-center text-md-start mt-5">
+
+        <div class="row mt-3">
+
+          <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+
+            <h6 class="text-uppercase fw-bold mb-4">
+              <i class="fas fa-gem me-3"></i>Wild Fang
+            </h6>
+            <p>
+              Tienda dedicada a la venta de sneakers/zapatillas de las marcas mas top en el mundo.
+            </p>
+          </div>
+
+          <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+
+            <h6 class="text-uppercase fw-bold mb-4">
+              Productos
+            </h6>
+            <p>
+              <a href="{% url 'hombres' %}" class="text-reset">Hombres</a>
+            </p>
+            <p>
+              <a href="{% url 'ninos' %}" class="text-reset">Niños</a>
+            </p>
+            <p>
+              <a href="{% url 'mujeres' %}" class="text-reset">Mujeres</a>
+            </p>
+          </div>
+          <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+
+            <h6 class="text-uppercase fw-bold mb-4">
+              Links
+            </h6>
+            <p>
+              <a href="{% url 'carrito' %}" class="text-reset">Carrito</a>
+            </p>
+            <p>
+                <a href="{% url 'usuario' %}" class="text-reset">Cuenta</a>
+            </p>
+            <p>
+                <a href="{% url 'usuario' %}" class="text-reset">Ordenes</a>
+            </p>
+            <p>
+              <a href="{% url 'contacto' %}" class="text-reset">Ayuda</a>
+            </p>
+          </div>
+          <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+            <h6 class="text-uppercase fw-bold mb-4">
+              Contacto
+            </h6>
+            <p><i class="material-icons  me-3">place</i>Av. Andrés Bello 2425, Providencia, Región Metropolitana</p>
+            <p>
+              <i class="material-icons me-3">alternate_email</i>
+               wildfang@soporte.com
+            </p>
+            <p><i class="material-icons  me-3">call</i> +56 9 1414 9429</p>
+            <p><i class="material-icons  me-3">call</i> +56 22 3912 1293</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+      © 2021 Copyright:
+      <a class="text-reset fw-bold" href="{% url 'index' %}">Wild Fang</a>
+    </div>
+  </footer>
 </html>

@@ -1,60 +1,39 @@
+import os
 from django.shortcuts import  redirect, render
-from .models import Detalle, Genero, Marca, MetodoPago, Pedido, Usuario, Zapatilla, Stock
+from .models import Comuna, Detalle, Direccion, Genero, Marca, MetodoPago, Pedido, Region, Usuario, Zapatilla, Stock
 from django.contrib import messages
 from django.db.models import Q
+from django.conf import settings
+from django.core.files.storage import FileSystemStorage
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+from django.contrib.auth.hashers import make_password
 
 # Create your views here.
 def index(request):
     zapatillasHombre = Zapatilla.objects.filter(genero_id = 1)[:6]
-    contexto = {'zapatillas':zapatillasHombre}
+    zapatillasMujer = Zapatilla.objects.filter(genero_id = 2)[:6]
+    zapatillasNino = Zapatilla.objects.filter(genero_id = 3)[:6]
+    contexto = {'zapatillasHombre':zapatillasHombre,
+                'zapatillasMujer':zapatillasMujer,
+                'zapatillasNino':zapatillasNino}
     return render(request, 'home/index.html', contexto)
 ####    PAGINA PRINCIPAL INDEX #####
 def hombres(request):
     zapatillasHombre = Zapatilla.objects.filter(genero_id = 1)
     contexto = {'zapatillas':zapatillasHombre}
     return render(request,'home/hombre/hombres.html', contexto)
-def mid_air_red(request):
-    midAir = Zapatilla.objects.filter(pk=1)
-    contexto = {'midAir':midAir}
-    return render(request,'home/hombre/mid-air-red.html',contexto)
+
 ####    PAGINA HOMBRE Y MODELOS #####
 def mujeres(request):
     zapatillasMujer = Zapatilla.objects.filter(genero_id = 2)
     contexto = {'zapatillas':zapatillasMujer}
     return render(request,'home/mujer/mujeres.html', contexto)
-def PM1(request):
-    return render(request,'home/mujer/PM1.html')
-def PM2(request):
-    return render(request,'home/mujer/PM2.html')
-def PM3(request):
-    return render(request,'home/mujer/PM3.html')
-def PM4(request):
-    return render(request,'home/mujer/PM4.html')
-def PM5(request):
-    return render(request,'home/mujer/PM5.html')
-def PM6(request):
-    return render(request,'home/mujer/PM6.html')
-def PM7(request):
-    return render(request,'home/mujer/PM7.html')
-def PM8(request):
-    return render(request,'home/mujer/PM8.html')
 ####    PAGINA MUJERES Y MODELOS #####
 def ninos(request):
     zapatillasnino = Zapatilla.objects.filter(genero_id = 3)
     contexto = {'zapatillas':zapatillasnino}
     return render(request,'home/ninio/ninos.html',contexto)
-def m1(request):
-    return render(request,'home/ninio/m1.html')
-def stmlur(request):
-    return render(request,'home/ninio/stmlur.html')
-def dc(request):
-    return render(request,'home/ninio/dc.html')
-def teamcourt(request):
-    return render(request,'home/ninio/teamcourt.html')
-def xray(request):
-    return render(request,'home/ninio/xray.html')
 ####    PAGINA NIÑOS Y MODELOS #####
 def contacto(request):
     return render(request,'home/contacto.html')
@@ -81,12 +60,27 @@ def regZap(request):
     newGenero = request.POST['genero']
     newMarca = request.POST['marca']
 
+
     genero_eleg = Genero.objects.get(idGenero = newGenero)
     marca_eleg = Marca.objects.get(idMarca = newMarca)
 
-    Zapatilla.objects.create(modelo = newModelo, 
+    nueva = Zapatilla.objects.create(modelo = newModelo, 
                              descripcion = newDescripcion, precio = newPrecio,
                              foto = newFoto, genero = genero_eleg, marca = marca_eleg)
+
+
+    fotos = request.FILES.getlist('foto')
+
+    if request.method == 'POST' and request.FILES['foto']:
+        fs = FileSystemStorage()
+        for x in fotos:                       
+            nombre = str(nueva.idZapatilla)
+            extension = os.path.splitext(str(request.FILES['foto']))[1]
+            nombreFoto= nombre + extension
+
+            filename = fs.save(nombreFoto, x)
+
+
     return redirect(listar)
 
 def regMarca(request):
@@ -95,14 +89,32 @@ def regMarca(request):
     Marca.objects.create(nombreMarca = nombreMarca)
     return redirect(listar)
 
+def talla(request,id):
+    stock = Stock.objects.filter(zapatilla = id)
+    zapatilla = Zapatilla.objects.get(idZapatilla = id)
+    contexto = {'stock':stock,
+                'zapatilla':zapatilla,}
+    return render(request, 'home/mostrar-talla.html',contexto)
+
+def infoTalla(request,id):
+    zapatilla = Zapatilla.objects.get(idZapatilla = id)
+    contexto = {'zapatilla':zapatilla}
+    return render(request, 'home/agregar-talla.html',contexto)
+
 def regStock(request):
-    talla = request.POST['talla']
+    newTalla = request.POST['talla']
     cantidad = request.POST['cantidad']
 
     zapatilla = Zapatilla.objects.get(idZapatilla = request.POST['idZapatilla'])
+    
+    try:
+        Stock.objects.create(talla = newTalla, cantidad = cantidad, zapatilla = zapatilla)
+        messages.success(request,'Cambios realizados correctamente')
+    except:
+        messages.error(request,'Error')
+    id = zapatilla.idZapatilla
 
-    Stock.objects.create(talla = talla, cantidad = cantidad, zapatilla = zapatilla)
-    return redirect(listar)
+    return redirect(talla,id)
 
 def regUser(request):
     rut = request.POST['rut']
@@ -111,26 +123,20 @@ def regUser(request):
     fecha_nac = request.POST['fechaNac']
     mail = request.POST['mail']
     password = request.POST['clave']
-    nomUsuario = rut[0:2] + nombre[0:4] + apellido[0:2] + fecha_nac[0:4]
-    tipoUsuario = 'cliente'
-    Usuario.objects.create(rut = rut, nombre = nombre, apellido = apellido, fecha_nac = fecha_nac, mail = mail,
-                           password = password, nomUsuario = nomUsuario, tipoUsuario = tipoUsuario)
-    User.objects.create(username = nomUsuario, email = mail, first_name = nombre, last_name = apellido)
+    passwordValidar = request.POST['clave-confirmar']
+    nomUsuario = apellido + nombre + fecha_nac[0:4]
 
-    User.objects.get(username = nomUsuario).set_password(password)
-                        
+    if (password == passwordValidar):
+        User.objects.create(username = nomUsuario, password = make_password(password), email = mail, 
+                        first_name = nombre, last_name = apellido)
+        user = User.objects.get(username = nomUsuario)
+
+        Usuario.objects.create(user = user, rut = rut, fecha_nacimiento = fecha_nac)
+        messages.success(request,'Usuario registrado con exito')
+    else:
+        messages.error(request,'Las contraseñas no coinciden')
+
     return redirect(crear_cuenta)
-
-def mostrarZapatilla(request,id):
-    zapatillas = Zapatilla.objects.get(idZapatilla = id)
-    stock = Stock.objects.filter(zapatilla_id = id )
-
-    contexto = {
-        'zapatilla' : zapatillas,
-        'stock' : stock,
-    }
-
-    return render(request,'home/zapatilla.html',contexto)
 
 
 def editarLista(request):
@@ -164,7 +170,12 @@ def editarZapSql(request):
     newModelo = request.POST['modelo']
     newDescripcion = request.POST['descripcion']
     newPrecio = request.POST['precio']
-    newFoto = request.FILES['foto']
+    
+    try:
+        newFoto = request.FILES['foto']
+    except:
+        newFoto = request.POST['foto-actual']
+
     newGenero = request.POST['genero']
     newMarca = request.POST['marca']
 
@@ -190,7 +201,16 @@ def eliminarZap(request,id):
     return redirect('editarLista') 
 
 
+def mostrarZapatilla(request,id):
+    zapatillas = Zapatilla.objects.get(idZapatilla = id)
+    stock = Stock.objects.filter(zapatilla_id = id )
 
+    contexto = {
+        'zapatilla' : zapatillas,
+        'stock' : stock,
+    }
+
+    return render(request,'home/zapatilla.html',contexto)
 
 def editarMarca(request,id):
     marca = Marca.objects.get(idMarca = id)
@@ -222,9 +242,9 @@ def editarStock(request,id):
     zapatilla = Zapatilla.objects.all()
     contexto = {
         'stockf' : stock,
-        'zapstock': zapatilla
+        'zapatilla': zapatilla
     }
-    return render(request,'home/modificar.html',contexto)
+    return render(request,'home/agregar-talla.html',contexto)
 
 def editarStockSql(request):
     newidStock = request.POST['idStock']
@@ -244,9 +264,15 @@ def editarStockSql(request):
 
 def eliminarStock(request,id):
     stock = Stock.objects.get(idStock = id)
-    stock.delete()
+    zapatilla = stock.zapatilla.idZapatilla
 
-    return redirect('editarLista') 
+    
+    try:
+        stock.delete()
+        messages.success(request,'Cambios realizados correctamente')
+    except:
+        messages.error(request,'Error')
+    return redirect(talla,zapatilla) 
 
 
 def buscar(request):
@@ -267,14 +293,30 @@ def buscar(request):
     return render(request,'home/buscar.html', contexto)
 
 def carrito(request):
-    return render(request, 'home/carrito.html')
+    
+    try:
+        usuario = request.user.usuario
+        direccion = Direccion.objects.filter(usuario = usuario)
+        pedido, created = Pedido.objects.get_or_create(usuario = usuario)
+        
+    except:
+        direccion = None
+        pedido = None
+
+    metodo = MetodoPago.objects.all()
+    contexto = {'metodo':metodo,
+                'direccion':direccion,
+                'pedido': pedido}
+    return render(request,'home/carrito.html',contexto)
+    
 
 def login_view(request):
     us = request.POST['username']
     pa = request.POST['password']
+    usuario = Usuario.objects.get(rut = us)
 
-    user = authenticate(username = us, password = pa)
-
+    user = authenticate(username = usuario.user.username, password = pa)
+ 
     if user is not None:
         if user.is_active:
             login(request,user)
@@ -282,7 +324,7 @@ def login_view(request):
         else:
             messages.error(request,'Usuario inactivo')
     else:
-        messages.error(request,'Usuario y/o contraseña incorrecta')
+        messages.error(request,'Rut y/o contraseña incorrecta')
 
     return redirect('login')
 
@@ -291,52 +333,170 @@ def logout_view(request):
     return redirect('index')
 
 def usuario(request):
-    return render(request,'home/usuario.html')
+    usuario = request.user.usuario
+    tablaPedido = Pedido.objects.filter(usuario=usuario)
+    tablaDetalle = Detalle.objects.filter(pedido__in=tablaPedido)
+    
+    contexto = {
+        'pedido': tablaPedido,
+        'detalle': tablaDetalle,
+        'usuario': usuario,
+    }
+
+    return render(request,'home/usuario.html',contexto)
+
+
+def datos(request):
+    usuario = request.user.usuario
+    contexto = {'usuario': usuario,}
+    return render(request,'home/datos.html',contexto)
+
+def direccion(request):
+    usuario = request.user.usuario
+    region = Region.objects.all().order_by('idRegion')
+    comuna = Comuna.objects.all().order_by('nombreComuna')
+    direccion = Direccion.objects.filter(usuario = usuario)
+    contexto = {'region': region,
+        'comuna': comuna,
+        'direccion':direccion}
+    return render(request,'home/direccion.html',contexto)
+
+def modificarUsuario(request,rut):
+    user = Usuario.objects.get(rut = rut)
+    newNombre = request.POST['nombre']
+    newApellido = request.POST['apellido']
+    newFecha = request.POST['fechaNac']
+    newMail = request.POST['mail']
+    password = request.POST['clave']
+
+
+    if user.user.check_password(password):
+        user.user.first_name = newNombre
+        user.user.last_name = newApellido
+        user.fecha_nacimiento = newFecha
+        user.user.email = newMail
+        user.user.save()
+        user.save()
+        messages.success(request,'Cambios realizados correctamente')
+    else:
+        messages.error(request,'Contraseña incorrecta')
+
+    return redirect(usuario)
+
+def direccionUsuario(request):
+    user = request.user.usuario
+
+    newComuna = Comuna.objects.get(idComuna = request.POST['comuna'])
+    newRegion = Region.objects.get(idRegion = request.POST['region'])
+    newCalle = request.POST['calle']
+    newNumero = request.POST['numero']
+    password = request.POST['clave']
+
+    if user.user.check_password(password):
+        Direccion.objects.create(calle = newCalle, numero = newNumero, comuna = newComuna, region = newRegion, usuario = user)
+        messages.success(request,'Cambios realizados correctamente')
+    else:
+        messages.error(request,'Contraseña incorrecta')
+
+    
+    return redirect(direccion)
+
+def eliminarDireccion(request,id):
+    user = request.user.usuario
+
+    Direccion.objects.get(idDireccion = id, usuario = user).delete()
+    
+    return redirect(direccion)
+
+def ordenLista(request):
+    procesarPedido(request)
+    return render(request,'home/orden-lista.html')
 
 def procesarPedido(request):
-    usuario = Usuario.objects.get(rut = '21.004.733-6')
+    try:
+        usuario = request.user.usuario
+    except:
+        return redirect(crear_cuenta)
 
     if request.method == 'POST':
         zapatilla = request.POST.getlist('zapatilla')
         for x in zapatilla:
             t = x.split(',')
-            
+
             id = t[0]
             talla = t[1]
             cantidad = t[2]
             subTotal = t[3]
-
             zapatilla = Zapatilla.objects.get(idZapatilla = id)
+            stock = Stock.objects.get(talla = talla, zapatilla = zapatilla)
 
-            pedido, created = Pedido.objects.get_or_create(usuario = usuario)
+            
+            pedido = Pedido.objects.get(usuario = usuario)
+            detalle, created = Detalle.objects.get_or_create(pedido=pedido, zapatilla = zapatilla, stock = stock)
+            
+            detalle.cantidad = int(cantidad) 
 
-            detalle, created = Detalle.objects.get_or_create(pedido=pedido, zapatilla = zapatilla)
 
-
-            detalle.cantidad = cantidad
             detalle.subTotal = subTotal
             detalle.save()
 
+            pedido.metodopago = MetodoPago.objects.get(idMetodo = request.POST['metodo'])
             pedido.total = request.POST['total']
+            pedido.direccion = Direccion.objects.get(idDireccion = request.POST['direccion'])
             pedido.save()
 
-    tablaPedido = Pedido.objects.all()
+            stock.cantidad = stock.cantidad - 1
+            stock.save()
+
+            metodo = MetodoPago.objects.all()
+            direccion = Direccion.objects.filter(usuario = usuario)
+
+    pedidoVista = Pedido.objects.get(usuario = usuario)
     tablaDetalle = Detalle.objects.all()
     contexto = {
-        'pedido': tablaPedido,
-        'detalle': tablaDetalle
+        'pedido': pedidoVista,
+        'detalle': tablaDetalle,
+        'metodo':metodo,
+        'direccion':direccion,
     }
-    return render(request,'home/carrito.html',contexto)
+    return render(request,'home/orden-lista.html',contexto)
 
-def eliminarCarrito(request,id):
-    usuario = Usuario.objects.get(rut = '21.004.733-6')
-    pedido = Pedido.objects.get(usuario = usuario)
-    detalle = Detalle.objects.get(zapatilla = id)
-
-    if Detalle.objects.all().count() == 1:
-        detalle.delete()
-        pedido.delete()
-    else:
-        detalle.delete()
+def eliminarCarrito(request,id,talla):
+    usuario = request.user.usuario
+    stock = Stock.objects.get(zapatilla = id, talla = talla)
     
+    try:
+        pedido = Pedido.objects.get(usuario = usuario)
+    except Pedido.DoesNotExist:
+        pass
+    try:
+        detalle = Detalle.objects.get(zapatilla = id, stock = stock)
+        if Detalle.objects.all().count() == 1:
+            pedido.delete()
+            detalle.delete()
+        else:
+            detalle.delete()
+    except Detalle.DoesNotExist:
+        pass
+
     return redirect('carrito')
+
+
+
+
+###### banners
+def mid_air_red(request):
+    zap = Zapatilla.objects.get(modelo = 'Air Jordan 1 Mid Red')
+    return redirect(mostrarZapatilla, zap.idZapatilla)
+
+def mid_air_blue(request):
+    zap = Zapatilla.objects.get(modelo = 'Air Jordan 1 Low Laser Blue')
+    return redirect(mostrarZapatilla, zap.idZapatilla)
+
+def mid_air_purple(request):
+    zap = Zapatilla.objects.get(modelo = 'Air Jordan 1 Mid Deep Blue')
+    return redirect(mostrarZapatilla, zap.idZapatilla)
+
+def mid_air_gray(request):
+    zap = Zapatilla.objects.get(modelo = 'Air Jordan 1 Mid Light Gray')
+    return redirect(mostrarZapatilla, zap.idZapatilla)

@@ -22,6 +22,7 @@ from django.contrib.auth.views import logout_then_login
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('home.urls')),
+    path('api/', include('rest_zapatilla.urls')),
 ]   
 
 if settings.DEBUG:

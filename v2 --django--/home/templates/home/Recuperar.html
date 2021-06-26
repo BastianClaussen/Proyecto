@@ -92,11 +92,24 @@
                     shopping_bag
                 </i>
             </a>
-            <a href="{% url 'crear_cuenta' %}">
-                <span class="material-icons-outlined mt-1" style="font-size: 40px; color: black;">
-                    person_outline
-                </span>
-            </a>
+            {% if user.is_authenticated%}
+        <a href="{% url 'usuario' %}">
+          <span class="material-icons-outlined mt-1" style="font-size: 40px; color: black;">
+              person_outline
+          </span>
+        </a>
+        <a href="{% url 'logout' %}">
+          <span class="mt-1 ml-4" style="color: black;">
+              Cerrar Sesion
+          </span>
+        </a>
+        {%else %}
+        <a href="{% url 'crear_cuenta' %}">
+          <span class="material-icons-outlined mt-1" style="font-size: 40px; color: black;">
+              person_outline
+          </span>
+        </a>
+        {% endif %}
     
         </div>
     </nav>
@@ -140,4 +153,86 @@
 
 
 </body>
+<footer class="text-center text-lg-start bg-light text-muted mt-5">
+    <section
+      class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom"
+    >
+    </section>
+
+    <section class="">
+      <div class="container text-center text-md-start mt-5">
+
+        <div class="row mt-3">
+
+          <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+
+            <h6 class="text-uppercase fw-bold mb-4">
+              <i class="fas fa-gem me-3"></i>Wild Fang
+            </h6>
+            <p>
+              Tienda dedicada a la venta de sneakers/zapatillas de las marcas mas top en el mundo.
+            </p>
+          </div>
+
+          <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+
+            <h6 class="text-uppercase fw-bold mb-4">
+              Productos
+            </h6>
+            <p>
+              <a href="{% url 'hombres' %}" class="text-reset">Hombres</a>
+            </p>
+            <p>
+              <a href="{% url 'ninos' %}" class="text-reset">Niños</a>
+            </p>
+            <p>
+              <a href="{% url 'mujeres' %}" class="text-reset">Mujeres</a>
+            </p>
+          </div>
+          <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+
+            <h6 class="text-uppercase fw-bold mb-4">
+              Links
+            </h6>
+            <p>
+              <a href="{% url 'carrito' %}" class="text-reset">Carrito</a>
+            </p>
+            <p>
+                {% if user.is_authenticated %}
+                <a href="{% url 'usuario' %}" class="text-reset">Cuenta</a>
+                {% else %}
+                <a href="{% url 'crear_cuenta' %}" class="text-reset">Cuenta</a>
+                {% endif %}
+            </p>
+            <p>
+                {% if user.is_authenticated %}
+                <a href="{% url 'usuario' %}" class="text-reset">Ordenes</a>
+                {% else %}
+                <a href="{% url 'crear_cuenta' %}" class="text-reset">Ordenes</a>
+                {% endif %}
+            </p>
+            <p>
+              <a href="{% url 'contacto' %}" class="text-reset">Ayuda</a>
+            </p>
+          </div>
+          <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+            <h6 class="text-uppercase fw-bold mb-4">
+              Contacto
+            </h6>
+            <p><i class="material-icons  me-3">place</i>Av. Andrés Bello 2425, Providencia, Región Metropolitana</p>
+            <p>
+              <i class="material-icons me-3">alternate_email</i>
+               wildfang@soporte.com
+            </p>
+            <p><i class="material-icons  me-3">call</i> +56 9 1414 9429</p>
+            <p><i class="material-icons  me-3">call</i> +56 22 3912 1293</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+      © 2021 Copyright:
+      <a class="text-reset fw-bold" href="{% url 'index' %}">Wild Fang</a>
+    </div>
+  </footer>
 </html>

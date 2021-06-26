@@ -38,7 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'home',
-    'livereload',
+    'rest_framework',
+    'rest_zapatilla',
+    'rest_framework.authtoken',
 ]
 
 MIDDLEWARE = [
@@ -68,6 +70,12 @@ TEMPLATES = [
         },
     },
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES':[
+        'rest_framework.authentication.TokenAuthentication',
+    ]
+}
 
 WSGI_APPLICATION = 'Wild_Fang.wsgi.application'
 
@@ -138,3 +146,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 os.environ["DJANGO_ALLOW_ASYNC_UNSAFE"] = "true"
 
 LOGIN_REDIRECT_URL = 'index'
+
+LOGIN_URL = 'login'

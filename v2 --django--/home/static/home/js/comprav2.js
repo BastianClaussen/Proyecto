@@ -1,6 +1,7 @@
 const compra = new Carrito();
 const listaCompra = document.querySelector('#lista-compra tbody');
 const carrito = document.getElementById('carrito');
+const procesarCompraBtn = document.getElementById('procesar-compra');
 
 cargarEventos();
 
@@ -14,6 +15,7 @@ function cargarEventos(){
 
     carrito.addEventListener('change', (e) => { compra.obtenerEvento(e) });
     carrito.addEventListener('keyup', (e) => { compra.obtenerEvento(e) });
-
     
+    procesarCompraBtn.addEventListener('click', (e) => {compra.vaciarLocalStorage(e)})
 }
+

@@ -16,11 +16,9 @@
 
     <script type="text/javascript">
       $(document).ready(function(){
-        $("#rut").mask("00.000.000-0");
-      
-        $('#mostrar-login').click(function(){
+        $(".rut").mask("00.000.000-0");
           
-      });
+
       });
       
 
@@ -65,41 +63,39 @@
         </ul>
 
 
-        <form class="form-inline ">
-            <input class="form-control" type="search" placeholder="¿Qué desea buscar?" aria-label="Buscar">
-            <button class="btn btn-outline-dark ml-3" type="submit">Buscar</button>
+        <form class="form-inline" action="{% url 'buscar'  %}" method="POST" >
+            {% csrf_token %}
+            <input for="buscar" id="buscar" name="buscar" class="form-control" type="search" placeholder="¿Qué desea buscar?" aria-label="Buscar">
+            <button class="btn btn-outline-dark ml-3" type="submit" >Buscar</button>
         </form>
 
-        <a href="." >
+        <a href="{% url 'carrito' %}" >
             <i class="material-icons-outlined mx-3" style="color: black;font-size: 40px;">
                 shopping_bag
             </i>
         </a>
         {% if user.is_authenticated%}
-        <a href="">
-          <span class="mt-1" style="color: black;">
-              {{ user.username }}
-          </span>
-        </a>
-        <a href="{% url 'logout' %}">
-          <span class="mt-1 ml-4" style="color: black;">
-              Cerrar Sesion
-          </span>
-        </a>
-        {%else %}
-        <a href="{% url 'crear_cuenta' %}">
-          <span class="material-icons-outlined mt-1" style="font-size: 40px; color: black;">
-              person_outline
-          </span>
-        </a>
-        {% endif %}
-
-
-        
+    <a href="{% url 'usuario' %}">
+      <span class="material-icons-outlined mt-1" style="font-size: 40px; color: black;">
+          person_outline
+      </span>
+    </a>
+    <a href="{% url 'logout' %}">
+      <span class="mt-1 ml-4" style="color: black;">
+          Cerrar Sesion
+      </span>
+    </a>
+    {%else %}
+    <a href="{% url 'crear_cuenta' %}">
+      <span class="material-icons-outlined mt-1" style="font-size: 40px; color: black;">
+          person_outline
+      </span>
+    </a>
+    {% endif %}
 
     </div>
 </nav>
-<div class="container bg-light">
+<div class="container bg-light cont">
     <div class="row justify-content-center">
       <div class="col-12 col-md-6 col-lg-5 mt-5" >
         <H1 class="text-center">¡Inicia Sesión!</H1>
@@ -107,28 +103,48 @@
         <div class="text-center">
           <button type="button" class="btn btn-outline-dark mt-5" id="btn-mostrar-login">Iniciar sesión</button>
         </div>
-        <script>
+        
           
           {% if messages %}
             {% for i in messages %}
+            <script>
             Swal.fire({
             icon: 'error',
             title: 'Oops...',
             text: '{{i}}',
             timer: 3000
-          });
+          });</script>
             {% endfor %}
           {% endif %}
 
-        </script>
+          {% if messages %}
+            {% for c in messages %}
+            {% if c.tags == "error" %}
+            <script>
+            Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: '{{c}}',
+            timer: 3000
+          });</script>
+          {% else %}
+          <script>
+          Swal.fire({
+            icon: 'success',
+            text: '{{c}}',
+            timer: 3000
+          });</script>
+          {% endif %}
+            {% endfor %}
+          {% endif %}
         
         <div id="contenido-login">
         <form action="{% url 'sesion' %}" method="POST" class="mt-5 " id="formulario_sesion">
           {% csrf_token %}
               <div class="form-group row">
-                <label for="username" class="col-2 col-form-label">Nombre de usuario:</label>
+                <label for="username" class="col-2 col-form-label">Rut:</label>
                 <div class="col-10">
-                  <input class="form-control" type="text" placeholder="Nombre de usuario"  id="username" name="username" required>
+                  <input type="text" placeholder="Ingrese su Rut" class="form-control rut" autocomplete="off" name="username" id="username" required maxlength=9>
                 </div>
               </div>
 
@@ -163,7 +179,7 @@
               <div class="form-group row">
                     <label for="rut" class="col-2 col-form-label">Rut</label>
                     <div class="col-10">
-                      <input type="text" placeholder="Ingrese su Rut" class="form-control" autocomplete="off" name="rut" id="rut" required maxlength=9>
+                      <input type="text" placeholder="Ingrese su Rut" class="form-control rut" autocomplete="off" name="rut" required maxlength=9>
                     </div>
                   </div>
 
@@ -201,6 +217,12 @@
                       <input class="form-control" type="password" placeholder="Contraseña" name="clave" id="clave">
                     </div>
                   </div>
+                  <div class="form-group row">
+                    <label for="clave-confirmar" class="col-2 col-form-label">Confirmar Contraseña</label>
+                    <div class="col-10 ">
+                      <input class="form-control" type="password" placeholder="Confirmar Contraseña" name="clave-confirmar" id="clave-confirmar">
+                    </div>
+                  </div>
                   <div class="text-center">
                     <button type="submit" class="btn btn-outline-dark" onclick="nombreUsuario">Registrarse</button>
                   </div>
@@ -221,9 +243,10 @@
 </div>
 
 <script type="text/javascript">
+
       $("#contenido-login").hide();
       $("#contenido-registro").hide();
-    
+
       $("#btn-mostrar-login").click(function() { /// Al hacer click formulario inicio
         $("#contenido-login").toggle();
     
@@ -246,7 +269,90 @@
     
     });
     
+
     </script>
     
 </body>
+<footer class="text-center text-lg-start bg-light text-muted mt-5">
+  <section
+    class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom"
+  >
+  </section>
+
+  <section class="">
+    <div class="container text-center text-md-start mt-5">
+
+      <div class="row mt-3">
+
+        <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+
+          <h6 class="text-uppercase fw-bold mb-4">
+            <i class="fas fa-gem me-3"></i>Wild Fang
+          </h6>
+          <p>
+            Tienda dedicada a la venta de sneakers/zapatillas de las marcas mas top en el mundo.
+          </p>
+        </div>
+
+        <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+
+          <h6 class="text-uppercase fw-bold mb-4">
+            Productos
+          </h6>
+          <p>
+            <a href="{% url 'hombres' %}" class="text-reset">Hombres</a>
+          </p>
+          <p>
+            <a href="{% url 'ninos' %}" class="text-reset">Niños</a>
+          </p>
+          <p>
+            <a href="{% url 'mujeres' %}" class="text-reset">Mujeres</a>
+          </p>
+        </div>
+        <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+
+          <h6 class="text-uppercase fw-bold mb-4">
+            Links
+          </h6>
+          <p>
+            <a href="{% url 'carrito' %}" class="text-reset">Carrito</a>
+          </p>
+          <p>
+              {% if user.is_authenticated %}
+              <a href="{% url 'usuario' %}" class="text-reset">Cuenta</a>
+              {% else %}
+              <a href="{% url 'crear_cuenta' %}" class="text-reset">Cuenta</a>
+              {% endif %}
+          </p>
+          <p>
+              {% if user.is_authenticated %}
+              <a href="{% url 'usuario' %}" class="text-reset">Ordenes</a>
+              {% else %}
+              <a href="{% url 'crear_cuenta' %}" class="text-reset">Ordenes</a>
+              {% endif %}
+          </p>
+          <p>
+            <a href="{% url 'contacto' %}" class="text-reset">Ayuda</a>
+          </p>
+        </div>
+        <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+          <h6 class="text-uppercase fw-bold mb-4">
+            Contacto
+          </h6>
+          <p><i class="material-icons  me-3">place</i>Av. Andrés Bello 2425, Providencia, Región Metropolitana</p>
+          <p>
+            <i class="material-icons me-3">alternate_email</i>
+             wildfang@soporte.com
+          </p>
+          <p><i class="material-icons  me-3">call</i> +56 9 1414 9429</p>
+          <p><i class="material-icons  me-3">call</i> +56 22 3912 1293</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+    © 2021 Copyright:
+    <a class="text-reset fw-bold" href="{% url 'index' %}">Wild Fang</a>
+  </div>
+</footer>
 </html>

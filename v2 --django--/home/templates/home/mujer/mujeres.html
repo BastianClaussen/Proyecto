@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{% static 'home/css/bootstrap.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'home/css/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'home/css/secciones.css' %}">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -16,58 +16,72 @@
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-md navbar-primary bg-light fixed-top">
+  <nav class="navbar navbar-expand-md navbar-primary bg-light fixed-top">
 
-        <a href="{% url 'index' %}" id="logo" class="rounded">
+    <a href="{% url 'index' %}" id="logo" class="rounded">
+    </a>
+
+    <button class="navbar-toggler bg-dark navbar-dark" type="button" data-toggle="collapse" data-target="#menu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+    <div class="collapse navbar-collapse" id="menu">
+        <ul class="navbar-nav mx-auto">
+            <li class="nav-item">
+                <a class="nav-link bglink rounded" href="{% url 'hombres' %}">
+                    HOMBRE
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link bglink rounded" href="{% url 'mujeres' %}">
+                    MUJER
+                </a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link bglink rounded" href="{% url 'ninos' %}">
+                    NIÑO
+                </a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link bglink rounded"  href="{% url 'contacto' %}">
+                    C0NTACTO
+                </a>
+            </li>
+        </ul>
+
+
+        <form class="form-inline" action="{% url 'buscar'  %}" method="POST" >
+            {% csrf_token %}
+            <input for="buscar" id="buscar" name="buscar" class="form-control" type="search" placeholder="¿Qué desea buscar?" aria-label="Buscar">
+            <button class="btn btn-outline-dark ml-3" type="submit" >Buscar</button>
+        </form>
+
+        <a href="{% url 'carrito' %}" >
+            <i class="material-icons-outlined mx-3" style="color: black;font-size: 40px;">
+                shopping_bag
+            </i>
         </a>
-    
-        <button class="navbar-toggler bg-dark navbar-dark" type="button" data-toggle="collapse" data-target="#menu">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-    
-        <div class="collapse navbar-collapse" id="menu">
-            <ul class="navbar-nav mx-auto">
-                <li class="nav-item">
-                    <a class="nav-link bglink rounded" href="{% url 'hombres' %}">
-                        HOMBRE
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link bglink rounded" href="{% url 'mujeres' %}">
-                        MUJER
-                    </a>
-                </li>
-                <li class="nav-item ">
-                    <a class="nav-link bglink rounded" href="{% url 'ninos' %}">
-                        NIÑO
-                    </a>
-                </li>
-                <li class="nav-item ">
-                    <a class="nav-link bglink rounded"  href="{% url 'contacto' %}">
-                        C0NTACTO
-                    </a>
-                </li>
-            </ul>
-    
-    
-            <form class="form-inline ">
-                <input class="form-control" type="search" placeholder="¿Qué desea buscar?" aria-label="Buscar">
-                <button class="btn btn-outline-dark ml-3" type="submit">Buscar</button>
-            </form>
-    
-            <a href="." >
-                <i class="material-icons-outlined mx-3" style="color: black;font-size: 40px;">
-                    shopping_bag
-                </i>
-            </a>
-            <a href="{% url 'crear_cuenta' %}">
-                <span class="material-icons-outlined mt-1" style="font-size: 40px; color: black;">
-                    person_outline
-                </span>
-            </a>
-    
-        </div>
-    </nav>
+        {% if user.is_authenticated%}
+    <a href="{% url 'usuario' %}">
+      <span class="material-icons-outlined mt-1" style="font-size: 40px; color: black;">
+          person_outline
+      </span>
+    </a>
+    <a href="{% url 'logout' %}">
+      <span class="material-icons-outlined mt-1 ml-4" style=" font-size: 36px; color: black;">
+        logout
+      </span>
+    </a>
+    {%else %}
+    <a href="{% url 'crear_cuenta' %}">
+      <span class="material-icons-outlined mt-1" style="font-size: 40px; color: black;">
+          person_outline
+      </span>
+    </a>
+    {% endif %}
+
+    </div>
+</nav>
 
 
 <div class="container">
@@ -75,8 +89,12 @@
     <div class="row">
         {% for x in zapatillas%}
         <div class="col-6 col-sm-4 col-md-4 col-lg-3 p-0"> 
-            <div class=" tarjeta rounded">
-                <img src="{{ x.foto.url}}" class="img-fluid imagen rounded"  alt="">  
+            <div class=" tarjeta rounded" > <!--style="height: 428.5px ;"-->
+              {% if x.foto %}
+              <img src="{{ x.foto.url}}" class="img-fluid imagen rounded mostrador"  alt=""  width="1800"> 
+                {% else %} 
+              <img src="{% static 'home/img/not-found.png' %}" class="img-fluid imagen rounded mostrador"  alt=""  width="1800">
+              {% endif %} 
                 <h6 class="font-weight-bold text-left mt-2 ml-3 cat">{{ x.genero.nombre }}</h6>
                 <h6 class="font-weight-bold text-left ml-3">Zapatillas {{ x.modelo }}</h6>
                 <h6 class="m-0 text-left ml-3 pb-5">${{ x.precio }}</h6>
@@ -93,12 +111,87 @@
 
 
 
-
-
-<footer class="footer">
-
-</footer>
-
-
 </body>
+<footer class="text-center text-lg-start bg-light text-muted mt-5">
+    <section
+      class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom"
+    >
+    </section>
+
+    <section class="">
+      <div class="container text-center text-md-start mt-5">
+
+        <div class="row mt-3">
+
+          <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+
+            <h6 class="text-uppercase fw-bold mb-4">
+              <i class="fas fa-gem me-3"></i>Wild Fang
+            </h6>
+            <p>
+              Tienda dedicada a la venta de sneakers/zapatillas de las marcas mas top en el mundo.
+            </p>
+          </div>
+
+          <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+
+            <h6 class="text-uppercase fw-bold mb-4">
+              Productos
+            </h6>
+            <p>
+              <a href="{% url 'hombres' %}" class="text-reset">Hombres</a>
+            </p>
+            <p>
+              <a href="{% url 'ninos' %}" class="text-reset">Niños</a>
+            </p>
+            <p>
+              <a href="{% url 'mujeres' %}" class="text-reset">Mujeres</a>
+            </p>
+          </div>
+          <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+
+            <h6 class="text-uppercase fw-bold mb-4">
+              Links
+            </h6>
+            <p>
+              <a href="{% url 'carrito' %}" class="text-reset">Carrito</a>
+            </p>
+            <p>
+                {% if user.is_authenticated %}
+                <a href="{% url 'usuario' %}" class="text-reset">Cuenta</a>
+                {% else %}
+                <a href="{% url 'crear_cuenta' %}" class="text-reset">Cuenta</a>
+                {% endif %}
+            </p>
+            <p>
+                {% if user.is_authenticated %}
+                <a href="{% url 'usuario' %}" class="text-reset">Ordenes</a>
+                {% else %}
+                <a href="{% url 'crear_cuenta' %}" class="text-reset">Ordenes</a>
+                {% endif %}
+            </p>
+            <p>
+              <a href="{% url 'contacto' %}" class="text-reset">Ayuda</a>
+            </p>
+          </div>
+          <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+            <h6 class="text-uppercase fw-bold mb-4">
+              Contacto
+            </h6>
+            <p><i class="material-icons  me-3">place</i>Av. Andrés Bello 2425, Providencia, Región Metropolitana</p>
+            <p>
+              <i class="material-icons me-3">alternate_email</i>
+               wildfang@soporte.com
+            </p>
+            <p><i class="material-icons  me-3">call</i> +56 9 1414 9429</p>
+            <p><i class="material-icons  me-3">call</i> +56 22 3912 1293</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+      © 2021 Copyright:
+      <a class="text-reset fw-bold" href="{% url 'index' %}">Wild Fang</a>
+    </div>
+  </footer>
 </html>

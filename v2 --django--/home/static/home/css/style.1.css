@@ -1,16 +1,24 @@
-
-@media (min-width: 1200px) {  
-    .container { max-width: 1500px; 
-    }
-}
-@media (max-width: 991px) {  
+@media (min-width: 768px) and (max-width: 991px){ 
     .espacio{
         margin-top: 10%;
     }
 }
+@media (min-width: 1200px) {  
+    .container { max-width: 1500px; 
+    }
+    body{
+        margin-top: 10%;
+    }
+}
+@media (max-width: 1200px) {  
+    
+    body{
+        margin-top: 15%;
+    }
+}
 body {
     background-image: url(../img/Hexagon1.jpg);
-    margin-top: 5%;
+    
 }
 
 #logo{
@@ -54,9 +62,3 @@ body {
     background-color: black;
     border-radius: 5px;
 }
-
-.user-dropdown .dropdown-menu {
-    left: 50% !important;
-    transform: translateX(-50%) !important;
-    top: 100% !important;
-  }
