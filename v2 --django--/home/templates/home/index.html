@@ -153,7 +153,12 @@
       {% for x in zapatillasHombre%}
       <div class="col-6 col-sm-4 col-md-4 col-lg-2 p-0"> 
           <div class=" tarjeta rounded">
-              <img src="{{ x.foto.url }}" class="img-fluid rounded mostrador"  alt="">  
+            {% if x.foto %}
+            <img src="{{ x.foto.url }}" class="img-fluid rounded mostrador"  alt="">  
+            {% else %} 
+            <img src="{% static 'home/img/not-found.png' %}" class="img-fluid rounded mostrador"  alt="">
+            {% endif %}
+              
               <h6 class="font-weight-bold text-left mt-2 ml-3 cat">{{ x.genero.nombre}}</h6>
               <h6 class="font-weight-bold text-left ml-3">Zapatillas {{ x.modelo }}</h6>
               <h6 class="m-0 text-left ml-3 pb-5">${{ x.precio }}</h6>
@@ -173,7 +178,11 @@
         {% for x in zapatillasMujer%}
         <div class="col-6 col-sm-4 col-md-4 col-lg-2 p-0"> 
             <div class=" tarjeta rounded">
-                <img src="{{ x.foto.url }}" class="img-fluid rounded mostrador"  alt="">  
+              {% if x.foto %}
+              <img src="{{ x.foto.url }}" class="img-fluid rounded mostrador"  alt="">  
+              {% else %} 
+              <img src="{% static 'home/img/not-found.png' %}" class="img-fluid rounded mostrador"  alt="">
+              {% endif %}
                 <h6 class="font-weight-bold text-left mt-2 ml-3 cat">{{ x.genero.nombre}}</h6>
                 <h6 class="font-weight-bold text-left ml-3">Zapatillas {{ x.modelo }}</h6>
                 <h6 class="m-0 text-left ml-3 pb-5">${{ x.precio }}</h6>
@@ -194,7 +203,11 @@
         {% for x in zapatillasNino%}
         <div class="col-6 col-sm-4 col-md-4 col-lg-2 p-0"> 
             <div class=" tarjeta rounded">
+                {% if x.foto %}
                 <img src="{{ x.foto.url }}" class="img-fluid rounded mostrador"  alt="">  
+                {% else %} 
+                <img src="{% static 'home/img/not-found.png' %}" class="img-fluid rounded mostrador"  alt="">
+                {% endif %}
                 <h6 class="font-weight-bold text-left mt-2 ml-3 cat">{{ x.genero.nombre}}</h6>
                 <h6 class="font-weight-bold text-left ml-3">Zapatillas {{ x.modelo }}</h6>
                 <h6 class="m-0 text-left ml-3 pb-5">${{ x.precio }}</h6>

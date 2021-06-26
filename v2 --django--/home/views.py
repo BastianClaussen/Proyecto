@@ -1,4 +1,5 @@
 import os
+from django.http.response import Http404, HttpResponse
 from django.shortcuts import  redirect, render
 from .models import Comuna, Detalle, Direccion, Genero, Marca, MetodoPago, Pedido, Region, Usuario, Zapatilla, Stock
 from django.contrib import messages
@@ -45,11 +46,15 @@ def crear_cuenta(request):
 
 ####    INSERCION DE DATOS  ####
 def listar(request):
-    generos = Genero.objects.all()
-    marcas = Marca.objects.all()
-    contexto = {'generos':generos,
-                'marcas':marcas}
-    return render(request, 'home/agregar_datos.html', contexto)
+    if(request.user.is_superuser):
+            generos = Genero.objects.all()
+            marcas = Marca.objects.all()
+            contexto = {'generos':generos,
+                            'marcas':marcas}
+            return render(request, 'home/agregar_datos.html', contexto)
+    else:
+            return redirect(index)
+        
 
 
 def regZap(request):
@@ -90,16 +95,22 @@ def regMarca(request):
     return redirect(listar)
 
 def talla(request,id):
-    stock = Stock.objects.filter(zapatilla = id)
-    zapatilla = Zapatilla.objects.get(idZapatilla = id)
-    contexto = {'stock':stock,
-                'zapatilla':zapatilla,}
-    return render(request, 'home/mostrar-talla.html',contexto)
+    if(request.user.is_superuser):
+        stock = Stock.objects.filter(zapatilla = id)
+        zapatilla = Zapatilla.objects.get(idZapatilla = id)
+        contexto = {'stock':stock,
+                    'zapatilla':zapatilla,}
+        return render(request, 'home/mostrar-talla.html',contexto)
+    else:
+        return redirect(index)
 
 def infoTalla(request,id):
-    zapatilla = Zapatilla.objects.get(idZapatilla = id)
-    contexto = {'zapatilla':zapatilla}
-    return render(request, 'home/agregar-talla.html',contexto)
+    if(request.user.is_superuser):
+        zapatilla = Zapatilla.objects.get(idZapatilla = id)
+        contexto = {'zapatilla':zapatilla}
+        return render(request, 'home/agregar-talla.html',contexto)
+    else:
+        return redirect(index)
 
 def regStock(request):
     newTalla = request.POST['talla']
@@ -347,19 +358,26 @@ def usuario(request):
 
 
 def datos(request):
-    usuario = request.user.usuario
-    contexto = {'usuario': usuario,}
-    return render(request,'home/datos.html',contexto)
+    try:
+        usuario = request.user.usuario
+        contexto = {'usuario': usuario,}
+        return render(request,'home/datos.html',contexto)
+    except:
+        return redirect(index)
+    
 
 def direccion(request):
-    usuario = request.user.usuario
-    region = Region.objects.all().order_by('idRegion')
-    comuna = Comuna.objects.all().order_by('nombreComuna')
-    direccion = Direccion.objects.filter(usuario = usuario)
-    contexto = {'region': region,
-        'comuna': comuna,
-        'direccion':direccion}
-    return render(request,'home/direccion.html',contexto)
+    try:
+        usuario = request.user.usuario
+        region = Region.objects.all().order_by('idRegion')
+        comuna = Comuna.objects.all().order_by('nombreComuna')
+        direccion = Direccion.objects.filter(usuario = usuario)
+        contexto = {'region': region,
+            'comuna': comuna,
+            'direccion':direccion}
+        return render(request,'home/direccion.html',contexto)
+    except:
+        return redirect(index)
 
 def modificarUsuario(request,rut):
     user = Usuario.objects.get(rut = rut)
@@ -445,8 +463,6 @@ def procesarPedido(request):
             pedido.direccion = Direccion.objects.get(idDireccion = request.POST['direccion'])
             pedido.save()
 
-            stock.cantidad = stock.cantidad - 1
-            stock.save()
 
             metodo = MetodoPago.objects.all()
             direccion = Direccion.objects.filter(usuario = usuario)
@@ -462,13 +478,14 @@ def procesarPedido(request):
     return render(request,'home/orden-lista.html',contexto)
 
 def eliminarCarrito(request,id,talla):
-    usuario = request.user.usuario
-    stock = Stock.objects.get(zapatilla = id, talla = talla)
-    
     try:
+        usuario = request.user.usuario
         pedido = Pedido.objects.get(usuario = usuario)
-    except Pedido.DoesNotExist:
+    except:
         pass
+
+    stock = Stock.objects.get(zapatilla = id, talla = talla)
+
     try:
         detalle = Detalle.objects.get(zapatilla = id, stock = stock)
         if Detalle.objects.all().count() == 1:
@@ -498,5 +515,5 @@ def mid_air_purple(request):
     return redirect(mostrarZapatilla, zap.idZapatilla)
 
 def mid_air_gray(request):
-    zap = Zapatilla.objects.get(modelo = 'Air Jordan 1 Mid Light Gray')
+    zap = Zapatilla.objects.get(modelo = 'Jordan 1 Mid Light Smoke Grey')
     return redirect(mostrarZapatilla, zap.idZapatilla)

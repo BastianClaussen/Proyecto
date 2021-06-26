@@ -4,9 +4,8 @@ class Carrito{
     comprarProducto(e){
         e.preventDefault();
         if(e.target.classList.contains('agregar-a-carrito')){
-            const zapatilla = e.target.parentElement.parentElement.parentElement;
-            this.leerDatos(zapatilla)
-            
+            const zapatilla = e.target.parentElement.parentElement.parentElement.parentElement;
+            this.leerDatos(zapatilla);
         }
     }
 
@@ -84,13 +83,13 @@ class Carrito{
         this.guardarProductoLocalStorage(zapatilla);
     }
     eliminarProducto(e){
-        let producto, productoID;
+        let zapatilla, zapatillaID;
         if(e.target.classList.contains('borrar-producto')){
             e.target.parentElement.parentElement.remove();
-            producto = e.target.parentElement.parentElement;
-            productoID = producto.querySelector('a').getAttribute('data-id');
+            zapatilla = e.target.parentElement.parentElement;
+            zapatillaID = zapatilla.querySelector('.borrar-producto').getAttribute('data-id');
         }
-        this.eliminarProductoLocalStorage(productoID);
+        this.eliminarProductoLocalStorage(zapatillaID);
         this.calcularTotal();
     }
     vaciarCarrito(e){
@@ -121,12 +120,12 @@ class Carrito{
     }
     
 
-    eliminarProductoLocalStorage(productoID){
+    eliminarProductoLocalStorage(zapatillaID){
         let zapatillasLS;
         zapatillasLS = this.obtenerProductosLocalStorage();
         zapatillasLS.forEach(function(zapatillaLS, index){
 
-            if(zapatillaLS.id === productoID){
+            if(zapatillaLS.id === zapatillaID){
                 zapatillaLS.cantidad = 0;
                 zapatillasLS.splice(index,1);
             }
@@ -176,11 +175,11 @@ class Carrito{
                 <td data-label="Talla"><span id="talla">${zapatilla.talla}</span></td>
                 <td data-label="Precio">$ ${zapatilla.precio}</td>
                 <td data-label="Cantidad">
-                    <input type="number" id="cantidad" class="form-control cantidad" min="1"  value=${zapatilla.cantidad}>
+                    <input type="number" class="form-control cantidad" min="1" value=${zapatilla.cantidad}>
                 </td>
                 <td id="subtotales" data-label="Subtotal">$ ${zapatilla.precio * zapatilla.cantidad}</td>
                 <td data-label="Eliminar">
-                    <a href="eliminarCarrito/${zapatilla.id}/${zapatilla.talla}"  class=" borrar-producto material-icons-outlined" data-id="${zapatilla.id}">
+                    <a href="eliminarCarrito/${zapatilla.id}/${zapatilla.talla}"  class="borrar-producto material-icons-outlined" data-id="${zapatilla.id}">
                     highlight_off
                     </a>
                 </td>
@@ -217,8 +216,9 @@ class Carrito{
         let id, cantidad, zapatilla, zapatillasLS, talla;
         if (e.target.classList.contains('cantidad')) {
             zapatilla = e.target.parentElement.parentElement;
-            id = zapatilla.querySelector('a').getAttribute('data-id');
+            id = zapatilla.querySelector('.borrar-producto').getAttribute('data-id');
             cantidad = zapatilla.querySelector('input').value;
+            console.log(e.target.classList.contains('cantidad'));
             talla = zapatilla.querySelector('#talla').textContent;
             let actualizarMontos = document.querySelectorAll('#subtotales');
             zapatillasLS = this.obtenerProductosLocalStorage();
@@ -232,12 +232,11 @@ class Carrito{
                 }    
             });
             localStorage.setItem('zapatillas', JSON.stringify(zapatillasLS));
-            
+            window.location.reload();
         }
         else {
             console.log("click afuera");
         }
-        window.location.reload();
     }
 
 

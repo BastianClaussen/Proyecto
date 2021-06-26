@@ -140,7 +140,11 @@
                         <input type="file" class="form-control" id="foto" name="foto">
                     </div>
                     <label for="">Foto Actual</label>
-                    <img src="{{ zapatilla.foto.url }}" alt="" width="100">
+                    {% if zapatilla.foto %}
+                          <img src="{{ zapatilla.foto.url }}" class="img-fluid rounded mostrador" width="100" alt="">  
+                          {% else %} 
+                          <img src="{% static 'home/img/not-found.png' %}" class="img-fluid rounded mostrador" width="100"  alt="">
+                          {% endif %}
                     <input type="hidden" name="foto-actual" value="{{ zapatilla.foto}}">
                     <div class="form-group">
                         <label for="genero ">Genero: </label>

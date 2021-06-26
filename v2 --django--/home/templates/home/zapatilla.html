@@ -111,7 +111,7 @@
               <input type="hidden" class="foto" value="{{ zapatilla.foto.url }}">
               {% else %} 
               <img src="{% static 'home/img/not-found.png' %}" class="d-block img-fluid mx-auto"  alt=""  width="1800">
-              <input type="hidden" class="foto" value="{% static 'home/img/not-found.png' %}">
+              <input type="hidden" class="foto-no" value="{% static 'home/img/not-found.png' %}">
               {% endif %}
       
             </div>  
@@ -123,7 +123,7 @@
               
               <h5 class=" mt-3" id="marca"><span id="">{{ zapatilla.marca.nombreMarca }}</span></h5>
               <h1 class=" modelo ">Zapatillas <span id="">{{zapatilla.modelo}}</span></h1>
-              <h3  id="precio"><span>${{ zapatilla.precio}}</span> CLP</h3>
+              <h3  id="precio">$ <span>{{ zapatilla.precio}}</span> CLP</h3>
               <br>
               <h5 >Descripción</h5>
                       <p > {{ zapatilla.descripcion }} </p>

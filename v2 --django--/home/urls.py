@@ -38,7 +38,7 @@ urlpatterns = [
     path('mid_air_purple',mid_air_purple,name='mid_air_purple'),
     path('mid_air_blue',mid_air_blue,name='mid_air_blue'),
     path('mid_air_gray',mid_air_gray,name='mid_air_gray'),
-    path('login/', LoginView.as_view(template_name='home/crear_cuenta.html'),name='login'),
+    path('login/', LoginView.as_view(template_name='home/crear_cuenta.html'),name='loginPr'),
     path('sesion', login_view ,name='sesion'),
     path('ordenLista', ordenLista ,name='ordenLista'),
     path('logout', logout_view ,name='logout'),

@@ -91,7 +91,7 @@
     </div>
 </nav>
 <body>
-    
+    <main>
     <div class="container bg-light"style="margin-bottom: 10%;" >
         <div class="pt-4">
             <h2 class="d-flex justify-content-center">Realizar Compra</h2>
@@ -143,7 +143,7 @@
                                     <th scope="col">Foto</th>
                                     <th scope="col">Nombre</th>
                                     <th scope="col">Talla</th>
-                                    <th scope="col" >Precio</th>
+                                    <th scope="col">Precio</th>
                                     <th scope="col">Cantidad</th>
                                     <th scope="col">Sub Total</th>
                                     <th scope="col">Eliminar</th>
@@ -177,23 +177,24 @@
                             {% endif %}
                         </div>
                     </div>
-                    </form>
-
+                  </div>
+                </div>
+                </form>
+                  
             </div>
 
-
-        </div>
-    </div>
+          </main>
+        
 
     <script src="{% static 'home/js/carritov2.js' %}"></script>
     <script src="{% static 'home/js/comprav2.js' %}"></script>
-    <script type="text/javascript"
-  src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+    
 </body>
 
 <script>
+  
 //const btn = document.getElementById('procesar-compra');
-//
+//<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js">
 //emailjs.init('user_8LSuWO3hHgjgtQCBUFDGL')
 //
 //document.getElementById('procesar-pago')

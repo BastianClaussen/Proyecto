@@ -147,4 +147,4 @@ os.environ["DJANGO_ALLOW_ASYNC_UNSAFE"] = "true"
 
 LOGIN_REDIRECT_URL = 'index'
 
-LOGIN_URL = 'login'
+LOGIN_URL = 'loginPr'
