@@ -88,10 +88,10 @@
           </span>
         </a>
         <a href="{% url 'logout' %}">
-          <span class="mt-1 ml-4" style="color: black;">
-              Cerrar Sesion
+          <span class="material-icons-outlined mt-1 ml-4" style=" font-size: 36px; color: black;">
+            logout
           </span>
-        </a>
+        </a>   
         {%else %}
         <a href="{% url 'crear_cuenta' %}">
           <span class="material-icons-outlined mt-1" style="font-size: 40px; color: black;">
@@ -107,7 +107,7 @@
     </nav>
     <br><br>
 
-<div class="container bg-light" style="height: 500px;">
+<div class="container bg-light" id="contenedor3">
     <div class="row" > 
         <div class="col-md-3">
             <div class=" mt-4">
@@ -166,7 +166,7 @@
                         <td data-label="Fecha">{{x.fecha|date:'d-m-Y'}}</td>
                         <td data-label="Metodo de Pago">{{x.metodopago.metodo}}</td>
                         <td data-label="Total">{{x.total}}</td>
-                        <td data-label="Estado">Activo</td>
+                        <td data-label="Direccion">{{x.direccion.calle}} {{x.direccion.numero}}</td>
                     </tr>
                 </tbody>
                 {%endfor%}
@@ -310,7 +310,23 @@
   
     $("#btn-contenido-productos").click(function() { 
         $("#contenido-productos").toggle();
-    });
+        if ($('#contenedor3').width() <= 767 ){
+
+        if($('#contenido-productos').is(':visible'))
+        {
+        document.getElementById("contenedor3").style.height = "1200px";
+        }else{
+        document.getElementById("contenedor3").style.height = "1000px";
+        }
+        }else{
+        if($('#contenido-productos').is(':visible'))
+        {
+        document.getElementById("contenedor3").style.height = "1000px";
+        }else{
+        document.getElementById("contenedor3").style.height = "700px";
+        }
+        }
+            });
   </script>
   
 </html>

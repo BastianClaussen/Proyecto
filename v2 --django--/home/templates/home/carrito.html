@@ -21,6 +21,8 @@
         integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script>
     <script src="{% static 'home/js/talla.js' %}"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <title>Document</title>
 
 </head>
@@ -76,10 +78,10 @@
       </span>
     </a>
     <a href="{% url 'logout' %}">
-      <span class="mt-1 ml-4" style="color: black;">
+      <span class="material-icons-outlined mt-1 ml-4" style=" font-size: 36px; color: black;">
         logout
-      </span>Cerrar Sesion
-    </a>
+      </span>
+    </a>   
     {%else %}
     <a href="{% url 'crear_cuenta' %}">
       <span class="material-icons-outlined mt-1" style="font-size: 40px; color: black;">
@@ -180,7 +182,20 @@
                   </div>
                 </div>
                 </form>
-                  
+                {% if messages %}
+                {% for i in messages %}
+                {% if i.tags == "error" %}
+                <script>
+                Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: '{{i}}',
+                timer: 3000
+              });</script>
+              {% endif %}
+              {% endfor %}
+              {% endif %}
+
             </div>
 
           </main>

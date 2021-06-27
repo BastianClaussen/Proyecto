@@ -15,7 +15,7 @@ function cargarEventos(){
 
     carrito.addEventListener('change', (e) => { compra.obtenerEvento(e) });
     carrito.addEventListener('keyup', (e) => { compra.obtenerEvento(e) });
-    
-    procesarCompraBtn.addEventListener('click', (e) => {compra.vaciarLocalStorage(e)})
+
+    procesarCompraBtn.addEventListener('click', (e) => {compra.vaciarLocalStorage(e)});
 }
 

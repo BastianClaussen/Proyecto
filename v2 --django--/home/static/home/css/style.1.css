@@ -2,6 +2,7 @@
     .espacio{
         margin-top: 10%;
     }
+
 }
 @media (min-width: 1200px) {  
     .container { max-width: 1500px; 
@@ -15,7 +16,20 @@
     body{
         margin-top: 15%;
     }
+
 }
+@media (max-width: 768px) {
+    #contenedor{
+        height: 1200px;
+    }
+    #contenedor2{
+        height: 1000px;
+    }
+    #contenedor3{
+        height: 1000px;
+    }
+}
+
 body {
     background-image: url(../img/Hexagon1.jpg);
     

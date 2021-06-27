@@ -88,10 +88,10 @@
           </span>
         </a>
         <a href="{% url 'logout' %}">
-          <span class="mt-1 ml-4" style="color: black;">
-              Cerrar Sesion
+          <span class="material-icons-outlined mt-1 ml-4" style=" font-size: 36px; color: black;">
+            logout
           </span>
-        </a>
+        </a>   
         {%else %}
         <a href="{% url 'crear_cuenta' %}">
           <span class="material-icons-outlined mt-1" style="font-size: 40px; color: black;">
@@ -107,7 +107,7 @@
     </nav>
     <br><br>
 
-    <div class="container bg-light" style="height: 700px;">    <div class="row" > 
+    <div class="container bg-light" id="contenedor2">    <div class="row" > 
         <div class="col-md-3">
             <div class=" mt-4">
                 <img src="{% static 'home/img/user.png' %}" alt="Foto de perfil" width="150px">
@@ -178,6 +178,7 @@
                 
                 <form action="{% url 'direccionUsuario' %}" method="POST" class="mt-5" id="agregar-direccion" name="registro">
                         {% csrf_token %}
+                        <h3 class="mb-4">Agregar nueva Direccion</h3>
                         <div class="form-group row">
                               <label for="calle" class="col-2 col-form-label">Calle</label>
                               <div class="col-10">
@@ -343,6 +344,23 @@
 
     $("#btn-agregar-direccion").click(function() { 
         $("#agregar-direccion").toggle();
-    });
+        if ($('#contenedor2').width() <= 767 ){
+
+        if($('#agregar-direccion').is(':visible'))
+        {
+        document.getElementById("contenedor2").style.height = "1500px";
+        }else{
+        document.getElementById("contenedor2").style.height = "1200px";
+        }
+        }else{
+        if($('#agregar-direccion').is(':visible'))
+        {
+        document.getElementById("contenedor2").style.height = "1200px";
+        }else{
+        document.getElementById("contenedor2").style.height = "500px";
+        }
+        }
+            });
+
 </script>
 </html>

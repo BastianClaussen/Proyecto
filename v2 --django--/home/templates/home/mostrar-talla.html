@@ -100,9 +100,9 @@
     
     <div class="container bg-light p-5">
         <h1 class="">Modificar Datos {{stock.zapatilla}}</h1>
-        <a class="btn btn-dark text-light mt-2 ml-5" href="{% url 'formulario' %}" id="btn-sto">Ingresar Datos</a>
         <a class="btn btn-dark text-light mt-2 ml-5" href="{% url 'infoTalla' zapatilla.idZapatilla %}" id="btn-sto">Agregar talla nueva</a>
-            <div class="row mt-5">
+        <a class="btn btn-dark text-light mt-2 ml-5" href="{% url 'formulario' %}" id="btn-sto">Regresar</a>
+        <div class="row mt-5">
                 <div class="col">
                   <table class="table table-striped" id="tabla-sto">
                     <thead class="thead-dark">

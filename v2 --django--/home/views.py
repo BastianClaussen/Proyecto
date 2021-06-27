@@ -344,17 +344,22 @@ def logout_view(request):
     return redirect('index')
 
 def usuario(request):
-    usuario = request.user.usuario
+    try:
+        usuario = request.user.usuario
+    except:
+        return redirect(index)
+
     tablaPedido = Pedido.objects.filter(usuario=usuario)
     tablaDetalle = Detalle.objects.filter(pedido__in=tablaPedido)
-    
+        
     contexto = {
-        'pedido': tablaPedido,
-        'detalle': tablaDetalle,
-        'usuario': usuario,
-    }
+            'pedido': tablaPedido,
+            'detalle': tablaDetalle,
+            'usuario': usuario,
+        }
 
     return render(request,'home/usuario.html',contexto)
+
 
 
 def datos(request):
@@ -436,46 +441,65 @@ def procesarPedido(request):
     except:
         return redirect(crear_cuenta)
 
-    if request.method == 'POST':
-        zapatilla = request.POST.getlist('zapatilla')
-        for x in zapatilla:
-            t = x.split(',')
 
-            id = t[0]
-            talla = t[1]
-            cantidad = t[2]
-            subTotal = t[3]
-            zapatilla = Zapatilla.objects.get(idZapatilla = id)
-            stock = Stock.objects.get(talla = talla, zapatilla = zapatilla)
+    if request.POST.getlist('zapatilla'):
+        if request.method == 'POST':
+            zapatilla = request.POST.getlist('zapatilla')
+            for x in zapatilla:
+                t = x.split(',')
 
-            
-            pedido = Pedido.objects.get(usuario = usuario)
-            detalle, created = Detalle.objects.get_or_create(pedido=pedido, zapatilla = zapatilla, stock = stock)
-            
-            detalle.cantidad = int(cantidad) 
+                id = t[0]
+                talla = t[1]
+                cantidad = t[2]
+                subTotal = t[3]
+                zapatilla = Zapatilla.objects.get(idZapatilla = id)
+                stock = Stock.objects.get(talla = talla, zapatilla = zapatilla)
 
-
-            detalle.subTotal = subTotal
-            detalle.save()
-
-            pedido.metodopago = MetodoPago.objects.get(idMetodo = request.POST['metodo'])
-            pedido.total = request.POST['total']
-            pedido.direccion = Direccion.objects.get(idDireccion = request.POST['direccion'])
-            pedido.save()
+                
+                pedido = Pedido.objects.get(usuario = usuario)
+                detalle, created = Detalle.objects.get_or_create(pedido=pedido, zapatilla = zapatilla, stock = stock)
+                
+                detalle.cantidad = int(cantidad) 
 
 
-            metodo = MetodoPago.objects.all()
-            direccion = Direccion.objects.filter(usuario = usuario)
+                detalle.subTotal = subTotal
+                detalle.save()
 
-    pedidoVista = Pedido.objects.get(usuario = usuario)
-    tablaDetalle = Detalle.objects.all()
-    contexto = {
-        'pedido': pedidoVista,
-        'detalle': tablaDetalle,
-        'metodo':metodo,
-        'direccion':direccion,
-    }
-    return render(request,'home/orden-lista.html',contexto)
+                pedido.metodopago = MetodoPago.objects.get(idMetodo = request.POST['metodo'])
+                pedido.total = request.POST['total']
+                pedido.direccion = Direccion.objects.get(idDireccion = request.POST['direccion'])
+                pedido.save()
+
+                tallaEliminar = Stock.objects.get(talla = talla, zapatilla = zapatilla)
+
+                tallaEliminar.cantidad = tallaEliminar.cantidad - int(cantidad)
+                tallaEliminar.save()
+
+                if tallaEliminar.cantidad <= 0:
+                    tallaEliminar.delete()
+
+
+                metodo = MetodoPago.objects.all()
+                direccion = Direccion.objects.filter(usuario = usuario)
+
+            pedidoVista = Pedido.objects.get(usuario = usuario)
+            tablaDetalle = Detalle.objects.all()
+            contexto = {
+                'pedido': pedidoVista,
+                'detalle': tablaDetalle,
+                'metodo':metodo,
+                'direccion':direccion,
+            }
+            return render(request,'home/orden-lista.html',contexto)
+    else:
+        metodo = MetodoPago.objects.all()
+        direccion = Direccion.objects.filter(usuario = usuario)
+        contexto = {
+                'metodo':metodo,
+                'direccion':direccion,
+            }
+        messages.error(request, "El carrito esta vacio")
+        return render(request,'home/carrito.html',contexto)
 
 def eliminarCarrito(request,id,talla):
     try:

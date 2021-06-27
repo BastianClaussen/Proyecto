@@ -119,7 +119,6 @@ class Carrito{
         return zapatillaLS;
     }
     
-
     eliminarProductoLocalStorage(zapatillaID){
         let zapatillasLS;
         zapatillasLS = this.obtenerProductosLocalStorage();
