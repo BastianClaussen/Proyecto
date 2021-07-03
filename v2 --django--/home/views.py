@@ -56,38 +56,6 @@ def listar(request):
             return redirect(index)
         
 
-
-def regZap(request):
-    newModelo = request.POST['modelo']
-    newDescripcion = request.POST['descripcion']
-    newPrecio = request.POST['precio']
-    newFoto = request.FILES['foto']
-    newGenero = request.POST['genero']
-    newMarca = request.POST['marca']
-
-
-    genero_eleg = Genero.objects.get(idGenero = newGenero)
-    marca_eleg = Marca.objects.get(idMarca = newMarca)
-
-    nueva = Zapatilla.objects.create(modelo = newModelo, 
-                             descripcion = newDescripcion, precio = newPrecio,
-                             foto = newFoto, genero = genero_eleg, marca = marca_eleg)
-
-
-    fotos = request.FILES.getlist('foto')
-
-    if request.method == 'POST' and request.FILES['foto']:
-        fs = FileSystemStorage()
-        for x in fotos:                       
-            nombre = str(nueva.idZapatilla)
-            extension = os.path.splitext(str(request.FILES['foto']))[1]
-            nombreFoto= nombre + extension
-
-            filename = fs.save(nombreFoto, x)
-
-
-    return redirect(listar)
-
 def regMarca(request):
     nombreMarca = request.POST['nombreMarca']
 
@@ -250,28 +218,17 @@ def eliminarMarca(request,id):
 
 def editarStock(request,id):
     stock = Stock.objects.get(idStock = id)
-    zapatilla = Zapatilla.objects.all()
     contexto = {
-        'stockf' : stock,
-        'zapatilla': zapatilla
+        'stock' : stock
     }
     return render(request,'home/agregar-talla.html',contexto)
 
 def editarStockSql(request):
-    newidStock = request.POST['idStock']
-    newCantidad = request.POST['cantidad']
-    newtalla = request.POST['talla']
-
-    newStock = Stock.objects.get(idStock=newidStock)
-
-    idZapatilla = Zapatilla.objects.get(idZapatilla = request.POST['idZapatillaSt'])
-
-    newStock.cantidad = newCantidad
-    newStock.zapatilla = idZapatilla
-    newStock.talla = newtalla
-
-    newStock.save()
-    return redirect('editarLista')
+    zapatilla = Zapatilla.objects.get(idZapatilla = request.POST['idZapatilla'])
+    tallaMod = Stock.objects.get(zapatilla = zapatilla, idStock = request.POST['idStock'])
+    tallaMod.cantidad = request.POST['cantidad']
+    tallaMod.save()
+    return redirect(talla,zapatilla.idZapatilla)
 
 def eliminarStock(request,id):
     stock = Stock.objects.get(idStock = id)
@@ -324,9 +281,14 @@ def carrito(request):
 def login_view(request):
     us = request.POST['username']
     pa = request.POST['password']
-    usuario = Usuario.objects.get(rut = us)
+    try:
+        usuario = Usuario.objects.get(rut = us)
+        user = authenticate(username = usuario.user.username, password = pa)
+    except:
+        messages.error(request,'Usuario no encontrado')
 
-    user = authenticate(username = usuario.user.username, password = pa)
+        return redirect('loginPr')
+
  
     if user is not None:
         if user.is_active:
@@ -337,7 +299,7 @@ def login_view(request):
     else:
         messages.error(request,'Rut y/o contraseña incorrecta')
 
-    return redirect('login')
+    return redirect('loginPr')
 
 def logout_view(request):
     logout(request)
@@ -416,7 +378,7 @@ def direccionUsuario(request):
     password = request.POST['clave']
 
     if user.user.check_password(password):
-        Direccion.objects.create(calle = newCalle, numero = newNumero, comuna = newComuna, region = newRegion, usuario = user)
+        Direccion.objects.create(calle = newCalle, numero = newNumero, comuna = newComuna, region = newRegion, usuario = user, estado = 1)
         messages.success(request,'Cambios realizados correctamente')
     else:
         messages.error(request,'Contraseña incorrecta')
@@ -427,7 +389,9 @@ def direccionUsuario(request):
 def eliminarDireccion(request,id):
     user = request.user.usuario
 
-    Direccion.objects.get(idDireccion = id, usuario = user).delete()
+    dir = Direccion.objects.get(idDireccion = id, usuario = user)
+    dir.estado = 0
+    dir.save()
     
     return redirect(direccion)
 
@@ -471,14 +435,11 @@ def procesarPedido(request):
                 pedido.save()
 
                 tallaEliminar = Stock.objects.get(talla = talla, zapatilla = zapatilla)
-
                 tallaEliminar.cantidad = tallaEliminar.cantidad - int(cantidad)
                 tallaEliminar.save()
-
                 if tallaEliminar.cantidad <= 0:
                     tallaEliminar.delete()
-
-
+                    
                 metodo = MetodoPago.objects.all()
                 direccion = Direccion.objects.filter(usuario = usuario)
 
@@ -523,7 +484,36 @@ def eliminarCarrito(request,id,talla):
     return redirect('carrito')
 
 
+def regZap(request):
+    newModelo = request.POST['modelo']
+    newDescripcion = request.POST['descripcion']
+    newPrecio = request.POST['precio']
+    newFoto = request.FILES['foto']
+    newGenero = request.POST['genero']
+    newMarca = request.POST['marca']
 
+
+    genero_eleg = Genero.objects.get(idGenero = newGenero)
+    marca_eleg = Marca.objects.get(idMarca = newMarca)
+
+    nueva = Zapatilla.objects.create(modelo = newModelo, 
+                             descripcion = newDescripcion, precio = newPrecio,
+                             foto = newFoto, genero = genero_eleg, marca = marca_eleg)
+
+
+    fotos = request.FILES.getlist('foto')
+
+    if request.method == 'POST' and request.FILES['foto']:
+        fs = FileSystemStorage()
+        for x in fotos:                       
+            nombre = str(nueva.idZapatilla)
+            extension = os.path.splitext(str(request.FILES['foto']))[1]
+            nombreFoto= nombre + extension
+
+            filename = fs.save(nombreFoto, x)
+
+
+    return redirect(talla,nueva.idZapatilla)
 
 ###### banners
 def mid_air_red(request):

@@ -157,6 +157,7 @@
                             <th>Eliminar</th>
                         </thead>
                         {% for x in direccion %}
+                        {% if x.estado == 1 %}
                         <tbody>   
                             <tr>
                                 <td data-label="Calle ">{{x.calle}}</td>
@@ -169,6 +170,7 @@
                                     </a></td>
                             </tr>
                         </tbody>
+                        {% endif %}
                         {%endfor%}
                     </table>
                     <div class="text-center">

@@ -27,9 +27,18 @@
          
           if($("#nombre").val().trim().length == 0){
                 mensaje = mensaje + "<br>El campo nombre no debe estar vacío";
+                $('#alert').html(mensaje);
+            $('#alert').show();
+                return false;
+
             }
-            if(isNaN($("#numero").val)){
+            if($("#numero").val().trim().length == 0){
                 mensaje = mensaje + "<br>Verifique el formato del Numero de telefono";
+                $('#alert').html(mensaje);
+            $('#alert').show();
+
+                return false;
+
             }
           if (mensaje!="") {
             $('#alert').html(mensaje);
@@ -173,7 +182,7 @@
 
             <div class="form-group col-md-6">
                 <label for="numero">Número de Teléfono</label>
-                <input type="tel" class="form-control" name="numero" id="numero" required maxlength=10 placeholder="9 9999 9999">
+                <input type="tel" class="form-control" name="numero" id="numero" maxlength=10 placeholder="9 9999 9999">
             </div>
     
             

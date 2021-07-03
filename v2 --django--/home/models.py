@@ -51,6 +51,7 @@ class Direccion(models.Model):
     comuna = models.ForeignKey(Comuna,on_delete=models.CASCADE,null=True)
     region = models.ForeignKey(Region,on_delete=models.CASCADE,null=True)
     usuario = models.ForeignKey(Usuario,on_delete=models.CASCADE,null=True)
+    estado = models.IntegerField(verbose_name='Estado de la direccion')
 
 class Pedido(models.Model):
     idPedido = models.AutoField(primary_key=True,verbose_name='Id de Pedido')
