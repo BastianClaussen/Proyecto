@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth.views import LoginView,LogoutView
 from django.contrib.auth.decorators import login_required
-from .views import  direccion, datos, infoTalla, mid_air_blue, mid_air_gray, mid_air_purple, mostrarZapatilla, ordenLista, talla, buscar, carrito, direccionUsuario, editarMarca, editarMarcaSql, editarStock, editarStockSql, editarZap,editarLista, editarZapSql, eliminarCarrito, eliminarDireccion, eliminarMarca, eliminarStock, eliminarZap, index,hombres,listar, login_view, logout_view, mid_air_red, modificarUsuario, procesarPedido, regStock,regMarca, regUser,regZap,mujeres,ninos, usuario,contacto,recuperar,crear_cuenta
+from .views import  detalle, direccion, datos, infoTalla, mid_air_blue, mid_air_gray, mid_air_purple, mostrarZapatilla, ordenLista, talla, buscar, carrito, direccionUsuario, editarMarca, editarMarcaSql, editarStock, editarStockSql, editarZap,editarLista, editarZapSql, eliminarCarrito, eliminarDireccion, eliminarMarca, eliminarStock, eliminarZap, index,hombres,listar, login_view, logout_view, mid_air_red, modificarUsuario, procesarPedido, regStock,regMarca, regUser,regZap,mujeres,ninos, usuario,contacto,recuperar,crear_cuenta
 
 urlpatterns = [
     path('', index, name="index"),
@@ -43,6 +43,7 @@ urlpatterns = [
     path('ordenLista', ordenLista ,name='ordenLista'),
     path('logout', logout_view ,name='logout'),
     path('usuario',login_required(usuario), name='usuario'),
+    path('detalle/<int:id>',login_required(detalle), name='detalle'),
     path('talla/<int:id>', talla, name='talla'),
     path('infoTalla/<int:id>', infoTalla, name='infoTalla'),
     path('direccionUsuario', direccionUsuario, name='direccionUsuario'),

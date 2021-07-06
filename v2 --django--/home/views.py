@@ -1,10 +1,10 @@
+import datetime
 import os
 from django.http.response import Http404, HttpResponse
 from django.shortcuts import  redirect, render
 from .models import Comuna, Detalle, Direccion, Genero, Marca, MetodoPago, Pedido, Region, Usuario, Zapatilla, Stock
 from django.contrib import messages
 from django.db.models import Q
-from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
@@ -18,6 +18,7 @@ def index(request):
     contexto = {'zapatillasHombre':zapatillasHombre,
                 'zapatillasMujer':zapatillasMujer,
                 'zapatillasNino':zapatillasNino}
+    print(datetime.datetime.now())
     return render(request, 'home/index.html', contexto)
 ####    PAGINA PRINCIPAL INDEX #####
 def hombres(request):
@@ -264,17 +265,13 @@ def carrito(request):
     
     try:
         usuario = request.user.usuario
-        direccion = Direccion.objects.filter(usuario = usuario)
-        pedido, created = Pedido.objects.get_or_create(usuario = usuario)
-        
+        direccion = Direccion.objects.filter(usuario = usuario, estado = 1)
     except:
         direccion = None
-        pedido = None
 
     metodo = MetodoPago.objects.all()
     contexto = {'metodo':metodo,
-                'direccion':direccion,
-                'pedido': pedido}
+                'direccion':direccion}
     return render(request,'home/carrito.html',contexto)
     
 
@@ -322,7 +319,22 @@ def usuario(request):
 
     return render(request,'home/usuario.html',contexto)
 
+def detalle(request,id):
+    try:
+        usuario = request.user.usuario
+    except:
+        return redirect(index)
 
+    tablaPedido = Pedido.objects.filter(usuario=usuario)
+    tablaDetalle = Detalle.objects.filter(pedido = id)
+        
+    contexto = {
+            'pedido': tablaPedido,
+            'detalle': tablaDetalle,
+            'usuario': usuario,
+        }
+
+    return render(request,'home/usuario.html',contexto)
 
 def datos(request):
     try:
@@ -366,7 +378,7 @@ def modificarUsuario(request,rut):
     else:
         messages.error(request,'Contraseña incorrecta')
 
-    return redirect(usuario)
+    return redirect('datos')
 
 def direccionUsuario(request):
     user = request.user.usuario
@@ -408,50 +420,50 @@ def procesarPedido(request):
 
     if request.POST.getlist('zapatilla'):
         if request.method == 'POST':
+            
             zapatilla = request.POST.getlist('zapatilla')
+            pedido = Pedido.objects.create(usuario = usuario, fecha = datetime.datetime.now())
             for x in zapatilla:
                 t = x.split(',')
-
                 id = t[0]
                 talla = t[1]
                 cantidad = t[2]
                 subTotal = t[3]
                 zapatilla = Zapatilla.objects.get(idZapatilla = id)
-                stock = Stock.objects.get(talla = talla, zapatilla = zapatilla)
-
-                
-                pedido = Pedido.objects.get(usuario = usuario)
+                try:
+                    stock = Stock.objects.get(talla = talla, zapatilla = zapatilla)
+                except:
+                    messages.error(request, "No hay suficiente stock")
+                    return redirect('carrito')
                 detalle, created = Detalle.objects.get_or_create(pedido=pedido, zapatilla = zapatilla, stock = stock)
-                
                 detalle.cantidad = int(cantidad) 
-
-
                 detalle.subTotal = subTotal
                 detalle.save()
-
                 pedido.metodopago = MetodoPago.objects.get(idMetodo = request.POST['metodo'])
                 pedido.total = request.POST['total']
-                pedido.direccion = Direccion.objects.get(idDireccion = request.POST['direccion'])
+                try:
+                    pedido.direccion = Direccion.objects.get(idDireccion = request.POST['direccion'])
+                except:
+                    messages.error(request, "Debe agregar una direccion de despacho")
+                    return redirect('direccion')
                 pedido.save()
-
                 tallaEliminar = Stock.objects.get(talla = talla, zapatilla = zapatilla)
                 tallaEliminar.cantidad = tallaEliminar.cantidad - int(cantidad)
                 tallaEliminar.save()
                 if tallaEliminar.cantidad <= 0:
                     tallaEliminar.delete()
-                    
                 metodo = MetodoPago.objects.all()
-                direccion = Direccion.objects.filter(usuario = usuario)
-
-            pedidoVista = Pedido.objects.get(usuario = usuario)
+                direccion = Direccion.objects.filter(usuario = usuario, estado = 1)
+            pedidoVista = Pedido.objects.last()
             tablaDetalle = Detalle.objects.all()
             contexto = {
-                'pedido': pedidoVista,
+                'pedidos': pedidoVista,
                 'detalle': tablaDetalle,
                 'metodo':metodo,
                 'direccion':direccion,
             }
             return render(request,'home/orden-lista.html',contexto)
+        
     else:
         metodo = MetodoPago.objects.all()
         direccion = Direccion.objects.filter(usuario = usuario)
@@ -488,10 +500,13 @@ def regZap(request):
     newModelo = request.POST['modelo']
     newDescripcion = request.POST['descripcion']
     newPrecio = request.POST['precio']
-    newFoto = request.FILES['foto']
     newGenero = request.POST['genero']
     newMarca = request.POST['marca']
 
+    try:
+        newFoto = request.FILES['foto']
+    except:
+        newFoto = request.POST['foto-actual']
 
     genero_eleg = Genero.objects.get(idGenero = newGenero)
     marca_eleg = Marca.objects.get(idMarca = newMarca)
@@ -503,7 +518,8 @@ def regZap(request):
 
     fotos = request.FILES.getlist('foto')
 
-    if request.method == 'POST' and request.FILES['foto']:
+    try:
+        newFoto = request.FILES['foto']
         fs = FileSystemStorage()
         for x in fotos:                       
             nombre = str(nueva.idZapatilla)
@@ -511,6 +527,8 @@ def regZap(request):
             nombreFoto= nombre + extension
 
             filename = fs.save(nombreFoto, x)
+    except:
+        pass
 
 
     return redirect(talla,nueva.idZapatilla)

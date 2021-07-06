@@ -35,11 +35,11 @@
 
         <a href="{% url 'index' %}" id="logo" class="rounded">
         </a>
-
+    
         <button class="navbar-toggler bg-dark navbar-dark" type="button" data-toggle="collapse" data-target="#menu">
             <span class="navbar-toggler-icon"></span>
-        </button>
-
+          </button>
+    
         <div class="collapse navbar-collapse" id="menu">
             <ul class="navbar-nav mx-auto">
                 <li class="nav-item">
@@ -58,19 +58,20 @@
                     </a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link bglink rounded" href="{% url 'contacto' %}">
+                    <a class="nav-link bglink rounded"  href="{% url 'contacto' %}">
                         C0NTACTO
                     </a>
                 </li>
             </ul>
-
-
-            <form class="form-inline ">
-                <input class="form-control" type="search" placeholder="¿Qué desea buscar?" aria-label="Buscar">
-                <button class="btn btn-outline-dark ml-3" type="submit">Buscar</button>
+    
+    
+            <form class="form-inline" action="{% url 'buscar'  %}" method="POST" >
+                {% csrf_token %}
+                <input for="buscar" id="buscar" name="buscar" class="form-control" type="search" placeholder="¿Qué desea buscar?" aria-label="Buscar">
+                <button class="btn btn-outline-dark ml-3" type="submit" >Buscar</button>
             </form>
 
-            <a href=".">
+            <a href="{% url 'carrito' %}" >
                 <i class="material-icons-outlined mx-3" style="color: black;font-size: 40px;">
                     shopping_bag
                 </i>
@@ -82,10 +83,10 @@
           </span>
         </a>
         <a href="{% url 'logout' %}">
-          <span class="mt-1 ml-4" style="color: black;">
-              Cerrar Sesion
+          <span class="material-icons-outlined mt-1 ml-4" style=" font-size: 36px; color: black;">
+            logout
           </span>
-        </a>
+        </a>        
         {%else %}
         <a href="{% url 'crear_cuenta' %}">
           <span class="material-icons-outlined mt-1" style="font-size: 40px; color: black;">
@@ -93,7 +94,7 @@
           </span>
         </a>
         {% endif %}
-
+    
         </div>
     </nav>
 
@@ -173,37 +174,7 @@
                     <button type="submit" class="btn btn-dark">Registrar Zapatilla</button>
                 </form>
             </div>
-            <div class="col-4 mt-5" >
-                <h5>INSERTAR STOCK</h5>
-                <form action="{% url 'editarStockSql' %}" id="regStock" method="POST">
-                    {% csrf_token %}
-                    <div class="form-group">
-                        <label for="idStock">ID Stock: </label>
-                        <input type="number" class="form-control" value="{{stockf.idStock}}" id="idStock" name="idStock" required readonly>
-                    </div>
-                    <div class="form-group">
-                        <label for="idZapatillaSt">Id Zapatilla: </label>
-                        <input type="number" class="form-control" value="{{stockf.zapatilla.idZapatilla}}" id="idZapatillaSt" name="idZapatillaSt" readonly>
-                        <br>
-                        <label for="">Referencia:</label>
-                        <br>
-                        {% if x.foto %}
-                        <img src="{{stockf.zapatilla.foto.url}}" alt="" width="160">       
-                            {% else %} 
-                        <img src="{% static 'home/img/not-found.png' %}" class="img-fluid imagen rounded mostrador"  alt=""  width="160">
-                        {% endif %}
-                    </div>
-                    <div class="form-group">
-                        <label for="talla ">Talla: </label>
-                        <input type="number" class="form-control" value="{{stockf.talla}}" id="talla" name="talla">
-                    </div>
-                    <div class="form-group">
-                        <label for="cantidad ">Cantidad: </label>
-                        <input type="number" class="form-control" value="{{stockf.cantidad}}" id="cantidad" name="cantidad">
-                    </div>
-                    <button type="submit" class="btn btn-dark">Registrar Stock</button>
-                </form>
-        </div>
+            
         </div>
         <div class="row">
             

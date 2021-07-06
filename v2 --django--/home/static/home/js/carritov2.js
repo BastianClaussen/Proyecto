@@ -174,7 +174,7 @@ class Carrito{
                 <td data-label="Talla"><span id="talla">${zapatilla.talla}</span></td>
                 <td data-label="Precio">$ ${zapatilla.precio}</td>
                 <td data-label="Cantidad">
-                    <input type="number" class="form-control cantidad" min="1" value=${zapatilla.cantidad}>
+                    <input type="number" class="form-control cantidad" pattern="[0-9]{2}" min="1" max="10" value=${zapatilla.cantidad}>
                 </td>
                 <td id="subtotales" data-label="Subtotal">$ ${zapatilla.precio * zapatilla.cantidad}</td>
                 <td data-label="Eliminar">

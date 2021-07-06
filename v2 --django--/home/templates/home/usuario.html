@@ -19,92 +19,72 @@
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-md navbar-primary bg-light fixed-top">
+  <nav class="navbar navbar-expand-md navbar-primary bg-light fixed-top">
 
-        <a href="{% url 'index' %}" id="logo" class="rounded">
-        </a>
-    
-        <button class="navbar-toggler bg-dark navbar-dark" type="button" data-toggle="collapse" data-target="#menu">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="menu">
-            <ul class="navbar-nav mx-auto">
-                <li class="nav-item">
-                    <a class="nav-link bglink rounded" href="{% url 'hombres' %}">
-                        HOMBRE
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link bglink rounded" href="{% url 'mujeres' %}">
-                        MUJER
-                    </a>
-                </li>
-                <li class="nav-item ">
-                    <a class="nav-link bglink rounded" href="{% url 'ninos' %}">
-                        NIÑO
-                    </a>
-                </li>
-                <li class="nav-item ">
-                    <a class="nav-link bglink rounded"  href="{% url 'contacto' %}">
-                        C0NTACTO
-                    </a>
-                </li>
-            </ul>
-                <form class="form-inline ">
-                
-                    <input class="form-control" type="search" placeholder="¿Qué desea buscar?" aria-label="Buscar">
-                    <button class="btn btn-outline-dark ml-3" type="submit">Buscar</button>
-                </form>
-                
-                <div class="user-dropdown text-center">
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item dropdown">
-                            <a href="{% url 'carrito' %}"  id="procesar-pedido">
-                                <i class="material-icons-outlined mx-3" style="color: black;font-size: 40px;">
-                                    shopping_bag
-                                </i>
-                            </a>
-                            <div id="carrito" class="dropdown-menu" aria-labelledby="navbarCollapse">
-                                <table id="lista-carrito" class="table">
-                                    <thead>
-                                        <tr>
+    <a href="{% url 'index' %}" id="logo" class="rounded">
+    </a>
 
-                                        </tr>
-                                    </thead>
-                                    <tbody></tbody>
-                                </table>
-        
-                                <a href="#" id="vaciar-carrito" class="btn btn-primary btn-block">Vaciar Carrito</a>
-                                <a href="#" id="procesar-pedido" class="btn btn-danger btn-block">Procesar
-                                    Compra</a>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                {% if user.is_authenticated%}
-        <a href="{% url 'usuario' %}">
-          <span class="material-icons-outlined mt-1" style="font-size: 40px; color: black;">
-              person_outline
-          </span>
+    <button class="navbar-toggler bg-dark navbar-dark" type="button" data-toggle="collapse" data-target="#menu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+    <div class="collapse navbar-collapse" id="menu">
+        <ul class="navbar-nav mx-auto">
+            <li class="nav-item">
+                <a class="nav-link bglink rounded" href="{% url 'hombres' %}">
+                    HOMBRE
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link bglink rounded" href="{% url 'mujeres' %}">
+                    MUJER
+                </a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link bglink rounded" href="{% url 'ninos' %}">
+                    NIÑO
+                </a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link bglink rounded"  href="{% url 'contacto' %}">
+                    C0NTACTO
+                </a>
+            </li>
+        </ul>
+
+
+        <form class="form-inline" action="{% url 'buscar'  %}" method="POST" >
+            {% csrf_token %}
+            <input for="buscar" id="buscar" name="buscar" class="form-control" type="search" placeholder="¿Qué desea buscar?" aria-label="Buscar">
+            <button class="btn btn-outline-dark ml-3" type="submit" >Buscar</button>
+        </form>
+
+        <a href="{% url 'carrito' %}" >
+            <i class="material-icons-outlined mx-3" style="color: black;font-size: 40px;">
+                shopping_bag
+            </i>
         </a>
-        <a href="{% url 'logout' %}">
-          <span class="material-icons-outlined mt-1 ml-4" style=" font-size: 36px; color: black;">
-            logout
-          </span>
-        </a>   
-        {%else %}
-        <a href="{% url 'crear_cuenta' %}">
-          <span class="material-icons-outlined mt-1" style="font-size: 40px; color: black;">
-              person_outline
-          </span>
-        </a>
-        {% endif %}
-            
-            
-            
-    
-        </div>
-    </nav>
+        {% if user.is_authenticated%}
+    <a href="{% url 'usuario' %}">
+      <span class="material-icons-outlined mt-1" style="font-size: 40px; color: black;">
+          person_outline
+      </span>
+    </a>
+    <a href="{% url 'logout' %}">
+      <span class="material-icons-outlined mt-1 ml-4" style=" font-size: 36px; color: black;">
+        logout
+      </span>
+    </a>        
+    {%else %}
+    <a href="{% url 'crear_cuenta' %}">
+      <span class="material-icons-outlined mt-1" style="font-size: 40px; color: black;">
+          person_outline
+      </span>
+    </a>
+    {% endif %}
+
+    </div>
+</nav>
     <br><br>
 
 <div class="container bg-light" id="contenedor3">
@@ -162,7 +142,7 @@
                 <tbody>   
                     <tr>
                         <td data-label="Id de Compra">{{x.idPedido}}</td>
-                        <td data-label="Productos"><button class="btn btn-outline-dark" id="btn-contenido-productos">Mostrar</button></td>
+                        <td data-label="Productos"><a href="{% url 'detalle' x.idPedido %}"><button class="btn btn-outline-dark btn-contenido-productos" >Mostrar</button></a></td>
                         <td data-label="Fecha">{{x.fecha|date:'d-m-Y'}}</td>
                         <td data-label="Metodo de Pago">{{x.metodopago.metodo}}</td>
                         <td data-label="Total">{{x.total}}</td>
@@ -306,17 +286,20 @@
     </div>
   </footer>
 <script>
+  if (window.location.href == 'http://127.0.0.1:8000/usuario') {
     $("#contenido-productos").hide();
-  
-    $("#btn-contenido-productos").click(function() { 
+  } else {
+    $("#contenido-productos").show();
+  }
+    $(".btn-contenido-productos").click(function() { 
         $("#contenido-productos").toggle();
         if ($('#contenedor3').width() <= 767 ){
 
         if($('#contenido-productos').is(':visible'))
         {
-        document.getElementById("contenedor3").style.height = "1200px";
+        document.getElementById("contenedor3").style.height = "2000px";
         }else{
-        document.getElementById("contenedor3").style.height = "1000px";
+        document.getElementById("contenedor3").style.height = "2000px";
         }
         }else{
         if($('#contenido-productos').is(':visible'))

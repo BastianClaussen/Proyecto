@@ -34,11 +34,11 @@
 
         <a href="{% url 'index' %}" id="logo" class="rounded">
         </a>
-
+    
         <button class="navbar-toggler bg-dark navbar-dark" type="button" data-toggle="collapse" data-target="#menu">
             <span class="navbar-toggler-icon"></span>
-        </button>
-
+          </button>
+    
         <div class="collapse navbar-collapse" id="menu">
             <ul class="navbar-nav mx-auto">
                 <li class="nav-item">
@@ -57,19 +57,20 @@
                     </a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link bglink rounded" href="{% url 'contacto' %}">
+                    <a class="nav-link bglink rounded"  href="{% url 'contacto' %}">
                         C0NTACTO
                     </a>
                 </li>
             </ul>
-
-
-            <form class="form-inline ">
-                <input class="form-control" type="search" placeholder="¿Qué desea buscar?" aria-label="Buscar">
-                <button class="btn btn-outline-dark ml-3" type="submit">Buscar</button>
+    
+    
+            <form class="form-inline" action="{% url 'buscar'  %}" method="POST" >
+                {% csrf_token %}
+                <input for="buscar" id="buscar" name="buscar" class="form-control" type="search" placeholder="¿Qué desea buscar?" aria-label="Buscar">
+                <button class="btn btn-outline-dark ml-3" type="submit" >Buscar</button>
             </form>
 
-            <a href=".">
+            <a href="{% url 'carrito' %}" >
                 <i class="material-icons-outlined mx-3" style="color: black;font-size: 40px;">
                     shopping_bag
                 </i>
@@ -81,10 +82,10 @@
           </span>
         </a>
         <a href="{% url 'logout' %}">
-          <span class="mt-1 ml-4" style="color: black;">
-              Cerrar Sesion
+          <span class="material-icons-outlined mt-1 ml-4" style=" font-size: 36px; color: black;">
+            logout
           </span>
-        </a>
+        </a>        
         {%else %}
         <a href="{% url 'crear_cuenta' %}">
           <span class="material-icons-outlined mt-1" style="font-size: 40px; color: black;">
@@ -92,10 +93,9 @@
           </span>
         </a>
         {% endif %}
-
+    
         </div>
     </nav>
-
     
     <div class="container bg-light p-5">
         <div class="text-center">
@@ -120,20 +120,27 @@
                     {% csrf_token %}
                     <div class="form-group">
                         <label for="modelo ">Modelo Zapatilla: </label>
-                        <input type="text" class="form-control" id="modelo" name="modelo">
+                        <input type="text" class="form-control" id="modelo" name="modelo" required>
                     </div>
                     <div class="form-group">
                         <label for="descripcion ">Descripcion Zapatilla: </label>
-                        <textarea class="form-control" id="descripcion" name="descripcion"></textarea>
+                        <textarea class="form-control" id="descripcion" name="descripcion" required></textarea >
                     </div>
                     <div class="form-group">
                         <label for="precio ">Precio Zapatilla: </label>
-                        <input type="text" class="form-control" class="precio" id="precio" name="precio">
+                        <input type="text" class="form-control" class="precio" id="precio" name="precio" required>
                     </div>
                     <div class="form-group">
                         <label for="foto ">Foto Zapatilla: </label>
-                        <input type="file" class="form-control" id="foto" name="foto" multiple>
+                        <input type="file" class="form-control" id="foto" name="foto">
+                        {% if zapatilla.foto %}
+                          <img src="{{ zapatilla.foto.url }}" class="img-fluid rounded mostrador" width="100" alt="">  
+                          {% else %} 
+                          <img src="{% static 'home/img/not-found.png' %}" class="img-fluid rounded mostrador" width="100"  alt="">
+                        {% endif %}
+                    <input type="hidden" name="foto-actual" value="{{ zapatilla.foto}}">
                     </div>
+
                     <div class="form-group">
                         <label for="genero ">Genero: </label>
                         <select class="form-control" name="genero" id="genero">
