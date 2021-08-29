@@ -17,67 +17,67 @@ INSERT INTO HOME_REGION VALUES(15,'Aysén del General Carlos Ibáñez del Campo'
 INSERT INTO HOME_REGION VALUES(16,'Magallanes y Antártica Chilena');
 
 ---- GENEROS
-INSERT INTO HOME_GENERO VALUES(ISEQ$$_77080.NEXTVAL,'Hombre');
-INSERT INTO HOME_GENERO VALUES(ISEQ$$_77080.NEXTVAL,'Mujer');
-INSERT INTO HOME_GENERO VALUES(ISEQ$$_77080.NEXTVAL,'Niño');
+INSERT INTO HOME_GENERO VALUES(1,'Hombre');
+INSERT INTO HOME_GENERO VALUES(2,'Mujer');
+INSERT INTO HOME_GENERO VALUES(3,'Niño');
 
 -- MARCA
-INSERT INTO HOME_MARCA VALUES(ISEQ$$_77083.NEXTVAL,'Nike');
-INSERT INTO HOME_MARCA VALUES(ISEQ$$_77083.NEXTVAL,'Adidas');
-INSERT INTO HOME_MARCA VALUES(ISEQ$$_77083.NEXTVAL,'Dc');
-INSERT INTO HOME_MARCA VALUES(ISEQ$$_77083.NEXTVAL,'Converse');
-INSERT INTO HOME_MARCA VALUES(ISEQ$$_77083.NEXTVAL,'Puma');
+INSERT INTO HOME_MARCA VALUES(1,'Nike');
+INSERT INTO HOME_MARCA VALUES(2,'Adidas');
+INSERT INTO HOME_MARCA VALUES(3,'Dc');
+INSERT INTO HOME_MARCA VALUES(4,'Converse');
+INSERT INTO HOME_MARCA VALUES(5,'Puma');
 
 -- ZAPATILLA
-INSERT INTO HOME_ZAPATILLA VALUES(ISEQ$$_77091.NEXTVAL,'Air Jordan 1 Mid Red','El calzado Air Jordan 1 Mid está inspirado en el primer AJ1, que ofrece a los retro fans de Jordan la oportunidad de seguir sus pasos de grandeza.
+INSERT INTO HOME_ZAPATILLA VALUES(1,'Air Jordan 1 Mid Red','El calzado Air Jordan 1 Mid está inspirado en el primer AJ1, que ofrece a los retro fans de Jordan la oportunidad de seguir sus pasos de grandeza.
 El color fresco recorta los materiales clásicos y limpios, lo que inyecta una novedad en el diseño familiar.',89000,'Zapas/1.png',1,1);
-INSERT INTO HOME_ZAPATILLA VALUES(ISEQ$$_77091.NEXTVAL,'Nike Blazer Mid 77','Nike era el "nuevo del barrio". Tan nuevo que todavía estábamos incursionando en la escena del básquetbol y probando prototipos en los pies de
+INSERT INTO HOME_ZAPATILLA VALUES(2,'Nike Blazer Mid 77','Nike era el "nuevo del barrio". Tan nuevo que todavía estábamos incursionando en la escena del básquetbol y probando prototipos en los pies de
 nuestro equipo local. Con este nuevo modelo, el diseño de las Zapatillas a ido en evolucion a travez del tiempo, pero este no deja de ser un clasico.',78000,'Zapas/2.jfif',1,1);
-INSERT INTO HOME_ZAPATILLA VALUES(ISEQ$$_77091.NEXTVAL,'Jordan Crater','Predica con el ejemplo con el totalmente nuevo Jordan Crater, un calzado diseñado con al menos un 12% de materiales reciclados. 
+INSERT INTO HOME_ZAPATILLA VALUES(3,'Jordan Crater','Predica con el ejemplo con el totalmente nuevo Jordan Crater, un calzado diseñado con al menos un 12% de materiales reciclados. 
 Este diseño esta enfoncado mas en lo minimalista para reducir los adhesivos, mientras que la elaboracion de la goma es de un reciclaje por almenos un 13% de Nike Grind.',65000,'Zapas/3.png',1,1);
-INSERT INTO HOME_ZAPATILLA VALUES(ISEQ$$_77091.NEXTVAL,'Air Energy Falcon','Zapatillas Falcon Energy de color azul diseñadas para el deporte, que consiste de una suela suave con una contextura cómoda que proporciona mayor 
+INSERT INTO HOME_ZAPATILLA VALUES(4,'Air Energy Falcon','Zapatillas Falcon Energy de color azul diseñadas para el deporte, que consiste de una suela suave con una contextura cómoda que proporciona mayor 
 amortiguacion y una traccion mas firme, con el talon reforzado proporcionando comodidad para el pie.',74000,'Zapas/4.jpg',1,1);
-INSERT INTO HOME_ZAPATILLA VALUES(ISEQ$$_77091.NEXTVAL,'Nike Quest 3','Nike Quest 3 aporta una comodidad funcional para los deportes. Su diseño sencillo cuenta con un material diseñado con capas que ofrecen una mayor seguridad. 
+INSERT INTO HOME_ZAPATILLA VALUES(5,'Nike Quest 3','Nike Quest 3 aporta una comodidad funcional para los deportes. Su diseño sencillo cuenta con un material diseñado con capas que ofrecen una mayor seguridad. 
 La mayor altura de la espuma ofrece una comodidad tal hecha para lograr recorrer grandes kilometros.',90000,'Zapas/5.png',1,1);
-INSERT INTO HOME_ZAPATILLA VALUES(ISEQ$$_77091.NEXTVAL,'Titan','La Zapatilla baja Titan, es una zapatilla de hombre diseñada para estar en todo tipo de ocasiones, su diseño le da una flexibilidad en su uso y su diseño le permite 
+INSERT INTO HOME_ZAPATILLA VALUES(6,'Titan','La Zapatilla baja Titan, es una zapatilla de hombre diseñada para estar en todo tipo de ocasiones, su diseño le da una flexibilidad en su uso y su diseño le permite 
 ser usada para diversas oportunidades, incluso para ir a trabajar.',55000,'Zapas/6.png',1,2);
-INSERT INTO HOME_ZAPATILLA VALUES(ISEQ$$_77091.NEXTVAL,'Wnt M Shoe Trase','Gamuzona de material textil, con un forro intenso de malla, estas zapatillas son lo que mejor deseas para la comodidad e estar elegante, con una suela de caucho 
+INSERT INTO HOME_ZAPATILLA VALUES(7,'Wnt M Shoe Trase','Gamuzona de material textil, con un forro intenso de malla, estas zapatillas son lo que mejor deseas para la comodidad e estar elegante, con una suela de caucho 
 original de DC, esta zapatilla te permite sentir de mejor manera la talba de tus pies y entrar una mayor felxibilidad combinado con su elegancia.',35000,'Zapas/7.jpg',1,1);
-INSERT INTO HOME_ZAPATILLA VALUES(ISEQ$$_77091.NEXTVAL,'BLACK/GOLD DC','La Zapatilla Urbana DC Black/Gold es una de las mejores zapatillas para una vestimenta refrescante y de lujo, 
+INSERT INTO HOME_ZAPATILLA VALUES(8,'BLACK/GOLD DC','La Zapatilla Urbana DC Black/Gold es una de las mejores zapatillas para una vestimenta refrescante y de lujo, 
 con un diseño con una textura febril de cuero y suela hecha de goma, obteniendo un diseño bastante lujoso.',50000,'Zapas/8.jpg',3,3);
-INSERT INTO HOME_ZAPATILLA VALUES(ISEQ$$_77091.NEXTVAL,'District Urbana','Zapatillas Distrito Negro Niño, Clasica de material textil, con suela de goma para epocas de viento ya sea otoño o invierno, 
+INSERT INTO HOME_ZAPATILLA VALUES(9,'District Urbana','Zapatillas Distrito Negro Niño, Clasica de material textil, con suela de goma para epocas de viento ya sea otoño o invierno, 
 con logo caracteristico de banda dentada con estrella.',33000,'Zapas/9.png',3,3);
-INSERT INTO HOME_ZAPATILLA VALUES(ISEQ$$_77091.NEXTVAL,'Street Militar Urbana','Zapatillas De niño Militar Urbanas, hecha de un material textil con suela de goma,
+INSERT INTO HOME_ZAPATILLA VALUES(10,'Street Militar Urbana','Zapatillas De niño Militar Urbanas, hecha de un material textil con suela de goma,
 para la vestimenta de los niños, con cordones blancos para otoño o el invierno',25000,'Zapas/10.png',3,4);
-INSERT INTO HOME_ZAPATILLA VALUES(ISEQ$$_77091.NEXTVAL,'TeamCourt Urbana','Esta zapatilla Team Court para jóvenes seguidores de la moda se inspira en la estética del calzado deportivo de los 80. l
+INSERT INTO HOME_ZAPATILLA VALUES(11,'TeamCourt Urbana','Esta zapatilla Team Court para jóvenes seguidores de la moda se inspira en la estética del calzado deportivo de los 80. l
 as texturas hechas para la zapatilla admeas de las 3 bandas dentadas le dan el tono caracteristico de adidas.',20000,'Zapas/11.png',3,2);
-INSERT INTO HOME_ZAPATILLA VALUES(ISEQ$$_77091.NEXTVAL,'X-RAY','las X-Ray, una carta de amor al estilo retro y equipada con la mejor tecnología deportiva que PUMA tiene para ofrecer. Estas zapatillas incluyen elementos gráficos gruesos y amplios para satisfacer al 
+INSERT INTO HOME_ZAPATILLA VALUES(12,'X-RAY','las X-Ray, una carta de amor al estilo retro y equipada con la mejor tecnología deportiva que PUMA tiene para ofrecer. Estas zapatillas incluyen elementos gráficos gruesos y amplios para satisfacer al 
 entusiasta amante del vintage que todos llevamos dentro, y los combina con una mediasuela de EVA moldeada por inyección para mantenerte corriendo con la máxima comodidad.',45000,'Zapas/12.png',3,5);
-INSERT INTO HOME_ZAPATILLA VALUES(ISEQ$$_77091.NEXTVAL,'Air Force 1 Shadow','El calzado Nike Air Force 1 Shadow le da un giro divertido y alegre a un diseño clásico de básquetbol.Con un estilo en capas, duplica el número de logotipos y presenta una entresuela grande para destacar el icónico ADN del AF1 con una apariencia nueva y audaz.',
+INSERT INTO HOME_ZAPATILLA VALUES(13,'Air Force 1 Shadow','El calzado Nike Air Force 1 Shadow le da un giro divertido y alegre a un diseño clásico de básquetbol.Con un estilo en capas, duplica el número de logotipos y presenta una entresuela grande para destacar el icónico ADN del AF1 con una apariencia nueva y audaz.',
 109990,'Zapas/18.jpg',2,1);
-INSERT INTO HOME_ZAPATILLA VALUES(ISEQ$$_77091.NEXTVAL,'Air Force 1 Pixel','Conquista la duda y haz una declaración con el Nike Air Force 1 Pixel, un estilo reimaginado fuera de la cancha hecho por y para las mujeres. La elegante parte superior de cuero cuenta con líneas limpias y texturización sutil para brindar un look fresco y fácil de combinar con estilo.',
+INSERT INTO HOME_ZAPATILLA VALUES(14,'Air Force 1 Pixel','Conquista la duda y haz una declaración con el Nike Air Force 1 Pixel, un estilo reimaginado fuera de la cancha hecho por y para las mujeres. La elegante parte superior de cuero cuenta con líneas limpias y texturización sutil para brindar un look fresco y fácil de combinar con estilo.',
 89990,'Zapas/19.jpg',2,1);
-INSERT INTO HOME_ZAPATILLA VALUES(ISEQ$$_77091.NEXTVAL,'Blazer Mid ’77 Vintage By You','El Nike Blazer Mid ’77 Vintage By You renueva el legado con un material innovador de pana que puedes cortar, rasgar o usarlo naturalmente para revelar una tela ondulada tipo tapicería con una impronta propia. La malla abierta, el cuero clásico y la gamuza en 13 colores te permiten cambiar las texturas y la paleta. Las tres opciones diferentes de Swoosh, incluida una versión envolvente, te permiten elegir tu compromiso con la herencia o el estilo único.',
+INSERT INTO HOME_ZAPATILLA VALUES(15,'Blazer Mid ’77 Vintage By You','El Nike Blazer Mid ’77 Vintage By You renueva el legado con un material innovador de pana que puedes cortar, rasgar o usarlo naturalmente para revelar una tela ondulada tipo tapicería con una impronta propia. La malla abierta, el cuero clásico y la gamuza en 13 colores te permiten cambiar las texturas y la paleta. Las tres opciones diferentes de Swoosh, incluida una versión envolvente, te permiten elegir tu compromiso con la herencia o el estilo único.',
 78990,'Zapas/16.jpg',2,1);
-INSERT INTO HOME_ZAPATILLA VALUES(ISEQ$$_77091.NEXTVAL,'Air Force 1 07 LX','Para renovar su legendario look, el Swoosh y el talón cuentan con un material vegetal texturizado que está confeccionado con fibra de hojas de piña.La parte superior de inspirada en la leche de coco ofrece un estilo fácil de combinar, al tiempo que la suela con corcho aporta la sofisticación de los tonos tierra a tu look.',
+INSERT INTO HOME_ZAPATILLA VALUES(16,'Air Force 1 07 LX','Para renovar su legendario look, el Swoosh y el talón cuentan con un material vegetal texturizado que está confeccionado con fibra de hojas de piña.La parte superior de inspirada en la leche de coco ofrece un estilo fácil de combinar, al tiempo que la suela con corcho aporta la sofisticación de los tonos tierra a tu look.',
 65990,'Zapas/17.jpg',2,1);
-INSERT INTO HOME_ZAPATILLA VALUES(ISEQ$$_77091.NEXTVAL,'Jordan 1 Mid Light Smoke Grey','El Air Jordan 1 Mid "Smoke Grey" ofrece una iteración completamente neutral de la silueta clásica. La parte superior presenta una base de cuero blanco nítido con superposiciones de cuero gris en contraste y un Nike Swoosh negro. Arriba, un Jumpman gris adorna la etiqueta de lengüeta tejida negra, mientras que el logotipo clásico de Jordan Wings está estampado en negro en la solapa lateral del cuello. La parte superior media se monta sobre una entresuela de espuma, mejorada con amortiguación Nike Air en el talón.',
+INSERT INTO HOME_ZAPATILLA VALUES(17,'Jordan 1 Mid Light Smoke Grey','El Air Jordan 1 Mid "Smoke Grey" ofrece una iteración completamente neutral de la silueta clásica. La parte superior presenta una base de cuero blanco nítido con superposiciones de cuero gris en contraste y un Nike Swoosh negro. Arriba, un Jumpman gris adorna la etiqueta de lengüeta tejida negra, mientras que el logotipo clásico de Jordan Wings está estampado en negro en la solapa lateral del cuello. La parte superior media se monta sobre una entresuela de espuma, mejorada con amortiguación Nike Air en el talón.',
 87990,'Zapas/20.png',1,1);
-INSERT INTO HOME_ZAPATILLA VALUES(ISEQ$$_77091.NEXTVAL,'Air Jordan 1 Low Laser Blue','Inspirado en el original que se lanzó en 1985, el Air Jordan 1 Low ofrece un estilo clásico impecable que se ve familiar, pero siempre viene renovado. Su diseño icónico está confeccionado para ofrecer un estilo informal que combina con todo y nunca pasa de moda.',
+INSERT INTO HOME_ZAPATILLA VALUES(18,'Air Jordan 1 Low Laser Blue','Inspirado en el original que se lanzó en 1985, el Air Jordan 1 Low ofrece un estilo clásico impecable que se ve familiar, pero siempre viene renovado. Su diseño icónico está confeccionado para ofrecer un estilo informal que combina con todo y nunca pasa de moda.',
 98990,'Zapas/21.jpg',1,1);
-INSERT INTO HOME_ZAPATILLA VALUES(ISEQ$$_77091.NEXTVAL,'Air Jordan 1 Mid Deep Blue','En 1985, el fotógrafo deportivo Chuck Kohn fotografió a Michael Jordan con las Air Jordan 1 Royals. Esta foto convertida en póster de Nike fue la primera vez que alguien vio a Michael usando las zapatillas Air Jordan 1. Siempre. Conocido por ser su combinación de colores favorita, Jordan eligió las Royals para ser las primeras Air Jordan 1 disponibles para la compra. También eran la única salida de color de las 3 mejores combinaciones de colores de Air Jordan 1 Retro ("Banned" y "Chicago") que nunca usó en la cancha. Desde 1985, los Royals se lanzaron en 2001, 2013 y 2017.',
+INSERT INTO HOME_ZAPATILLA VALUES(19,'Air Jordan 1 Mid Deep Blue','En 1985, el fotógrafo deportivo Chuck Kohn fotografió a Michael Jordan con las Air Jordan 1 Royals. Esta foto convertida en póster de Nike fue la primera vez que alguien vio a Michael usando las zapatillas Air Jordan 1. Siempre. Conocido por ser su combinación de colores favorita, Jordan eligió las Royals para ser las primeras Air Jordan 1 disponibles para la compra. También eran la única salida de color de las 3 mejores combinaciones de colores de Air Jordan 1 Retro ("Banned" y "Chicago") que nunca usó en la cancha. Desde 1985, los Royals se lanzaron en 2001, 2013 y 2017.',
 88990,'Zapas/22.jpg',1,1);
-INSERT INTO HOME_ZAPATILLA VALUES(ISEQ$$_77091.NEXTVAL,'Sport2 Zapatilla Urbana Mujer','Este Modelo de las Zapatillas Urbanizadas son perfectas para el deporte, contando con un material sintetico que lo hace flexible para los trotes duraderos ademas que la suela se acomoda para el pie femenino, siendo este de un material de poliéster que se Complementa para la comodidad.',
+INSERT INTO HOME_ZAPATILLA VALUES(20,'Sport2 Zapatilla Urbana Mujer','Este Modelo de las Zapatillas Urbanizadas son perfectas para el deporte, contando con un material sintetico que lo hace flexible para los trotes duraderos ademas que la suela se acomoda para el pie femenino, siendo este de un material de poliéster que se Complementa para la comodidad.',
 45000,'Zapas/13.jpg',2,3);
-INSERT INTO HOME_ZAPATILLA VALUES(ISEQ$$_77091.NEXTVAL,'Sybilla Urbana Blanca','La gran Zapatilla Sybilla Le da unos toques minimalistas con su diseño blanquesino, hecha de un material sintetico que la hace moldearse al pie, ademas de que el material del forro es de poliéster lo cual junto a la suela hecha de goma la hace muy comoda al caminar, perfecta para caminatas casuales o para vestir a la moda.',
+INSERT INTO HOME_ZAPATILLA VALUES(21,'Sybilla Urbana Blanca','La gran Zapatilla Sybilla Le da unos toques minimalistas con su diseño blanquesino, hecha de un material sintetico que la hace moldearse al pie, ademas de que el material del forro es de poliéster lo cual junto a la suela hecha de goma la hace muy comoda al caminar, perfecta para caminatas casuales o para vestir a la moda.',
 65700,'Zapas/14.jpg',2,4);
-INSERT INTO HOME_ZAPATILLA VALUES(ISEQ$$_77091.NEXTVAL,'XTI Urbana Mujer Baige','El modelo Urbano de la Zapatilla XTI es perfecto para usar para los dias de verano o inclusive la primavera, al ser la suela de goma aporta una flexibilidad al momento de usarla lo que permite tener un caminar mas elegante, ademas que te permite verte mas alta.',
+INSERT INTO HOME_ZAPATILLA VALUES(22,'XTI Urbana Mujer Baige','El modelo Urbano de la Zapatilla XTI es perfecto para usar para los dias de verano o inclusive la primavera, al ser la suela de goma aporta una flexibilidad al momento de usarla lo que permite tener un caminar mas elegante, ademas que te permite verte mas alta.',
 35600,'Zapas/15.jpg',2,2);
 
 -- METODO PAGO
-INSERT INTO HOME_METODOPAGO VALUES(ISEQ$$_77086.NEXTVAL,'Webpay');
-INSERT INTO HOME_METODOPAGO VALUES(ISEQ$$_77086.NEXTVAL,'Transferencia');
-INSERT INTO HOME_METODOPAGO VALUES(ISEQ$$_77086.NEXTVAL,'Efectivo');
+INSERT INTO HOME_METODOPAGO VALUES(1,'Webpay');
+INSERT INTO HOME_METODOPAGO VALUES(2,'Transferencia');
+INSERT INTO HOME_METODOPAGO VALUES(3,'Efectivo');
 
 --COMUNAS
 INSERT ALL 
